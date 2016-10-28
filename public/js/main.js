@@ -1,7 +1,9 @@
 /**
  * Created by Jose Ortiz on 10/26/16.
  * File : main.js
- * Description: This file will init all the starting app points
- *              such as database....etc. Also, it will contains
- *              the global variables for this app.
+ * Description: test file
  */
+var userModel = require('./core/User.js');
+var userInDB = new userModel("joseortizcosta@icloud.com", "passwd");
+console.log("User Info:");
+userInDB.printUserInfo();

@@ -18,15 +18,17 @@
     // database providers
     'DATABASE_PROVIDER':'postgres:' + "//",
 
-    // For local development. Replace with your local postgres database url
+    // For local development. Replace with your local url and add / at the end
     'DATABASE_URL':'@localhost:5432/',
 
+     // username created for database
     'DATABASE_USERNAME':'josesfval',
 
+     // password created for database
     'DATABASE_PASSWORD' : 'mypasswd',
 
+     // name of the database
     'DATABASE_NAME' : 'tetrisDB',
-
 
 }
 

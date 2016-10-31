@@ -22,9 +22,8 @@ Nikhil </br>
      psql -U [my_username] -W tetrisDB
      \i tetrisDB.sql
 
-• Install pg and pg-promise module used by Node to connect posgres and node. Note that we are not using pg-promise module yet. But for production, we may be using it. 
+• Project was updated to use promises with ES6 and express. So, you need to install 'pg-promise' instead of 'pg'. You can also install both.
 
-     npm install pg
      npm install pg-promise
      
 • Now, inside your project, go to public/globals.js, change all the config variables to your own values, and run the file main.js. 
@@ -68,16 +67,13 @@ Nikhil </br>
  Output of main.js in console after it is executed.
  
      
-     Player1 successfully registered
-     Player2 successfully registered
-     
-     Player1 is already registered
-     Player2 is already registered
-     Player3 not found
-     
-     Player1 score was updated from 0 to 100
-     Player2 score was updated from 0 to 200
-     
+     Player1 has been successfully registered with ID: 1
+     Player2 has been successfully registered with ID: 2
+     Player1 is already registered with ID: 1
+     Player not found
+     Player2 is already registered with ID: 2
+     Updated from score 0 to  100
+     Updated from score 0 to  200
      { id: 1,
        email: 'player1@icloud.com',
        name: 'Player1',
@@ -87,6 +83,25 @@ Nikhil </br>
        email: 'player2@icloud.com',
        name: 'Player2',
        password: 'passwd2',
-       score: 200 }
+
   
-    
+Output if you try to insert a email that was already registered by another player before
+
+     ERROR: Player1 could not be registered because the email player1@icloud.com already was registered by another player. DETAILED ERROR:  duplicate key value violates unique constraint "users_email_key"
+     ERROR: Player2 could not be registered because the email player2@icloud.com already was registered by another player. DETAILED ERROR:  duplicate key value violates unique constraint "users_email_key"
+     Player1 is already registered with ID: 1
+     Player2 is already registered with ID: 2
+     Player not found
+     Updated from score 100 to 300
+     Updated from score 200 to 400
+     { id: 1,
+       email: 'player1@icloud.com',
+       name: 'Player1',
+       password: 'passwd1',
+       score: 300 }
+     { id: 2,
+       email: 'player2@icloud.com',
+       name: 'Player2',
+       password: 'passwd2',
+       score: 400 }
+ 

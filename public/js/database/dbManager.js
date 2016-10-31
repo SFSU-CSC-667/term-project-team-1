@@ -7,6 +7,7 @@
 "use strict";
 let connection;
 let globals = require('../config/globals'); // gets config constants
+let user = require('../core/User.js');
 
 class DatabaseManager {
 
@@ -63,8 +64,10 @@ class DatabaseManager {
         return connection;
     }
 
+
+
     closeConnection() {
-        connection.close;
+        connection.end();
     }
 }
 

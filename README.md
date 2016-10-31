@@ -22,6 +22,10 @@ Nikhil </br>
      psql -U [my_username] -W tetrisDB
      \i tetrisDB.sql
 
+• Install pg module used by Node to connect posgres and node: 
+
+     npm install pg
+     
 • Now, inside your project, go to public/globals.js, change all the config variables to your own values, and run the file main.js. 
   After running the app, if you see the following output in console, your local copy of this project is connecting correctely to the database: <\br>
   

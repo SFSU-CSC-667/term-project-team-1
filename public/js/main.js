@@ -4,7 +4,6 @@
  * Description: test file
  */
 
-
 var user = require('./core/User.js');
 
 // Add players to database.

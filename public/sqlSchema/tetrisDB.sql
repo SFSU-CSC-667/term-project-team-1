@@ -13,7 +13,7 @@
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Users (
   id SERIAL PRIMARY KEY,
-  email VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
   name VARCHAR(100) NOT NULL,
   password VARCHAR(12) NOT NULL,
   score INT NOT NULL DEFAULT 0 );

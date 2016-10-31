@@ -15,39 +15,47 @@ class User extends UserModel {
     constructor(email, password) {
 
         super(email, password);
-        this.name = "";
-        this.score = 0;
-        this._id = -1;
-
-    }
 
 
-
-
-    get id ()
-    {
-        return this._id;
-    }
-
-    get name ()
-    {
-        return super.name;
-    }
-
-    set name (newName)
-    {
-        super.name = newName;
     }
 
     register ()
     {
+        var db = super.connectWithPromise();
+        var oldScore = this._score;
+        db.any("INSERT INTO Users(email, name, password, score) values($1, $2, $3, $4) Returning id",
+            [this._email, this._name, this._password, this._score])
+            .then((data) => {
+                console.log(this._name + " has been successfully registered with ID: " + data[0].id);
+                db.closeConnection;
+            })
+            .catch((error) => {
+                console.log("ERROR: " + this._name + " could not be registered because the email " + this._email  +
+                            " already was registered by another player. DETAILED ERROR: ", error.message || error); // print error;
+                 });
 
-        super.registerUser(this._name, this._score);
+
     }
 
     isRegistered ()
     {
-        super.isUserRegistered()
+        var db = super.connectWithPromise();
+
+        db.any("SELECT * FROM users WHERE email = $1 AND password = $2", [this._email, this._password])
+            .then((data) => {
+               if (typeof data[0] != 'undefined' && data[0].id > 0)
+               {
+                   console.log(data[0].name + " is already registered with ID: " + data[0].id)
+               }
+               else
+               {
+                   console.log("Player not found");
+               }
+               db.closeConnection;
+            })
+            .catch(function (error) {
+                console.log("ERROR:", error.message || error); // print error;
+            });
     }
 
     static newPlayer (newName, newEmail, newPassword)
@@ -57,16 +65,39 @@ class User extends UserModel {
         return player;
     }
 
-    updateScore(newScore)
-    {
-        super.setScore(newScore);
-    }
+
 
     printUserInfo() {
 
         super.printInConsole(super.email, super.password);
 
+
     }
+
+
+    updateScore (newScore)
+    {
+        var db = super.connectWithPromise();
+        var oldScore = this._score;
+        db.any("UPDATE Users SET score = $1 WHERE email = $2", [newScore, this._email])
+            .then((data) => {
+                console.log("Updated from score " + oldScore + " to  " + newScore)
+                db.end;
+            })
+            .catch(function (error) {
+                console.log("ERROR:", error.message || error); // print error;
+            });
+
+    }
+
+
+
+
+}
+
+function setValue (attribute, value)
+{
+    attribute = value;
 
 }
 

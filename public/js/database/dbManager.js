@@ -56,15 +56,48 @@ class DatabaseManager {
      *   Connects to database
      */
     connect() {
-        var pg = require('pg');
 
+
+        var pg = require('pg');
         var databaseConnUrl = "";
         connection = new pg.Client(this._databaseConnectionUrl);
         connection.connect();
         return connection;
     }
 
+    connectWithPromise ()
+    {
+        var pgp = require('pg-promise')();
+        var db = pgp(this._databaseConnectionUrl);
+        return db;
 
+    }
+
+    connect2 ()
+    {
+        const results = [];
+        var pg = require('pg');
+        // Get a Postgres client from the connection pool
+        pg.connect(this._databaseConnectionUrl, (err, client, done) => {
+            // Handle connection errors
+            if(err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+            // SQL Query > Select Data
+            const query = client.query('SELECT * FROM users ORDER BY id ASC;');
+            // Stream results back one row at a time
+            query.on('row', (row) => {
+                results.push(row);
+            });
+            // After all data is returned, close connection and return results
+            query.on('end', () => {
+                done();
+                console.log(results.rows);
+            });
+        });
+    }
 
     closeConnection() {
         connection.end();

@@ -68,7 +68,7 @@ Nikhil </br>
      
      Player1 is already registered
      Player2 is already registered
-     Player not found
+     Player3 not found
      
      Player1 score was updated from 0 to 100
      Player2 score was updated from 0 to 200

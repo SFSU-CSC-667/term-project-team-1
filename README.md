@@ -65,17 +65,20 @@ Nikhil </br>
      
      Player1 successfully registered
      Player2 successfully registered
+     
      Player1 is already registered
      Player2 is already registered
      Player not found
-     undefined score was updated from 0 to 100
-     undefined score was updated from 0 to 200
-     { id: 123,
+     
+     Player1 score was updated from 0 to 100
+     Player2 score was updated from 0 to 200
+     
+     { id: 1,
        email: 'player1@icloud.com',
        name: 'Player1',
        password: 'passwd1',
        score: 100 }
-     { id: 124,
+     { id: 2,
        email: 'player2@icloud.com',
        name: 'Player2',
        password: 'passwd2',

@@ -105,3 +105,9 @@ Output if you try to insert a email that was already registered by another playe
        password: 'passwd2',
        score: 400 }
  
+ 
+ <h1> Updated!!!!!! </h1>
+ 
+ • Added pug engine and express implementation to render html pages. To test it, you need to update your local project. 
+ Once updated, go to the tetrisServer.js file and run it ( This is the test server of the app ). If you see in the console "Example app listening on port 3000!"
+ and "John M has been successfully registered with ID: 8", then go to localhost:3000 in your browser and you'll see the newly player's info rendered there

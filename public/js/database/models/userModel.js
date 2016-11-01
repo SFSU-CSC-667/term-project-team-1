@@ -10,9 +10,6 @@
 "use strict";
 let DatabaseManager = require('../dbManager.js');
 let client;
-let globals = require('../../config/globals');
-let postgressDBProvider = globals.postgres_database;
-let connectionMode
 class UserModel extends DatabaseManager {
     constructor(email, password) {
         super();

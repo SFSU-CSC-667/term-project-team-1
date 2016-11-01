@@ -90,7 +90,75 @@ class User extends UserModel {
 
     }
 
+    createNewLobby (name)
+    {
 
+        var db = super.connectWithPromise();
+        var lobbies = [];
+        db.any("INSERT INTO Lobbies (owner, name, isActive, max_games, max_players) VALUES ($1, $2, $3, $4, $5) Returning id",
+               [1, name, true, 1, 2])
+            .then((data) => {
+                console.log("Lobby " + name + " has been successfully created with ID: " + data[0].id);
+                db.closeConnection;
+            })
+            .catch((error) => {
+                console.log("ERROR: Lobby " + name + " could not be created. DETAILED ERROR: ", error.message || error); // print error;
+            });
+    }
+
+
+    getLobbies (name)
+    {
+        var lobbies = [];
+        var db = super.connectWithPromise();
+        db.any("SELECT * FROM lobbies WHERE owner = $1", [this._id])
+            .then((data) => {
+
+                db.closeConnection;
+            })
+            .catch(function (error) {
+                console.log("ERROR:", error.message || error); // print error;
+            });
+    }
+
+
+    sendResponse ()
+    {
+        var express = require('express')
+        var app = express()
+        app.set('view engine', 'pug')
+
+        app.get('/', (req, res) => {
+            var db = super.connectWithPromise();
+
+            db.any("SELECT * FROM users WHERE email = $1 AND password = $2", [this._email, this._password])
+                .then((data) => {
+                    if (typeof data[0] != 'undefined' && data[0].id > 0)
+                    {
+                        res.render(
+                            'index',
+                            { title: 'Tetris Home Page', description: 'Registered player information' , name:
+                            data[0].name, email: data[0].email})
+                    }
+                    else
+                    {
+                        console.log("Player not found");
+                    }
+                    db.closeConnection;
+                })
+                .catch(function (error) {
+                    console.log("ERROR:", error.message || error); // print error;
+                });
+
+
+        })
+
+        app.listen(3000, function () {
+            console.log('Tetris app example listening on port 3000!')
+        })/**
+     * Created by master_cs_se on 11/1/16.
+     */
+    }
 
 
 }

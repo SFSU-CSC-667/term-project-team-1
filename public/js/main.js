@@ -30,7 +30,7 @@ player1.printUserInfo();
 player2.printUserInfo();
 
 
-
+player1.createNewLobby('My first lobby');
 
 
 

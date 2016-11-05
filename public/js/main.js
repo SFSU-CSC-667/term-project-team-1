@@ -4,11 +4,12 @@
  * Description: test file
  */
 
-var user = require('./core/User.js');
+var user = require('../../server_classes/core/User.js');
+
 
 // Add players to database.
-var player1 = user.newPlayer("Player1", "player1@icloud.com", "passwd1");
-var player2 = user.newPlayer("Player2", "player2@icloud.com", "passwd2");
+var player1 = user.newPlayer("Player1", "player13@icloud.com", "passwd1");
+var player2 = user.newPlayer("Player2", "player14@icloud.com", "passwd2");
 player1.register();
 player2.register();
 

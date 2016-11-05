@@ -30,6 +30,9 @@
      // name of the database
     'DATABASE_NAME' : 'tetrisDB',
 
+     // Server root outside public folder
+     'SERVER_ROOT' : './server_classes/'
+
 }
 
 /* Don't comment or remove this line. This allows the global scope of this file */

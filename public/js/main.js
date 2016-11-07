@@ -4,34 +4,51 @@
  * Description: test file
  */
 
-var user = require('../../server_classes/core/User.js');
+// Userlist data array for filling in info box
+var userListData = [];
+
+// DOM Ready =============================================================
+$(document).ready(function() {
+
+    // Populate the user table on initial page load
+    populateTable();
+
+});
+
+// Functions =============================================================
+
+// Fill table with data
+function populateTable() {
+
+    // Empty content string
+    var tableContent = '';
+
+    // jQuery AJAX call for JSON
+    $.getJSON( '/users', function( data ) {
+        if (data['status'] == 'success') {
+
+            // For each item in our JSON, add a table row and cells to the content string
+
+            for (var i = 0; i<data['users'].length; i++) {
+
+                var user = data['users'][i];
+                tableContent += '<tr>';
+                tableContent += '<td>' +  user.name + '</td>';
+                tableContent += '<td>' +  user.email + '</td>';
+                tableContent += '<td>' + user.score + '</td>';
+                tableContent += '</tr>';
 
 
-// Add players to database.
-var player1 = user.newPlayer("Player1", "player13@icloud.com", "passwd1");
-var player2 = user.newPlayer("Player2", "player14@icloud.com", "passwd2");
-player1.register();
-player2.register();
+                // Inject the whole content string into our existing HTML table
+                $('#userList table tbody').html(tableContent);
+            }
+        }
+    });
+};
 
 
-// Check if a player already exist.
-var player1 = new user ("player1@icloud.com", "passwd1");
-player1.isRegistered(); // true
-var player2 = new user ("player2@icloud.com", "passwd2");
-player2.isRegistered(); // true
-var player3 = new user ("player3@icloud.com", "passwd3");
-player3.isRegistered(); // false
-
-// Update scores
-player1.updateScore(100);
-player2.updateScore(200);
-
-// Print all players info in JSON format.
-player1.printUserInfo();
-player2.printUserInfo();
 
 
-player1.createNewLobby('My first lobby');
 
 
 

@@ -1,8 +1,21 @@
-html
-    head
-        title= title
+extends layout
 
-    body
-        h1= description
-        h3= name
-        h3= email
+block content
+  h1= title
+  p Welcome to our test
+
+  // Wrapper
+  #wrapper
+
+    // USER LIST
+    h2 Leader Board Example
+    #userList
+      table
+        thead
+          th Name
+          th Email
+          th Score
+        tbody
+    // /USER LIST
+
+  // /WRAPPER

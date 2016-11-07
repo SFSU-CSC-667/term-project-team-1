@@ -18,7 +18,7 @@
     // database providers
     'DATABASE_PROVIDER':'postgres:' + "//",
 
-    // For local development. Replace with your local url and add / at the end
+    // DO NOT MODIFY: this is the default port for Postgres
     'DATABASE_URL':'@localhost:5432/',
 
      // username created for database
@@ -30,8 +30,17 @@
      // name of the database
     'DATABASE_NAME' : 'tetrisDB',
 
-     // Server root outside public folder
-     'SERVER_ROOT' : './server_classes/'
+    // Server root outside public folder
+    'SERVER_ROOT' : './server_classes/',
+
+    // Api route for users
+    'USERS_API_ROUTE' : '/users',
+
+    // Api route for lobbies
+    'LOBBIES_API_ROUTE' : '/lobbies',
+
+    // Aoi route for games
+    'GAMES_API_ROUTE' : '/games'
 
 }
 

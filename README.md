@@ -24,7 +24,7 @@ Nikhil </br>
 
 • Project was updated to use promises with ES6 and express. So, you need to install 'pg-promise' instead of 'pg'. You can also install both.
 
-     npm install npm install pg-promise@3.2.3 --save
+     npm install pg-promise@3.2.3 --save
      
 • I updated the project by making our database API RESTFULL. Run bin/www in the project. Once you run bin/www, the server is started and the database API is loaded.
 

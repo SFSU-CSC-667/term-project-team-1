@@ -27,11 +27,11 @@ function populateTable() {
     $.getJSON( '/users', function( data ) {
         if (data['status'] == 'success') {
 
-            // For each item in our JSON, add a table row and cells to the content string
+            // For each item in our JSON, add a table row and cells to the content strin
+            var users = sortByKey(data['users'], 'score')
+            for (var i = 0; i<users.length; i++) {
 
-            for (var i = 0; i<data['users'].length; i++) {
-
-                var user = data['users'][i];
+                var user = users[i];
                 tableContent += '<tr>';
                 tableContent += '<td>' +  user.name + '</td>';
                 tableContent += '<td>' +  user.email + '</td>';
@@ -45,6 +45,15 @@ function populateTable() {
         }
     });
 };
+
+
+/* Sorts json item in descending order by key */
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x > y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
 
 
 

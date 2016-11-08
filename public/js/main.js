@@ -32,7 +32,9 @@ function populateTable() {
             for (var i = 0; i<users.length; i++) {
 
                 var user = users[i];
+
                 tableContent += '<tr>';
+                tableContent += '<td>' + (i + 1) + '</td>';
                 tableContent += '<td>' +  user.name + '</td>';
                 tableContent += '<td>' +  user.email + '</td>';
                 tableContent += '<td>' + user.score + '</td>';

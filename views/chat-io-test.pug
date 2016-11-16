@@ -1,0 +1,26 @@
+extends chat-layout
+
+block content
+    h1= title
+    #wrapper
+        #menu
+          p.welcome
+            | Welcome
+        #chatbox
+        form(action='')
+            input#m(name='m', type='text', size='63')
+            input#submitmsg(name='submitmsg', type='submit', value='Send')
+            script.
+                var socket = io();
+                $('form').submit(function(){
+                   socket.emit('chat message', $('#m').val());
+                   $('#m').val('');
+                    return false;
+                });
+                socket.on('chat message', function(msg){
+                    $('#chatbox').append('<li>' + msg.message).animate({
+                        "scrollTop": $('#chatbox')[0].scrollHeight
+                    }, "fast");
+                });
+
+

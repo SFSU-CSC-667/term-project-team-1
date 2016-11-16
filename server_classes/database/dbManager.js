@@ -13,9 +13,9 @@ class DatabaseManager {
 
     constructor(router) {
         this.router = router;
-        this.users = require('./queries/q_users');
-        this.lobbies = require('./queries/q_lobbies');
-        this.games = require('./queries/q_games');
+        this.users = require('./models/users');
+        this.lobbies = require('./models/lobbies');
+        this.games = require('./models/games');
     }
 
     set router (router)

@@ -22,10 +22,10 @@
     'DATABASE_URL':'@localhost:5432/',
 
      // username created for database
-    'DATABASE_USERNAME':'josesfval',
+    'DATABASE_USERNAME':'alee',
 
      // password created for database
-    'DATABASE_PASSWORD' : 'mypasswd',
+    'DATABASE_PASSWORD' : 'misterlee83191',
 
      // name of the database
     'DATABASE_NAME' : 'tetrisDB',

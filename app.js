@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 
 
 var index = require('./routes/index');
-var users = require('./routes/users');
-var lobbies = require('./routes/lobbies');
-var games = require('./routes/games');
+var users = require('./routes/dbAPI/users');
+var lobbies = require('./routes/dbAPI/lobbies');
+var games = require('./routes/dbAPI/games');
 var register = require('./routes/register');
 var app = express();
 
@@ -26,9 +26,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
-app.use('/lobbies', lobbies)
-app.use('/games', games)
+app.use('/dbAPI/users', users);
+app.use('/dbAPI/lobbies', lobbies)
+app.use('/dbAPI/games', games)
 app.use('/register', register)
 
 app.set('json spaces', 40);

@@ -30,13 +30,13 @@ Nikhil </br>
 
 • You can check if the database API was loaded correctly by using the following url in your browser 
 
-    localhost:3000/users            // users from your database in json format
-    localhost:3000/users/3          // user with id 3 from your database in json format
-    localhost:3000/lobbies          // lobbies from your database in json format
-    localhost:3000/lobbies/2        // lobby with id 2 from your database in json format
-    localhost:3000/games            // games from your database in json format
-    localhost:3000/games/2          // games with id 2 from your database in json format
-    localhost:3000/games/2/lobby    // the lobby corresponding to game with id 2
+    localhost:3000/dbAPI/users            // users from your database in json format
+    localhost:3000/dbAPI/users/3          // user with id 3 from your database in json format
+    localhost:3000/dbAPI/lobbies          // lobbies from your database in json format
+    localhost:3000/dbAPI/lobbies/2        // lobby with id 2 from your database in json format
+    localhost:3000/dbAPI/games            // games from your database in json format
+    localhost:3000/dbAPI/games/2          // games with id 2 from your database in json format
+    localhost:3000/dbAPI/games/2/lobby    // the lobby corresponding to game with id 2
 
 • For the client part I implemented a example leader board table in the index page to see it run:
  
@@ -57,3 +57,5 @@ Nikhil </br>
     }
     
 • If everything was correct, you should see your new user listed in the leader board table on http://localhost:3000  
+
+• Remember to install socket.io and remember to change the username and password of the global file to yours.

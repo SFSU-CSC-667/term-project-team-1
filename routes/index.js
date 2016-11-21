@@ -8,7 +8,7 @@ var databaseManager = new db(router);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('test', {title: 'Chat-io-test'});
+    res.render('test', {title: 'logIn/signIn'});
 });
 
 

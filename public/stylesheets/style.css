@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
 body {
   padding: 30px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -10,8 +12,8 @@ h2 {
 a {
   color: #00B7FF;
 }
-
-#wrapper {
+/*delete wrapper later*/
+#wrapper2 {
   padding-left:312px;
   position:relative;
 }
@@ -56,3 +58,42 @@ fieldset {
   border:0;
   padding:0; margin:0;
 }
+
+/*
+.container2 {
+  width: 1000px;
+  height: 600px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -500px;
+  margin-top: -300px;
+
+}
+
+.left{
+  width:500px;
+  height:150px;
+  background-color: fuchsia;
+
+  float: left;
+
+}
+
+.right{
+  width:500px;
+  height:150px;
+  background-color: dodgerblue;
+
+
+  float: right;
+
+}
+*/
+h1{
+  font-family: 'Audiowide', cursive;
+  color: rgba(26,89,120,0.9);
+}
+
+
+

@@ -25,7 +25,7 @@
     'DATABASE_USERNAME':'josesfval',
 
      // password created for database
-    'DATABASE_PASSWORD' : 'mypasswd',
+    'DATABASE_PASSWORD' : 'passwd',
 
      // name of the database
     'DATABASE_NAME' : 'tetrisDB',
@@ -34,13 +34,13 @@
     'SERVER_ROOT' : './server_classes/',
 
     // Api route for users
-    'USERS_API_ROUTE' : '/users',
+    'USERS_API_ROUTE' : '/dbAPI/users',
 
     // Api route for lobbies
-    'LOBBIES_API_ROUTE' : '/lobbies',
+    'LOBBIES_API_ROUTE' : '/dbAPI/lobbies',
 
     // Aoi route for games
-    'GAMES_API_ROUTE' : '/games'
+    'GAMES_API_ROUTE' : '/dbAPI/games'
 
 }
 

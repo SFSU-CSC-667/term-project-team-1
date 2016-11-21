@@ -11,6 +11,11 @@ var users = require('./routes/dbAPI/users');
 var lobbies = require('./routes/dbAPI/lobbies');
 var games = require('./routes/dbAPI/games');
 var register = require('./routes/register');
+var lobbyRoom = require('./routes/lobbyRoom');
+var leaders = require('./routes/leaders');
+var gameplay = require('./routes/gameplay');
+var test = require('./routes/test');
+
 var app = express();
 
 // view engine setup
@@ -27,9 +32,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/dbAPI/users', users);
-app.use('/dbAPI/lobbies', lobbies)
-app.use('/dbAPI/games', games)
-app.use('/register', register)
+app.use('/dbAPI/lobbies', lobbies);
+app.use('/dbAPI/games', games);
+app.use('/register', register);
+app.use('/leaders', leaders);
+app.use('/gameplay' , gameplay);
+app.use('/lobbyRoom' , lobbyRoom);
+app.use('/test' , test);
 
 app.set('json spaces', 40);
 

@@ -57,15 +57,14 @@ function getSingleUser(req, res, next) {
 
 function createUser(req, res, next) {
     req.body.score = parseInt(req.body.score);
-    db.none('insert into users(email, name, password, score)' +
-        'values(${email}, ${name}, ${password}, ${score})',
+    db.one('insert into users(email, name, password, score)' +
+        'values(${email}, ${name}, ${password}, ${score}) returning id',
         req.body)
-        .then(function () {
+        .then(function (data) {
+            var param = data.id;
             res.status(200)
-                .json({
-                    status: 'success',
-                    message: 'Inserted one user'
-                });
+                .redirect('/lobbyRoom?id=' + param);
+
         })
         .catch(function (err) {
             return next(err);

@@ -60,21 +60,21 @@ function validateUser (req, res, next) {
 
     var email = req.body.username;
     var password = req.body.password;
+
+
+
     db.one('Select * from users where email = $1 and password = $2', [email, password], req.body)
         .then(function (data) {
             var param = data.id;
             res.status(200)
-                .redirect('/lobbyRoom?id=' + param);
+                .redirect('/lobbyRoom?id=' + data.id);
 
         })
         .catch(function (err) {
-            return next(err);
+            res.redirect('/?error=1');
         });
 
 }
-
-
-
 
 
 function createUser(req, res, next) {

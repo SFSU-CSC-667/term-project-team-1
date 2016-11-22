@@ -38,6 +38,7 @@ function getAllUsers(req, res, next) {
         });
 }
 
+
 function getSingleUser(req, res, next) {
     var userID = parseInt(req.params.id);
     db.one('select * from users where id = $1', userID)
@@ -54,6 +55,27 @@ function getSingleUser(req, res, next) {
         });
 
 }
+
+function validateUser (req, res, next) {
+
+    var email = req.body.username;
+    var password = req.body.password;
+    db.one('Select * from users where email = $1 and password = $2', [email, password], req.body)
+        .then(function (data) {
+            var param = data.id;
+            res.status(200)
+                .redirect('/lobbyRoom?id=' + param);
+
+        })
+        .catch(function (err) {
+            return next(err);
+        });
+
+}
+
+
+
+
 
 function createUser(req, res, next) {
     req.body.score = parseInt(req.body.score);
@@ -114,5 +136,6 @@ module.exports = {
     getSingleUser: getSingleUser,
     createUser: createUser,
     updateUser: updateUser,
-    removeUser: removeUser
+    removeUser: removeUser,
+    validateUser: validateUser
 };

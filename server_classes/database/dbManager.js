@@ -70,11 +70,12 @@ class DatabaseManager {
         return this._router;
     }
 
-    loadDBAPI (routeUsers, routeLobbies, routeGames)
+    loadDBAPI (routeUsers, routeLobbies, routeGames, routeValidation)
     {
         this._loadUsersAPI(routeUsers);
         this._loadLobbiesAPI(routeLobbies);
         this._loadGamesAPI(routeGames);
+        this._loadValidationAPI(routeValidation);
     }
     _loadUsersAPI (route)
     {
@@ -112,12 +113,18 @@ class DatabaseManager {
         const routeWithParam = route + id;
 
         this.router.get(route, this.games.getAllGames);
-        this.router.get(routeWithLobby, this.games.getGamesByLobby);
         this.router.get(routeWithParam, this.games.getSingleGame);
         this.router.post(route, this.games.createGame);
         this.router.put(routeWithParam, this.games.updateGame);
         this.router.delete(routeWithParam, this.games.removeGame);
     }
+
+    _loadValidationAPI (route)
+    {
+        this.router.post(route, this.users.validateUser)
+    }
+
+
 
 
 }

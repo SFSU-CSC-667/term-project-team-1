@@ -4,17 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 
 var index = require('./routes/index');
 var users = require('./routes/dbAPI/users');
 var lobbies = require('./routes/dbAPI/lobbies');
 var games = require('./routes/dbAPI/games');
+var login = require('./routes/dbAPI/login');
 var register = require('./routes/register');
 var lobbyRoom = require('./routes/lobbyRoom');
 var leaders = require('./routes/leaders');
 var gameplay = require('./routes/gameplay');
 var test = require('./routes/test');
+
 
 var app = express();
 
@@ -34,11 +37,13 @@ app.use('/', index);
 app.use('/dbAPI/users', users);
 app.use('/dbAPI/lobbies', lobbies);
 app.use('/dbAPI/games', games);
+app.use('/dbAPI/login', login);
 app.use('/register', register);
 app.use('/leaders', leaders);
 app.use('/gameplay' , gameplay);
 app.use('/lobbyRoom' , lobbyRoom);
 app.use('/test' , test);
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }))
 
 app.set('json spaces', 40);
 

@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
     res.render('leaders', {title: 'leaderboard'});
 });
 
-databaseManager.loadDBAPI(config.USERS_API_ROUTE, config.LOBBIES_API_ROUTE, config.GAMES_API_ROUTE);
+
 
 
 

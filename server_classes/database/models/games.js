@@ -36,6 +36,8 @@ function getAllGames(req, res, next) {
         });
 }
 
+
+
 function getGamesByLobby(req, res, next) {
     var lobbyID = parseInt(req.params.id);
     db.any('select * from games where lobbies_id = $1', lobbyID)

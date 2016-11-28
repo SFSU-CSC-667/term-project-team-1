@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title gameplay
+        link(rel='stylesheet', href='/stylesheets/testgameplay.css')
+    body
+        div( id="tetris")
+            canvas(id="canvas1" class="canvas")
+            div(id="menu")
+                p(id="start")<a href="javascript:play();">Press Space to Play.</a></p>
+                p
+                    canvas(id="upcoming")
+                p
+                    score
+                    span(id="score")00000
+                p
+                    rows
+                    span(id="rows")0
+
+         canvas(id="canvas2" class="canvas")
+
+        script(src='/js/testgameplay.js')

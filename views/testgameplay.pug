@@ -1,22 +1,22 @@
 doctype html
 html
     head
-        title gameplay
-        link(rel='stylesheet', href='/stylesheets/testgameplay.css')
+        title Multiplayer Tetris
+        link(rel='stylesheet', type='text/css', href='/stylesheets/testgameplay.css')
     body
-        div( id="tetris")
-            canvas(id="canvas1" class="canvas")
-            div(id="menu")
-                p(id="start")<a href="javascript:play();">Press Space to Play.</a></p>
+        #tetris
+            canvas#canvas1.canvas
+            #menu
+                p#start
+                    a(href='javascript:play();') Press Space to Play.
                 p
-                    canvas(id="upcoming")
+                    canvas#upcoming
                 p
-                    score
-                    span(id="score")00000
+                    | score
+                    span#score 00000
                 p
-                    rows
-                    span(id="rows")0
+                    | rows
+                    span#rows 0
+            canvas#canvas2.canvas
+        script(src='/js/testGameplay.js')
 
-         canvas(id="canvas2" class="canvas")
-
-        script(src='/js/testgameplay.js')

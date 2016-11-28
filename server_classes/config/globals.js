@@ -22,10 +22,10 @@
     'DATABASE_URL':'@localhost:5432/',
 
      // username created for database
-    'DATABASE_USERNAME':'postgres',
+    'DATABASE_USERNAME':'alee',
 
      // password created for database
-    'DATABASE_PASSWORD' : 'lrod408',
+    'DATABASE_PASSWORD' : 'misterlee83191',
 
      // name of the database
     'DATABASE_NAME' : 'tetrisDB',
@@ -40,7 +40,11 @@
     'LOBBIES_API_ROUTE' : '/dbAPI/lobbies',
 
     // Aoi route for games
-    'GAMES_API_ROUTE' : '/dbAPI/games'
+    'GAMES_API_ROUTE' : '/dbAPI/games',
+
+
+    'LOGIN_API_ROUTE' : '/dbAPI/login'
+
 
 }
 

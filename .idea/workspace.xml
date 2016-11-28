@@ -1,29 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0d6eb8fc-9cb5-4c0f-ad08-ebfd93929450" name="Default" comment="I moved the api database to a folder dbAPI because the api files shouldn't be together with the js files for the backend of the project.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/socket.io-client/socket.io.js" afterPath="" />
+    <list default="true" id="0d6eb8fc-9cb5-4c0f-ad08-ebfd93929450" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/game.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/game.pug" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/engine.io-client/History.md" afterPath="$PROJECT_DIR$/node_modules/engine.io-client/History.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/engine.io-client/engine.io.js" afterPath="$PROJECT_DIR$/node_modules/engine.io-client/engine.io.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/engine.io-client/package.json" afterPath="$PROJECT_DIR$/node_modules/engine.io-client/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/engine.io/History.md" afterPath="$PROJECT_DIR$/node_modules/engine.io/History.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/engine.io/lib/socket.js" afterPath="$PROJECT_DIR$/node_modules/engine.io/lib/socket.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/engine.io/package.json" afterPath="$PROJECT_DIR$/node_modules/engine.io/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io-client/History.md" afterPath="$PROJECT_DIR$/node_modules/socket.io-client/History.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io-client/README.md" afterPath="$PROJECT_DIR$/node_modules/socket.io-client/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io-client/package.json" afterPath="$PROJECT_DIR$/node_modules/socket.io-client/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io/History.md" afterPath="$PROJECT_DIR$/node_modules/socket.io/History.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io/Readme.md" afterPath="$PROJECT_DIR$/node_modules/socket.io/Readme.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io/lib/index.js" afterPath="$PROJECT_DIR$/node_modules/socket.io/lib/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io/lib/namespace.js" afterPath="$PROJECT_DIR$/node_modules/socket.io/lib/namespace.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io/lib/socket.js" afterPath="$PROJECT_DIR$/node_modules/socket.io/lib/socket.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/socket.io/package.json" afterPath="$PROJECT_DIR$/node_modules/socket.io/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/testgameplay.css" afterPath="$PROJECT_DIR$/public/stylesheets/testgameplay.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server_classes/config/globals.js" afterPath="$PROJECT_DIR$/server_classes/config/globals.js" />
     </list>
     <ignored path="term-project-team-1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,8 +40,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="11" column="48" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
+            <state relative-caret-position="-79">
+              <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -623,7 +604,7 @@
       <workItem from="1480352313749" duration="1566000" />
       <workItem from="1480354967994" duration="204000" />
       <workItem from="1480355457282" duration="42000" />
-      <workItem from="1480360612665" duration="3221000" />
+      <workItem from="1480360612665" duration="3439000" />
     </task>
     <task id="LOCAL-00001" summary="I moved the api database to a folder dbAPI because the api files shouldn't be together with the js files for the backend of the project.">
       <created>1479599928927</created>
@@ -667,11 +648,18 @@
       <option name="project" value="LOCAL" />
       <updated>1479759042374</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="testing adding new pug files">
+      <created>1480365230795</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1480365230795</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66801000" />
+    <option name="totallyTimeSpent" value="67019000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -684,9 +672,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="28" width="1368" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19806403" sideWeight="0.48946717" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19806403" sideWeight="0.48946717" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26022306" sideWeight="0.5081272" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15547703" sideWeight="0.51053286" order="4" side_tool="true" content_ui="tabs" />
@@ -747,7 +735,8 @@
     <MESSAGE value="fixed leaderboard sort" />
     <MESSAGE value="fixed sort" />
     <MESSAGE value="updated background on gameplay page" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated background on gameplay page" />
+    <MESSAGE value="testing adding new pug files" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing adding new pug files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1024,14 +1013,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/testgameplay.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1082,10 +1063,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/testgameplay.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="11" column="48" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
+        <state relative-caret-position="-79">
+          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
           <folding />
         </state>
       </provider>

@@ -3,7 +3,7 @@
 Jose Ortiz Costa </br>
 Leopoldo Rodriguez </br>
 Adison Lee </br>
-Nikhil </br>
+Nikhil Paratkar</br>
 
 <h1> Instructions to test database connection locally </h1>
 • Install postgres database in your local computer </br>

@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
 body
 {
     font:12px arial;
     color: #222;
     text-align:center;
-    padding:35px;
+    padding:30px;
 }
 
 form, p, span
@@ -20,9 +22,9 @@ input
 #wrapper
 {
     margin:0 auto;
-    padding-bottom:25px;
+    padding-bottom:1px;
     background:#EBF4FB;
-    width:504px;
+    width:325px;
     border:1px solid #ACD8F0;
 }
 
@@ -31,17 +33,116 @@ input
     list-style-type: none;
     text-align:left;
     margin:0 auto;
-    margin-bottom:25px;
+    margin-bottom:10px;
     padding:10px;
     background:#fff;
-    height:270px;
-    width:430px;
+    height:500px;
+    width:250px;
     border:1px solid #ACD8F0;
     overflow:auto;
 }
 
-#submit { width: 60px; }
+#submit { width: 625px; }
 
-#menu { padding:12.5px 25px 12.5px 25px; }
+body {
+    padding: 30px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
 
-.welcome { float:left; }
+h2 {
+    margin:0 0 .5em 0;
+}
+
+a {
+    color: #00B7FF;
+}
+/*delete wrapper later*/
+#wrapper2 {
+    padding-left:312px;
+    position:relative;
+}
+
+#userList {
+    margin:0 0 30px 0;
+}
+#userList table {
+    border-collapse:separate;
+    border-spacing:1px;
+    background:#CCC;
+}
+#userList table th {
+    background:#EEE;
+    font-weight:600;
+    padding:10px 20px;
+    text-align:center;
+}
+#userList table tbody {
+    padding:0; margin:0;
+    border-collapse:collapse;
+    border-spacing:0px;
+}
+#userList table td {
+    background:#FFF;
+    padding:5px 10px;
+    text-align:center;
+}
+
+#userInfo {
+    width:250px;
+    position:absolute;
+    top:0; left:0;
+}
+#userInfo p {
+    padding:15px;
+    border:1px solid #CCC;
+    background:rgba(80,120,255,0.05);
+}
+
+fieldset {
+    border:0;
+    padding:0; margin:0;
+}
+
+/*
+.container2 {
+  width: 1000px;
+  height: 600px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -500px;
+  margin-top: -300px;
+
+}
+
+.left{
+  width:500px;
+  height:150px;
+  background-color: fuchsia;
+
+  float: left;
+
+}
+
+.right{
+  width:500px;
+  height:150px;
+  background-color: dodgerblue;
+
+
+  float: right;
+
+}
+*/
+h1{
+    font-family: 'Audiowide', cursive;
+    color: rgba(26,89,120,0.9);
+}
+
+h2{
+    font-family: 'Audiowide' , cursive ;
+    color: white;
+}
+
+
+

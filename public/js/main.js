@@ -12,9 +12,8 @@ $(document).ready(function() {
 
     // Populate the user table on initial page load
     populateTable();
-    loadLobbies();
-    var g = getGame(3);
-    console.log(g.name);
+    
+
 
 });
 

@@ -27,7 +27,7 @@ var dbConnHeroku = config.DATABASE_HEROKU_URL
 var db = pgp(dbConnHeroku);
 
 function getAllGames(req, res, next) {
-    db.any('select * from users join games on (users.id = games.player1')
+    db.any('select * from users join games on (users.id = games.player1)')
         .then(function (data) {
             var jsonData = {
                 status: 'success',

@@ -36,14 +36,15 @@
     // Api route for users
     'USERS_API_ROUTE' : '/dbAPI/users',
 
-    // Api route for lobbies
-    'LOBBIES_API_ROUTE' : '/dbAPI/lobbies',
-
     // Aoi route for games
     'GAMES_API_ROUTE' : '/dbAPI/games',
 
-   //Api route for login validation
-   'LOGIN_API_ROUTE' : '/dbAPI/login'
+    //Api route for login validation
+   'LOGIN_API_ROUTE' : '/dbAPI/login',
+
+    // Production database url
+    'DATABASE_HEROKU_URL' : 'postgres://jsuttpqyfvdfnf:MGwl1CW-QwMkYFatfJkrfnRDFp@ec2-54-235-95-102.compute-1.amazonaws.com:5432/devb4qd5ri6qgq'
+
 
 }
 

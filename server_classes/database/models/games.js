@@ -16,12 +16,18 @@ var options = {
 };
 var config = require('../../config/globals');
 var pgp = require('pg-promise')(options);
-var connectionString = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
+/* Local database connection */
+var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
     config.DATABASE_PASSWORD + config.DATABASE_URL + config.DATABASE_NAME
-var db = pgp(connectionString);
+
+/* Heroku database connection */
+var dbConnHeroku = config.DATABASE_HEROKU_URL
+
+/* modify connection depending if you are in local or heroku database */
+var db = pgp(dbConnHeroku);
 
 function getAllGames(req, res, next) {
-    db.any('select * from games')
+    db.any('select * from users join games on (users.id = games.player1')
         .then(function (data) {
             var jsonData = {
                 status: 'success',
@@ -38,14 +44,14 @@ function getAllGames(req, res, next) {
 
 
 
-function getGamesByLobby(req, res, next) {
-    var lobbyID = parseInt(req.params.id);
-    db.any('select * from games where lobbies_id = $1', lobbyID)
+function getGamesByUser(req, res, next) {
+    var userID = parseInt(req.params.id);
+    db.any('select * from users join games on (users.id = $1 and games.player1 = $1)', userID)
         .then(function (data) {
             var jsonData = {
                 status: 'success',
                 games: data,
-                message: 'Retrieved all games for this lobby'
+                message: 'Retrieved all games for this user'
             }
             res.status(200)
                 .json(jsonData);
@@ -77,8 +83,8 @@ function getSingleGame(req, res, next) {
 
 
 function createGame(req, res, next) {
-    db.none('insert into games(player1, player2, name, lobbies_id)' +
-        'values(${player1}, ${player2}, ${name}, ${lobbies_id})', req.body)
+    db.none('insert into games(player1, player2, name, isFull, totalscore, winner)' +
+        'values(${player1}, 0, ${name}, 0, 0, 0)', req.body)
         .then(function () {
             res.status(200)
                 .json({
@@ -93,8 +99,9 @@ function createGame(req, res, next) {
 
 
 function updateGame(req, res, next) {
-    db.none('update games set player1=$1, player2=$2, name=$3 where id=$4',
-        [parseInt(req.body.player1), parseInt(req.body.player2), req.body.name, parseInt(req.params.id)])
+    db.none('update games set player1=$1, player2=$2, name=$3, isFull=$4, totalscore=$5, winner=$6 where id=$7',
+        [parseInt(req.body.player1), parseInt(req.body.player2), req.body.name, req.body.isFull,
+                  parseInt(req.body.totalscore), parseInt(req.body.winner), parseInt(req.params.id)])
         .then(function () {
             res.status(200)
                 .json({
@@ -130,7 +137,7 @@ function removeGame(req, res, next) {
 
 module.exports = {
     getAllGames: getAllGames,
-    getGamesByLobby : getGamesByLobby,
+    getGamesByUser : getGamesByUser,
     getSingleGame: getSingleGame,
     createGame: createGame,
     updateGame: updateGame,

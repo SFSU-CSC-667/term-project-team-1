@@ -14,7 +14,6 @@ class DatabaseManager {
     constructor(router) {
         this.router = router;
         this.users = require('./models/users');
-        this.lobbies = require('./models/lobbies');
         this.games = require('./models/games');
     }
 
@@ -73,7 +72,6 @@ class DatabaseManager {
     loadDBAPI (routeUsers, routeLobbies, routeGames, routeValidation)
     {
         this._loadUsersAPI(routeUsers);
-        this._loadLobbiesAPI(routeLobbies);
         this._loadGamesAPI(routeGames);
         this._loadValidationAPI(routeValidation);
     }
@@ -81,7 +79,6 @@ class DatabaseManager {
     {
         const id = '/:id';
         const routeWithParam = route + id;
-
         this.router.get(route, this.users.getAllUsers);
         this.router.get(routeWithParam, this.users.getSingleUser);
         this.router.post(route, this.users.createUser);
@@ -90,29 +87,12 @@ class DatabaseManager {
 
     }
 
-    _loadLobbiesAPI (route)
-    {
-        const id = '/:id';
-        const owner = '/owner';
-        const routeWithOwner = route + owner + id;
-        const routeWithParam = route + id;
-
-        this.router.get(route, this.lobbies.getAllLobbies);
-        this.router.get(routeWithOwner, this.lobbies.getLobbiesByOwner);
-        this.router.get(routeWithParam, this.lobbies.getSingleLobby);
-        this.router.post(route, this.lobbies.createLobby);
-        this.router.put(routeWithParam, this.lobbies.updateLobby);
-        this.router.delete(routeWithParam, this.lobbies.removeLobby);
-    }
-
     _loadGamesAPI (route)
     {
         const id = '/:id';
-        const lobby = '/lobby';
-        const routeWithLobby = route + lobby + id;
         const routeWithParam = route + id;
-
         this.router.get(route, this.games.getAllGames);
+        this.router.get(routeWithParam, this.games.getGamesByUser);
         this.router.get(routeWithParam, this.games.getSingleGame);
         this.router.post(route, this.games.createGame);
         this.router.put(routeWithParam, this.games.updateGame);

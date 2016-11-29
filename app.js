@@ -9,7 +9,6 @@ var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/dbAPI/users');
-var lobbies = require('./routes/dbAPI/lobbies');
 var games = require('./routes/dbAPI/games');
 var login = require('./routes/dbAPI/login');
 var register = require('./routes/register');
@@ -36,7 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/dbAPI/users', users);
-app.use('/dbAPI/lobbies', lobbies);
 app.use('/dbAPI/games', games);
 app.use('/dbAPI/login', login);
 app.use('/register', register);

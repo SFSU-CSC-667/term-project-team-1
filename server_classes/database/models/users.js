@@ -18,9 +18,14 @@ var options = {
 };
 var config = require('../../config/globals');
 var pgp = require('pg-promise')(options);
-var connectionString = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
+
+/* Local database connection */
+var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
     config.DATABASE_PASSWORD + config.DATABASE_URL + config.DATABASE_NAME
-var db = pgp(connectionString);
+
+/* Heroku database connection */
+var dbConnHeroku = config.DATABASE_HEROKU_URL
+var db = pgp(dbConnHeroku);
 
 function getAllUsers(req, res, next) {
     db.any('select * from users')

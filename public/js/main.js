@@ -26,19 +26,19 @@ function loadLeadersList() {
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/dbapi/users', function( data ) {
+    $.getJSON('https://csc667-team1-tetris.herokuapp.com/dbapi/users', function (data) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
             var users = sortByKey(data['users'], 'score')
-            for (var i = 0; i<users.length; i++) {
+            for (var i = 0; i < users.length; i++) {
 
                 var user = users[i];
 
                 tableContent += '<tr>';
                 tableContent += '<td>' + (i + 1) + '</td>';
-                tableContent += '<td>' +  user.name + '</td>';
-                tableContent += '<td>' +  user.email + '</td>';
+                tableContent += '<td>' + user.name + '</td>';
+                tableContent += '<td>' + user.email + '</td>';
                 tableContent += '<td>' + user.score + '</td>';
                 tableContent += '</tr>';
 
@@ -48,7 +48,7 @@ function loadLeadersList() {
             }
         }
     });
-};
+}
 
 
 /* Loads the list of lobbies in lobbyRoom page */
@@ -60,25 +60,24 @@ function loadGamesList() {
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/dbapi/games', function( data ) {
+    $.getJSON('https://csc667-team1-tetris.herokuapp.com/dbapi/games', function (data) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
             var games = data['games'];
             var isActive = 'game is full';
-            for (var i = 0; i<games.length; i++) {
+            for (var i = 0; i < games.length; i++) {
                 var game = games[i];
                 var join = "join game";
-                if (game.isfull == true )
-                {
+                if (game.isfull == true) {
                     join = "This game is full";
                 }
 
                 tableContent += '<tr>';
-                tableContent += '<td>' +  game.name + '</td>';
-                tableContent += '<td>' +  game.gamename + '</td>';
+                tableContent += '<td>' + game.name + '</td>';
+                tableContent += '<td>' + game.gamename + '</td>';
                 tableContent += '<td>' + '<a href="/dbApi/games/' + game.id + '">' + join + '</a></td>';
-                tableContent += '<td>' +  game.totalscore + '</td>';
+                tableContent += '<td>' + game.totalscore + '</td>';
 
                 tableContent += '</tr>';
 
@@ -88,8 +87,8 @@ function loadGamesList() {
             }
         }
     });
-};
 
+}
 
 
 

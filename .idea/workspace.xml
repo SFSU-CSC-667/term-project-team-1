@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0d6eb8fc-9cb5-4c0f-ad08-ebfd93929450" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/main.js" afterPath="$PROJECT_DIR$/public/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/lobbyRoom.pug" afterPath="$PROJECT_DIR$/views/lobbyRoom.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/test.pug" afterPath="$PROJECT_DIR$/views/test.pug" />
     </list>
     <ignored path="term-project-team-1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="423">
@@ -67,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.pug" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.pug" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/test.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="46" column="61" lean-forward="false" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="61" />
+            <state relative-caret-position="281">
+              <caret line="57" column="32" lean-forward="false" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -159,7 +158,6 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/routes/test.js" />
         <option value="$PROJECT_DIR$/views/register.pug" />
-        <option value="$PROJECT_DIR$/views/test.pug" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/public/stylesheets/chat.css" />
         <option value="$PROJECT_DIR$/views/gameplay.pug" />
@@ -178,6 +176,7 @@
         <option value="$PROJECT_DIR$/server_classes/database/models/games.js" />
         <option value="$PROJECT_DIR$/views/lobbyRoom.pug" />
         <option value="$PROJECT_DIR$/public/js/main.js" />
+        <option value="$PROJECT_DIR$/views/test.pug" />
       </list>
     </option>
   </component>
@@ -608,7 +607,7 @@
       <workItem from="1480354967994" duration="204000" />
       <workItem from="1480355457282" duration="42000" />
       <workItem from="1480360612665" duration="4180000" />
-      <workItem from="1480450432817" duration="6092000" />
+      <workItem from="1480450432817" duration="6216000" />
     </task>
     <task id="LOCAL-00001" summary="I moved the api database to a folder dbAPI because the api files shouldn't be together with the js files for the backend of the project.">
       <created>1479599928927</created>
@@ -701,11 +700,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480458600025</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fixed table of games">
+      <created>1480459062634</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1480459062634</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73852000" />
+    <option name="totallyTimeSpent" value="73976000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -790,7 +796,8 @@
     <MESSAGE value="Activated remote database in heroku" />
     <MESSAGE value="Fixed bug in games table. Now, the games can be fetched from database" />
     <MESSAGE value="Altered attribute in games table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Altered attribute in games table" />
+    <MESSAGE value="Fixed table of games" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed table of games" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1123,14 +1130,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/test.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="46" column="61" lean-forward="false" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/lobbyRoom.pug">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
@@ -1143,6 +1142,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="423">
           <caret line="82" column="40" lean-forward="true" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/test.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="57" column="32" lean-forward="false" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
           <folding />
         </state>
       </provider>

@@ -8,7 +8,7 @@ var databaseManager = new db(router);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('testgameplay', {title: 'logIn/signIn'});
+    res.render('test', {title: 'logIn/signIn'});
 });
 
 

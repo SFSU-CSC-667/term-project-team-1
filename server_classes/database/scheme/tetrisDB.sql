@@ -19,35 +19,22 @@ CREATE TABLE IF NOT EXISTS Users (
   score INT NOT NULL DEFAULT 0 );
 
 
-
--- -----------------------------------------------------
--- Table `mydb`.`Lobbies`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Lobbies (
-  id SERIAL PRIMARY KEY,
-  owner INT NOT NULL,
-  name VARCHAR(45) NULL,
-  isActive BOOLEAN NULL DEFAULT false,
-  max_games INT NULL DEFAULT 0,
-  max_players INT NULL DEFAULT 0,
-  constraint fk_users
-     foreign key (owner)
-     REFERENCES Users (id)
-	 ON DELETE CASCADE
-     ON UPDATE CASCADE);
-
-
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`Games`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Games (
   id SERIAL NOT NULL,
-  player1 INT NULL,
+  player1 INT NOT NULL,
   player2 INT NULL,
   name VARCHAR(45) NULL,
-  Lobbies_id INT UNIQUE NOT NULL);
+  isFull BOOLEAN NULL DEFAULT false,
+  score INT NULL DEFAULT 0,
+  winner INT NULL,
+  constraint fk_users
+     foreign key (player1)
+     REFERENCES Users (id)
+	 ON DELETE CASCADE
+     ON UPDATE CASCADE);
 
 
 

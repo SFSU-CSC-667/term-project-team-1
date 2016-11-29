@@ -44,21 +44,10 @@ function loadLeadersList() {
 
 
                 // Inject the whole content string into our existing HTML table
-                $('#userList table tbody').html(tableContent);
+                $('#wrapper table tbody').html(tableContent);
             }
         }
-        else {
-            tableContent += '<tr>';
-            tableContent += '<td>' + (i + 1) + '</td>';
-            tableContent += '<td>' + jose + '</td>';
-            tableContent += '<td>' + ortiz + '</td>';
-            tableContent += '<td>' + costa + '</td>';
-            tableContent += '</tr>';
 
-
-            // Inject the whole content string into our existing HTML table
-            $('#userList table tbody').html(tableContent);
-        }
     });
 }
 

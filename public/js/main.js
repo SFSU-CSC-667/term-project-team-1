@@ -47,6 +47,9 @@ function loadLeadersList() {
                 $('#userList table tbody').html(tableContent);
             }
         }
+        else {
+
+        }
     });
 }
 

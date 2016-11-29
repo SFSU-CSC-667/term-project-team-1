@@ -67,19 +67,24 @@ function loadGamesList() {
             var games = data['games'];
             var isActive = 'game is full';
             for (var i = 0; i<games.length; i++) {
-
                 var game = games[i];
+                var join = "join game";
+                if (game.isfull == true )
+                {
+                    join = "This game is full";
+                }
 
                 tableContent += '<tr>';
-                tableContent += '<td>' +  game.name+ '</td>';
                 tableContent += '<td>' +  game.name + '</td>';
-                tableContent += '<td>' +  game.name + '</td>';
-                tableContent += '<td>' + '<a href="/dbApi/games/' + game.id + '">' + isActive + '</a></td>';
+                tableContent += '<td>' +  game.gamename + '</td>';
+                tableContent += '<td>' + '<a href="/dbApi/games/' + game.id + '">' + join + '</a></td>';
+                tableContent += '<td>' +  game.totalscore + '</td>';
+
                 tableContent += '</tr>';
 
 
                 // Inject the whole content string into our existing HTML table
-                $('#lobbyList table tbody').html(tableContent);
+                $('#gamesList table tbody').html(tableContent);
             }
         }
     });

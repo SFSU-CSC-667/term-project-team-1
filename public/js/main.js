@@ -26,6 +26,7 @@ function populateTable() {
     // Empty content string
     var tableContent = '';
 
+
     // jQuery AJAX call for JSON
     $.getJSON( '/dbAPI/users', function( data ) {
         if (data['status'] == 'success') {
@@ -49,7 +50,7 @@ function populateTable() {
             }
         }
     });
-};
+}
 
 
 /* Sorts json item in descending order by key */

@@ -85,7 +85,7 @@ function validateUser (req, res, next) {
 function createUser(req, res, next) {
     req.body.score = parseInt(req.body.score);
     db.one('insert into users(email, name, password, score)' +
-        'values(${email}, ${name}, ${password}, ${score}) returning id',
+        'values(${email}, ${name}, ${password}, 0) returning id',
         req.body)
         .then(function (data) {
             var param = data.id;

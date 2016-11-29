@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0d6eb8fc-9cb5-4c0f-ad08-ebfd93929450" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/test.pug" afterPath="$PROJECT_DIR$/views/test.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server_classes/database/models/users.js" afterPath="$PROJECT_DIR$/server_classes/database/models/users.js" />
     </list>
     <ignored path="term-project-team-1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,11 +66,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.pug" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/test.pug">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="281">
               <caret line="57" column="32" lean-forward="false" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/dbAPI/users.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -109,21 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dbManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server_classes/database/dbManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="91" column="26" lean-forward="false" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server_classes/database/models/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="27" selection-end-column="27" />
+            <state relative-caret-position="140">
+              <caret line="89" column="31" lean-forward="true" selection-start-line="89" selection-start-column="31" selection-end-line="89" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -172,11 +172,11 @@
         <option value="$PROJECT_DIR$/server_classes/database/dbManager.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/server_classes/config/globals.js" />
-        <option value="$PROJECT_DIR$/server_classes/database/models/users.js" />
         <option value="$PROJECT_DIR$/server_classes/database/models/games.js" />
         <option value="$PROJECT_DIR$/views/lobbyRoom.pug" />
         <option value="$PROJECT_DIR$/public/js/main.js" />
         <option value="$PROJECT_DIR$/views/test.pug" />
+        <option value="$PROJECT_DIR$/server_classes/database/models/users.js" />
       </list>
     </option>
   </component>
@@ -607,7 +607,7 @@
       <workItem from="1480354967994" duration="204000" />
       <workItem from="1480355457282" duration="42000" />
       <workItem from="1480360612665" duration="4180000" />
-      <workItem from="1480450432817" duration="6216000" />
+      <workItem from="1480450432817" duration="6444000" />
     </task>
     <task id="LOCAL-00001" summary="I moved the api database to a folder dbAPI because the api files shouldn't be together with the js files for the backend of the project.">
       <created>1479599928927</created>
@@ -707,11 +707,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480459062634</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Removed score field from registration form">
+      <created>1480459200631</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1480459200631</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73976000" />
+    <option name="totallyTimeSpent" value="74204000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -797,7 +804,8 @@
     <MESSAGE value="Fixed bug in games table. Now, the games can be fetched from database" />
     <MESSAGE value="Altered attribute in games table" />
     <MESSAGE value="Fixed table of games" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed table of games" />
+    <MESSAGE value="Removed score field from registration form" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed score field from registration form" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -844,13 +852,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/dbAPI/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1095,14 +1096,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server_classes/database/models/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="27" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/dbAPI/games.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1150,6 +1143,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="57" column="32" lean-forward="false" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/dbAPI/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server_classes/database/models/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="89" column="31" lean-forward="true" selection-start-line="89" selection-start-column="31" selection-end-line="89" selection-end-column="31" />
           <folding />
         </state>
       </provider>

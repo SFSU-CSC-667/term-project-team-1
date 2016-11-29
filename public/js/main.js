@@ -26,7 +26,7 @@ function loadLeadersList() {
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/dbAPI/users', function( data ) {
+    $.getJSON( '/dbapi/users', function( data ) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
@@ -60,7 +60,7 @@ function loadGamesList() {
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/dbAPI/games', function( data ) {
+    $.getJSON( '/dbapi/games', function( data ) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin

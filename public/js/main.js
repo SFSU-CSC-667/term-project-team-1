@@ -11,17 +11,16 @@ var userListData = [];
 $(document).ready(function() {
 
     // Populate the user table on initial page load
-    populateTable();
-    loadLobbies();
-    var g = getGame(3);
-    console.log(g.name);
+    loadLeadersList();
+    loadGamesList();
+
 
 });
 
 // Functions =============================================================
 
 // Fill table with data
-function populateTable() {
+function loadLeadersList() {
 
     // Empty content string
     var tableContent = '';
@@ -55,7 +54,7 @@ function populateTable() {
 /* Loads the list of lobbies in lobbyRoom page */
 
 // Fill table with data
-function loadLobbies() {
+function loadGamesList() {
 
     // Empty content string
     var tableContent = '';
@@ -70,15 +69,9 @@ function loadLobbies() {
             for (var i = 0; i<games.length; i++) {
 
                 var game = games[i];
-                var playername;
-                playername = getUserName(game.player1);
 
-                if (game.player2 == 0)
-                {
-                    isActive = 'Join';
-                }
                 tableContent += '<tr>';
-                tableContent += '<td>' +  playername + '</td>';
+                tableContent += '<td>' +  game.name+ '</td>';
                 tableContent += '<td>' +  game.name + '</td>';
                 tableContent += '<td>' +  game.name + '</td>';
                 tableContent += '<td>' + '<a href="/dbApi/games/' + game.id + '">' + isActive + '</a></td>';
@@ -92,22 +85,7 @@ function loadLobbies() {
     });
 };
 
-function getUserName (playerid)
-{
-    // jQuery AJAX call for JSON
-    var playerUrl = '/dbAPI/users/' + playerid;
-    $.getJSON( playerUrl, function( data ) {
-        if (data['status'] == 'success') {
 
-            // For each item in our JSON, add a table row and cells to the content strin
-            var user = data['users'];
-            console.log(user);
-            return user.id;
-
-
-        }
-    });
-}
 
 
 

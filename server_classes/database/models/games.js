@@ -83,7 +83,7 @@ function getSingleGame(req, res, next) {
 
 
 function createGame(req, res, next) {
-    db.none('insert into games(player1, player2, name, isFull, totalscore, winner)' +
+    db.none('insert into games(player1, player2, gamename, isFull, totalscore, winner)' +
         'values(${player1}, 0, ${name}, 0, 0, 0)', req.body)
         .then(function () {
             res.status(200)
@@ -99,7 +99,7 @@ function createGame(req, res, next) {
 
 
 function updateGame(req, res, next) {
-    db.none('update games set player1=$1, player2=$2, name=$3, isFull=$4, totalscore=$5, winner=$6 where id=$7',
+    db.none('update games set player1=$1, player2=$2, gamename=$3, isFull=$4, totalscore=$5, winner=$6 where id=$7',
         [parseInt(req.body.player1), parseInt(req.body.player2), req.body.name, req.body.isFull,
                   parseInt(req.body.totalscore), parseInt(req.body.winner), parseInt(req.params.id)])
         .then(function () {

@@ -14,10 +14,8 @@ $(document).ready(function() {
 
     // Populate the user table on initial page load
     loadLeadersBoard();
-    loadGamesList();
+
     
-
-
 });
 
 // Functions =============================================================
@@ -54,44 +52,6 @@ function loadLeadersBoard() {
     });
 }
 
-// Functions =============================================================
-
-// Fill table with data
-function loadGamesList() {
-
-    // Empty content string
-    var tableContent = '';
-
-
-    // jQuery AJAX call for JSON
-    $.getJSON( config.USERS_API_ROUTE , function( data ) {
-        if (data['status'] == 'success') {
-
-            // For each item in our JSON, add a table row and cells to the content strin
-            var games = data['games'];
-            for (var i = 0; i<games.length; i++) {
-
-                var game = games[i];
-                var joinGame = "Join";
-                if (game.isfull == true)
-                {
-                    joinGame = "Game is full";
-                }
-
-                tableContent += '<tr>';
-                tableContent += '<td>' +  game.name + '</td>';
-                tableContent += '<td>' +  game.gamename + '</td>';
-                tableContent += '<td>' +  joinGame + '</td>';
-                tableContent += '<td>' +  game.totalscore + '</td>';
-                tableContent += '</tr>';
-
-
-                // Inject the whole content string into our existing HTML table
-                $('#gamesList table tbody').html(tableContent);
-            }
-        }
-    });
-}
 
 
 /* Sorts json item in descending order by key */

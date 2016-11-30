@@ -5,9 +5,6 @@
  */
 
 
-// Userlist data array for filling in info box
-var userListData = [];
-
 // DOM Ready =============================================================
 $(document).ready(function() {
 
@@ -23,7 +20,7 @@ function loadGamesList() {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
-            var games = sortByKey(data['games']['id'])
+            var games = data['games']
             for (var i = 0; i < games.length; i++) {
 
                 var game = games[i];
@@ -47,10 +44,3 @@ function loadGamesList() {
     });
 }
 
-/* Sorts json item in descending order by key */
-function sortByKey(array, key) {
-    return array.sort(function(a, b) {
-        var x = a[key]; var y = b[key];
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    });
-}

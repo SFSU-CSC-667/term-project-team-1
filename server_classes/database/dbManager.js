@@ -69,7 +69,7 @@ class DatabaseManager {
         return this._router;
     }
 
-    loadDBAPI (routeUsers, routeLobbies, routeGames, routeValidation)
+    loadDBAPI (routeUsers, routeGames, routeValidation)
     {
         this._loadUsersAPI(routeUsers);
         this._loadGamesAPI(routeGames);

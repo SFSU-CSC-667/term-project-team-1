@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
 
 
 databaseManager.loadDBAPI(config.USERS_API_ROUTE,
-                          config.LOBBIES_API_ROUTE,
                           config.GAMES_API_ROUTE,
                           config.LOGIN_API_ROUTE);
 

@@ -16,6 +16,8 @@ $(document).ready(function() {
 
 function loadGamesList() {
 // jQuery AJAX call for JSON
+    // Empty content string
+    var tableContent = '';
     $.getJSON('/dbapi/games', function (data) {
         if (data['status'] == 'success') {
 

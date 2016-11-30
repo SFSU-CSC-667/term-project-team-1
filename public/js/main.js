@@ -55,14 +55,13 @@ function loadLeadersBoard() {
 }
 
 function loadGamesList() {
-// jQuery AJAX call for JSON
-    // Empty content string
+
     var tableContent = '';
     $.getJSON('/dbapi/games', function (data) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
-            var games = sortByKey(data['games']['id'])
+            var games = data['games']
             for (var i = 0; i < games.length; i++) {
 
                 var game = games[i];

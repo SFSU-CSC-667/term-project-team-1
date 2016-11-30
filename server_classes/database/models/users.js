@@ -123,7 +123,7 @@ function removeUser(req, res, next) {
             res.status(200)
                 .json({
                     status: 'success',
-                    message: `Removed ${result.rowCount} user`
+                    message: 'Removed ${result.rowCount} user'
                 });
             /* jshint ignore:end */
         })

@@ -122,7 +122,7 @@ function removeGame(req, res, next) {
             res.status(200)
                 .json({
                     status: 'success',
-                    message: `Removed ${result.rowCount} game`
+                    message: 'Removed ${result.rowCount} game'
                 });
             /* jshint ignore:end */
         })

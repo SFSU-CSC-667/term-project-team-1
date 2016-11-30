@@ -13,6 +13,8 @@ $(document).ready(function() {
 
     // loads the leaderboard list
     loadLeadersBoard();
+    // loads games list
+    loadGamesList();
 
 
     

@@ -78,8 +78,8 @@ function loadGamesList() {
                 tableContent += '<tr>';
                 tableContent += '<td>' +  game.name + '</td>';
                 tableContent += '<td>' +  game.gamename + '</td>';
-                tableContent += '<td><' +  join + '</td>';
-                tableContent += '<td><a id="joinlink" href="/testgameplay">' +  game.totalscore + '</a></td>';
+                tableContent += '<td><' +  game.totalscore + '</td>';
+                tableContent += '<td><a id="joinlink" href="/gameplay">' +  join + '</a></td>';
                 tableContent += '</tr>';
 
 

@@ -31,7 +31,7 @@ function populateTable() {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
-            var users = sortByKey(data['users'], 'score')
+            var users = sortByKey(data['users'], 'score');
             for (var i = 0; i<users.length; i++) {
 
                 var user = users[i];

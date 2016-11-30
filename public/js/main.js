@@ -4,6 +4,8 @@
  * Description: test file
  */
 
+var config = require('../../server_classes/config/globals.js');
+
 // Userlist data array for filling in info box
 var userListData = [];
 
@@ -28,7 +30,7 @@ function loadLeadersBoard() {
 
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/dbAPI/users', function( data ) {
+    $.getJSON( config.USERS_API_ROUTE , function( data ) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
@@ -62,11 +64,11 @@ function loadGamesList() {
 
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/dbAPI/games', function( data ) {
+    $.getJSON( config.USERS_API_ROUTE , function( data ) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
-            var games = sortByKey(data['games'], 'gamescore');
+            var games = data['games'];
             for (var i = 0; i<games.length; i++) {
 
                 var game = games[i];

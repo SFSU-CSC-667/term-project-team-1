@@ -295,6 +295,7 @@ p.change_link{
 }
 /** Styling both forms **/
 #register,
+#createGame,
 #login{
     position: absolute;
     top: 0px;

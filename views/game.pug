@@ -1,3 +1,42 @@
 //
    Created by leo on 11/28/16.
 
+doctype html
+
+html.no-js(lang='en')
+    head
+        meta(charset='UTF-8')
+        // <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        title create a game
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(name='description', content='Login and Registration Form with HTML5 and CSS3')
+        meta(name='keywords', content='html5, css3, form, switch, animation, :target, pseudo-class')
+        meta(name='author', content='Codrops')
+        link(rel='shortcut icon', href='../favicon.ico')
+        //link(rel='stylesheet', type='text/css', href='css/demo.css')
+        link(rel='stylesheet', type='text/css', href='/stylesheets/style2.css')
+        link(rel='stylesheet', type='text/css', href='/stylesheets/animate-custom.css')
+        link(rel='stylesheet', href='/stylesheets/demo.css')
+    body
+        script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+        script(src='/js/main.js')
+        .container
+            header
+                h1 TETRIS
+            section
+                #container_demo
+                    // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
+                    #wrapper
+                        #createGame.animate.form
+                            form(method='POST' action='/dbAPI/login')
+                                h1 Create Game
+                                p.form-group
+                                    label(for='gameUserName', data-icon='u')  Username
+                                    input#gameUserName(name='gameUserName', required='required', type='text', placeholder='myusername')
+                                p
+                                    label(for='gameName', data-icon='g')  Game Name
+                                    input#gameName(name='gameName', required='required', type='text', placeholder='eg. mygame')
+                                p.login.button
+                                    input(type='submit', value='Create')
+
+

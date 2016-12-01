@@ -24,7 +24,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
     config.DATABASE_PASSWORD + config.DATABASE_URL + config.DATABASE_NAME
 
 /* Heroku database connection */
-var dbConnHeroku = config.DATABASE_HEROKU_URL
+var dbConnHeroku = config.DATABASE_HEROKU_URL;
 var db = pgp(dbConnHeroku);
 
 function getAllUsers(req, res, next) {
@@ -34,7 +34,7 @@ function getAllUsers(req, res, next) {
                 status: 'success',
                 users: data,
                 message: 'Retrieved ALL Users'
-            }
+            };
             res.status(200)
                 .json(jsonData);
         })

@@ -15,6 +15,11 @@ block content
                     form(action='')
                         input#m(name='m', type='text', size='25')
                         input#submitmsg(name='submitmsg', type='submit', value='Send')
+                form.form-inline#initial-form
+                    .form-group
+                        label(for='who-are-you') Who are you?
+                        input#who-are-you.form-control(type='text', placeholder='Anonymous')
+                    button.btn.btn-primary(type='submit') Start Chatting
             div(style='background-image: url(/stylesheets/images/space.jpg); height:500px;width:350px; float:right; margin-right: 100px;')
                 div
                     h2 Player 2

@@ -18,7 +18,7 @@ var app_sessions = {
     'USER_SESSION': -1, // session for user
     'JOINED_USER_SESSION': -1, // session for user joined to a game.
     'GAME_SESSION': -1, // session for a game
-    'EXPIRED_SESSION': 0, // determine if the session was expired
+    'EXPIRED_SESSION': 1, // determine if the session was expired
     'SESSION_EXPIRING_MAX_TIME': 60*1000 // must be in miliseconds
 
 }

@@ -74,11 +74,14 @@ function validateUser (req, res, next) {
             var param = data.id;
             if(res.status(200)) {
                 session.USER_SESSION = data.id;
+                session.EXPIRED_SESSION = 0;
+                /* Expires the session after expiring session time stated in sessions.js*/
                 setInterval(function()
                 {
-                    session.USER_SESSION = -1;
-                    alert("Your session has expired");
-                    res.redirect('/test');
+                    session.USER_SESSION = -1; // remove user session
+                    session.JOINED_USER_SESSION = -1; // remove session from joined user.
+                    session.EXPIRED_SESSION = 1; // expire the session
+                    session.GAME_SESSION = -1; // expire game session.
                 }, session.SESSION_EXPIRING_MAX_TIME);
                 res.redirect('/game');
             }
@@ -100,6 +103,15 @@ function createUser(req, res, next) {
 
             if (res.status(200)) {
                 session.USER_SESSION = data.id;
+                session.EXPIRED_SESSION = 0;
+                /* Expires the session after expiring session time stated in sessions.js*/
+                setInterval(function()
+                {
+                    session.USER_SESSION = -1; // remove user session
+                    session.JOINED_USER_SESSION = -1; // remove session from joined user.
+                    session.EXPIRED_SESSION = 1; // expire the session
+                    session.GAME_SESSION = -1; // expire game session.
+                }, session.SESSION_EXPIRING_MAX_TIME);
                 res.redirect('/game');
             }
 
@@ -142,6 +154,10 @@ function removeUser(req, res, next) {
             return next(err);
         });
 }
+
+
+
+
 
 
 

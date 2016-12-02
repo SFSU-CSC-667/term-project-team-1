@@ -89,7 +89,7 @@ function createGame(req, res, next) {
         .then(function (data) {
             if (res.status(200)) {
                 sessions.GAME_SESSION = data.id;
-                res.redirect("gameplay");
+                res.redirect('/gameplay');
             }
         })
         .catch(function (err) {

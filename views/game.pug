@@ -27,14 +27,11 @@ html.no-js(lang='en')
 
                     #wrapper
                         #createGame.animate.form
-                            form(method='POST' action='/dbAPI/login')
+                            form(method='POST' action='/dbAPI/games')
                                 h1 create game
                                 p.form-group
-                                    label(for='gameUserName', data-icon='u')  Your username
-                                    input#gameUserName(name='gameUserName', required='required', type='text', placeholder='myusername')
-                                p
                                     label(for='gameName', data-icon='p')  Your game name
-                                    input#gameName(name='gameName', required='required', type='password', placeholder='game name')
+                                    input#gameName(name='gamename', required='required', type='text', placeholder='Enter your game name')
                                 p.login.button
                                     input(type='submit', value='Create')
                                 p.change_link

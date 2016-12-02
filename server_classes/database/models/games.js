@@ -15,6 +15,7 @@ var options = {
     promiseLib: promise
 };
 var config = require('../../config/globals');
+var sessions = require('../../config/sessions');
 var pgp = require('pg-promise')(options);
 /* Local database connection */
 var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
@@ -83,14 +84,13 @@ function getSingleGame(req, res, next) {
 
 
 function createGame(req, res, next) {
-    db.none('insert into games(player1, player2, gamename, isFull, totalscore, winner)' +
-        'values(${player1}, 0, ${name}, 0, 0, 0)', req.body)
-        .then(function () {
-            res.status(200)
-                .json({
-                    status: 'success',
-                    message: 'Inserted one game'
-                });
+    db.one('insert into games(player1, player2, gamename, isfull, winner, totalscore)' +
+        'values(' + sessions.USER_SESSION + ', 0, ${name}, 0, 0, 0) returning id', req.body)
+        .then(function (data) {
+            if (res.status(200)) {
+                sessions.GAME_SESSION = data.id;
+                res.redirect("gameplay");
+            }
         })
         .catch(function (err) {
             return next(err);

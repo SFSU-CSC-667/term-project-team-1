@@ -16,7 +16,8 @@
 var app_sessions = {
 
     // database providers
-    'USER_SESSION': -1
+    'USER_SESSION': -1,
+    'GAME_SESSION': -1
 
 }
 

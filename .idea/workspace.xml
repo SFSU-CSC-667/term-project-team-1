@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0d6eb8fc-9cb5-4c0f-ad08-ebfd93929450" name="Default" comment="Fixed Game List">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server_classes/config/sessions.js" />
+    <list default="true" id="0d6eb8fc-9cb5-4c0f-ad08-ebfd93929450" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/game.js" afterPath="$PROJECT_DIR$/routes/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/gameplay.js" afterPath="$PROJECT_DIR$/routes/gameplay.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/leaders.js" afterPath="$PROJECT_DIR$/routes/leaders.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/lobbyRoom.js" afterPath="$PROJECT_DIR$/routes/lobbyRoom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server_classes/database/models/users.js" afterPath="$PROJECT_DIR$/server_classes/database/models/users.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server_classes/config/sessions.js" afterPath="$PROJECT_DIR$/server_classes/config/sessions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server_classes/database/models/games.js" afterPath="$PROJECT_DIR$/server_classes/database/models/games.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/game.pug" afterPath="$PROJECT_DIR$/views/game.pug" />
     </list>
     <ignored path="term-project-team-1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,16 +28,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="lobbyRoom.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/lobbyRoom.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="3" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/game.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,18 +51,28 @@
       <file leaf-file-name="game.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/game.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-249">
+            <state relative-caret-position="356">
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="games.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/dbAPI/games.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/test.js">
+      <file leaf-file-name="tetrisDB.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server_classes/database/scheme/tetrisDB.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="224">
+              <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -84,8 +81,8 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server_classes/database/models/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="315">
+              <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -114,8 +111,8 @@
       <file leaf-file-name="sessions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server_classes/config/sessions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+            <state relative-caret-position="285">
+              <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -124,8 +121,8 @@
       <file leaf-file-name="games.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server_classes/database/models/games.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+            <state relative-caret-position="303">
+              <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -167,7 +164,6 @@
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/views/chat-layout.pug" />
         <option value="$PROJECT_DIR$/public/stylesheets/testgameplay.css" />
-        <option value="$PROJECT_DIR$/views/game.pug" />
         <option value="$PROJECT_DIR$/server_classes/database/scheme/tetrisDB.sql" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/server_classes/config/globals.js" />
@@ -178,11 +174,12 @@
         <option value="$PROJECT_DIR$/public/js/listOfGames.js" />
         <option value="$PROJECT_DIR$/views/lobbyRoom.pug" />
         <option value="$PROJECT_DIR$/public/js/main.js" />
-        <option value="$PROJECT_DIR$/server_classes/config/sessions.js" />
         <option value="$PROJECT_DIR$/routes/lobbyRoom.js" />
         <option value="$PROJECT_DIR$/routes/game.js" />
         <option value="$PROJECT_DIR$/routes/gameplay.js" />
         <option value="$PROJECT_DIR$/routes/leaders.js" />
+        <option value="$PROJECT_DIR$/server_classes/config/sessions.js" />
+        <option value="$PROJECT_DIR$/views/game.pug" />
         <option value="$PROJECT_DIR$/server_classes/database/models/games.js" />
         <option value="$PROJECT_DIR$/server_classes/database/models/users.js" />
       </list>
@@ -706,7 +703,7 @@
       <workItem from="1480450432817" duration="10667000" />
       <workItem from="1480526490854" duration="9085000" />
       <workItem from="1480622783601" duration="385000" />
-      <workItem from="1480635650193" duration="4893000" />
+      <workItem from="1480635650193" duration="6792000" />
     </task>
     <task id="LOCAL-00001" summary="I moved the api database to a folder dbAPI because the api files shouldn't be together with the js files for the backend of the project.">
       <created>1479599928927</created>
@@ -1023,11 +1020,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480536048478</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Implemented sessions. Now, you cannot access to private pages without being logged into the system">
+      <created>1480640738453</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1480640738453</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92790000" />
+    <option name="totallyTimeSpent" value="94689000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1123,7 +1127,8 @@
     <MESSAGE value="Fixed bug in lobby list" />
     <MESSAGE value="Back to original configuration in main file" />
     <MESSAGE value="Fixed Game List" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Game List" />
+    <MESSAGE value="Implemented sessions. Now, you cannot access to private pages without being logged into the system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented sessions. Now, you cannot access to private pages without being logged into the system" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1248,13 +1253,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server_classes/database/models/lobbies.js" />
-    <entry file="file://$PROJECT_DIR$/server_classes/database/scheme/tetrisDB.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
@@ -1287,13 +1285,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/dbAPI/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/dbAPI/games.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1421,14 +1412,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/game.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-249">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/lobbyRoom.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1469,26 +1452,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/dbAPI/games.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server_classes/config/sessions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        <state relative-caret-position="285">
+          <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server_classes/database/scheme/tetrisDB.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/game.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server_classes/database/models/games.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+        <state relative-caret-position="303">
+          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server_classes/database/models/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="315">
+          <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
           <folding />
         </state>
       </provider>

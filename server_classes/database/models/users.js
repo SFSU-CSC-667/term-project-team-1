@@ -91,9 +91,11 @@ function createUser(req, res, next) {
         'values(${email}, ${name}, ${password}, 0) returning id',
         req.body)
         .then(function (data) {
-            var param = data.id;
-            res.status(200)
-                .redirect('/lobbyRoom?id=' + param);
+
+            if (res.status(200)) {
+                session.USER_SESSION = data.id;
+                res.redirect('/game');
+            }
 
         })
         .catch(function (err) {

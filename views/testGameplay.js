@@ -27,6 +27,7 @@ var ucontext = ucanvas.getContext('2d');
 var dx, dy, actions,current,next,playing;
 var timePassed;
 var pieces = [];
+var step;
 
 if (!window.requestAnimationFrame) { // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
   window.requestAnimationFrame = window.webkitRequestAnimationFrame ||
@@ -59,8 +60,8 @@ function run(){
 };
 
 function listenToEvents() {
-  document.addEventListener('keypress', keypress, false);
-  //window.addEventListener('resize', resize, false);
+  document.addEventListener('keydown', keypress, false);
+  window.addEventListener('resize', resize, false);
 };
 
 
@@ -186,7 +187,10 @@ function update(time){
   if (playing) {
     handle(actions.shift());
     timePassed=timePassed+time;
-    drop();
+    if (timePassed > step) {
+      timePassed = timePassed - step;
+      drop();
+    }
   }
 };
 function handle(action){
@@ -229,7 +233,7 @@ function drop(){
   if (!move(DIR.DOWN)) {
 
     dropBlock();
-    //removeLines();
+    removeLines();
     setCurrentPiece(next);
     setNextPiece(randomPiece());
     clearActions();
@@ -243,6 +247,26 @@ function dropBlock() {
   eachblock(current.type, current.x, current.y, current.dir, function(x, y) {
     setBlock(x, y, current.type);
   });
+}
+
+function removeLines() {
+  var x, y, complete, n = 0;
+  for(y = ny ; y > 0 ; --y) {
+    complete = true;
+    for(x = 0 ; x < nx ; ++x) {
+      if (!getBlock(x, y))
+        complete = false;
+    }
+    if (complete) {
+      removeLine(y);
+      y = y + 1; // recheck same line
+      n++;
+    }
+  }
+  if (n > 0) {
+    addRows(n);
+    //addScore(100*Math.pow(2,n-1)); // 1: 100, 2: 200, 3: 400, 4: 800
+  }
 }
 
 //iterate through the block

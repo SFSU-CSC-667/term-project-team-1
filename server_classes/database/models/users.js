@@ -74,6 +74,7 @@ function validateUser (req, res, next) {
             var param = data.id;
             if(res.status(200)) {
                 session.USER_SESSION = data.id;
+                setInterval(function() { session.USER_SESSION = -1 }, session.SESSION_EXPIRING_MAX_TIME);
                 res.redirect('/game');
             }
 

@@ -75,13 +75,8 @@ function loadGamesList() {
                 tableContent += '<td>' + game.name + '</td>';
                 tableContent += '<td>' + game.gamename + '</td>';
                 tableContent += '<td>' + game.totalscore + '</td>';
-                tableContent += '<td><a id="joinlink" href="/gameplay">' + join + '</a></td>';
-                tableContent += '<td></td><form method="PUT" action="/dbapi/games?id' + game.id + '">' +
-                                    '<input type = "submit" name="submit" value="Delete"/></form></td>';
-
+                tableContent += '<td><a id="joinlink" href="/gameplay?joinedId=">' + join + '</a></td>';
                 tableContent += '</tr>';
-
-
                 // Inject the whole content string into our existing HTML table
                 $('#gamesList table tbody').html(tableContent);
             }

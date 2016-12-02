@@ -1,22 +1,21 @@
 
 var express = require('express');
 var router = express.Router();
-
-const config = require ("../server_classes/config/globals");
-var db  = require('../server_classes/database/dbManager');
-var databaseManager = new db(router);
-
-
+var sessions = require('../server_classes/config/sessions');
 
 
 /* GET users listing. */
+
 router.get('/', function(req, res, next) {
-    res.render('leaders', {title: 'leaderboard'});
+    //Do whatever...
+    if (sessions.USER_SESSION == -1) {
+        res.render('test');
+    }
+    else
+    {
+        res.render('leaders');
+    }
 });
-
-
-
-
 
 module.exports = router;
 

@@ -17,6 +17,7 @@ var options = {
     promiseLib: promise
 };
 var config = require('../../config/globals');
+var session = require('../../config/sessions');
 var pgp = require('pg-promise')(options);
 
 /* Local database connection */
@@ -71,8 +72,10 @@ function validateUser (req, res, next) {
     db.one('Select * from users where email = $1 and password = $2', [email, password], req.body)
         .then(function (data) {
             var param = data.id;
-            res.status(200)
-                .redirect('/lobbyRoom?id=' + data.id);
+            if(res.status(200)) {
+                session.USER_SESSION = data.id;
+                res.redirect('/game');
+            }
 
         })
         .catch(function (err) {

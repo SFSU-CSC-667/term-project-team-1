@@ -1,13 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var sessions = require('../server_classes/config/sessions');
+
 
 /* GET users listing. */
 
 router.get('/', function(req, res, next) {
     //Do whatever...
-    res.render('gameplay');
+    if (sessions.USER_SESSION == -1) {
+        res.render('test');
+    }
+    else
+    {
+        res.render('gameplay');
+    }
 });
-
-
 
 module.exports = router;

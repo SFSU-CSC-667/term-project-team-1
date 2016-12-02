@@ -1,14 +1,19 @@
-/**
- * Created by leo on 11/28/16.
- */
 var express = require('express');
 var router = express.Router();
+var sessions = require('../server_classes/config/sessions');
+
 
 /* GET users listing. */
 
 router.get('/', function(req, res, next) {
     //Do whatever...
-    res.render('game');
+    if (sessions.USER_SESSION == -1) {
+        res.render('test');
+    }
+    else
+    {
+        res.render('game');
+    }
 });
 
 

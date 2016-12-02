@@ -1,23 +1,25 @@
 /**
  * Created by   Jose Ortiz on 10/27/16.
- * File:        globals.js
- * Description: This file contains an array of globals that are
- *              accessible in all the scopes of this application
- * Usage:       let's assume that you have a global domain in this
- *              file like this: var Globals { 'domain':'www.mydomain.com';}
- *              Then, the following code show how to access this global
- *              constant from other file inside the scope of this application:
- *
- *              var globals = require('globals');
- *              var myDomain = globals.domain
+ * File:        sessions.js
+ * Description: Handles sessions for this app.
+ * Usage:       1. Get a session
+ *                var sessions = require('globals');
+ *                var usr_session = sessions.USER_SESSION;
+ *              2. Set a session
+ *                 var sessions = require('globals');
+ *                 const newID = 1;
+ *                 sessions.USER_SESSION = newID;
  */
 
 
 var app_sessions = {
 
     // database providers
-    'USER_SESSION': -1,
-    'GAME_SESSION': -1
+    'USER_SESSION': -1, // session for user
+    'JOINED_USER_SESSION': -1, // session for user joined to a game.
+    'GAME_SESSION': -1, // session for a game
+    'EXPIRED_SESSION': 0, // determine if the session was expired
+    'SESSION_EXPIRING_MAX_TIME': 0 // must be in miliseconds
 
 }
 

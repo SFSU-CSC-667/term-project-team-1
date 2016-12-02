@@ -1,13 +1,10 @@
-//
-   Created by leo on 11/28/16.
-
 doctype html
 
 html.no-js(lang='en')
     head
         meta(charset='UTF-8')
         // <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        title create a game
+        title create game
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         meta(name='description', content='Login and Registration Form with HTML5 and CSS3')
         meta(name='keywords', content='html5, css3, form, switch, animation, :target, pseudo-class')
@@ -18,7 +15,7 @@ html.no-js(lang='en')
         link(rel='stylesheet', type='text/css', href='/stylesheets/animate-custom.css')
         link(rel='stylesheet', href='/stylesheets/demo.css')
     body
-        script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+        script(src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
         script(src='/js/main.js')
         .container
             header
@@ -26,17 +23,21 @@ html.no-js(lang='en')
             section
                 #container_demo
                     // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
+
+
                     #wrapper
                         #createGame.animate.form
                             form(method='POST' action='/dbAPI/login')
-                                h1 Create Game
+                                h1 create game
                                 p.form-group
-                                    label(for='gameUserName', data-icon='u')  Username
+                                    label(for='gameUserName', data-icon='u')  Your username
                                     input#gameUserName(name='gameUserName', required='required', type='text', placeholder='myusername')
                                 p
-                                    label(for='gameName', data-icon='g')  Game Name
-                                    input#gameName(name='gameName', required='required', type='text', placeholder='eg. mygame')
+                                    label(for='gameName', data-icon='p')  Your game name
+                                    input#gameName(name='gameName', required='required', type='password', placeholder='game name')
                                 p.login.button
                                     input(type='submit', value='Create')
-
+                                p.change_link
+                                    | Want to join a game ?
+                                    a.to_register(href='lobbyRoom') Join
 

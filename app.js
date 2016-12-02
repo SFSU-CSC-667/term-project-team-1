@@ -44,7 +44,7 @@ app.use('/gameplay' , gameplay);
 app.use('/lobbyRoom' , lobbyRoom);
 app.use('/test' , test);
 app.use('/game' , game);
-app.user('/logout', logout);
+app.use('/logout', logout);
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }))
 
 app.set('json spaces', 40);

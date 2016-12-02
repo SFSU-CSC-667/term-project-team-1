@@ -17,6 +17,7 @@ var leaders = require('./routes/leaders');
 var gameplay = require('./routes/gameplay');
 var test = require('./routes/test');
 var game = require('./routes/game');
+var logout = require('./routes/logout');
 
 
 var app = express();
@@ -43,6 +44,7 @@ app.use('/gameplay' , gameplay);
 app.use('/lobbyRoom' , lobbyRoom);
 app.use('/test' , test);
 app.use('/game' , game);
+app.user('/logout', logout);
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }))
 
 app.set('json spaces', 40);

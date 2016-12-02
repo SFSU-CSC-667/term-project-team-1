@@ -3,7 +3,7 @@
  * File : main.js
  * Description: test file
  */
-
+var sessions = require('../../server_classes/config/sessions');
 
 // Userlist data array for filling in info box
 var userListData = [];
@@ -70,11 +70,18 @@ function loadGamesList() {
                     join = "This game is already in progress";
                     document.getElementById('joinlink').setAttribute('href', '');
                 }
+
                 tableContent += '<tr>';
                 tableContent += '<td>' + game.name + '</td>';
                 tableContent += '<td>' + game.gamename + '</td>';
                 tableContent += '<td>' + game.totalscore + '</td>';
                 tableContent += '<td><a id="joinlink" href="/gameplay">' + join + '</a></td>';
+                if (game.player1 == sessions.USER_SESSION)
+                {
+
+                    tableContent += '<td></td><form method="PUT" action="/dbapi/games?id' + game.id + '">' +
+                                    '<input type = "submit" name="submit" value="Delete"/></form></td>';
+                }
                 tableContent += '</tr>';
 
 

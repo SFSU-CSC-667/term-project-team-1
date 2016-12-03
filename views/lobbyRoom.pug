@@ -16,8 +16,7 @@ html.no-js(lang='en')
         link(rel='stylesheet', href='/stylesheets/demo.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
     body
-        form(method='POST' action='/logout')
-            h1 logout
+        form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
             p.login.button
                 input(type='submit', value='Logout')
 

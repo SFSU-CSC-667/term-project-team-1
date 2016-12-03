@@ -16,6 +16,11 @@ html.no-js(lang='en')
         link(rel='stylesheet', href='/stylesheets/demo.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
     body
+        form(method='POST' action='/logout')
+            h1 logout
+            p.login.button
+                input(type='submit', value='Logout')
+
         script(src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
         script(src='/js/main.js')
         .container

@@ -17,6 +17,9 @@ html.no-js(lang='en')
     body
         script(src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
         script(src='/js/main.js')
+        form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
+                p.login.button
+                    input(type='submit', value='Logout')
         .container
             header
                 h1 Create Games

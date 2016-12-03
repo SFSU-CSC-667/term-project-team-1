@@ -16,6 +16,9 @@ html.no-js(lang='en')
         link(rel='stylesheet', href='/stylesheets/demo.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
     body
+        form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
+            p.login.button
+                input(type='submit', value='Logout')
         script(src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
         script(src='/js/main.js')
         .container

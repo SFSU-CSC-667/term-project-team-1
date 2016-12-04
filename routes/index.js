@@ -8,7 +8,12 @@ var databaseManager = new db(router);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('test', {title: 'logIn/signIn'});
+    var incorrectPassword = "";
+    if (req.query.error == "1")
+    {
+        incorrectPassword = "Sorry, Your username or password are incorrect. Try again.";
+    }
+    res.render('test', {title: 'logIn/signIn', ip: incorrectPassword});
 });
 
 

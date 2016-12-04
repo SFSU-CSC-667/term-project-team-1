@@ -19,7 +19,9 @@ html.no-js(lang='en')
         script(src='/js/main.js')
         .container
             header
+
                 h1 TETRIS
+
             section
                 #container_demo
                     // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
@@ -27,6 +29,7 @@ html.no-js(lang='en')
                     a#tologin.hiddenanchor
                     #wrapper
                         #login.animate.form
+                            h3(style="color: #FF0000")= ip
                             form(method='POST' action='/dbAPI/login')
                                 h1 log in
 

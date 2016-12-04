@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
 
-    res.render('test', {error: 'This is a test error'});
+    res.render('test', {badLogin: 'This is a test error'});
 });
 
 

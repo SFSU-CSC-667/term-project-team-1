@@ -5,7 +5,12 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     //Do whatever...
-    res.render('test');
+    var error = "";
+    if (req.parameters.error == "1")
+    {
+        error = 'Your email or password are incorrect';
+    }
+    res.render('test', {error: error});
 });
 
 

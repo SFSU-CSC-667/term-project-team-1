@@ -25,9 +25,14 @@ html.no-js(lang='en')
                     // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
                     a#toregister.hiddenanchor
                     a#tologin.hiddenanchor
-                    #divError Your username or password are incorrect
                     #wrapper
                         #login.animate.form
+                            style.
+                                #divError {
+                                    font-size: 19px;
+                                    color: #464646;
+                                }
+                            #divError Your username or password are incorrect
                             form(method='POST' action='/dbAPI/login')
                                 h1 log in
 

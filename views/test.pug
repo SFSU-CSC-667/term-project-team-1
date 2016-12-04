@@ -27,12 +27,7 @@ html.no-js(lang='en')
                     a#tologin.hiddenanchor
                     #wrapper
                         #login.animate.form
-                            style.
-                                #divError {
-                                    font-size: 19px;
-                                    color: #464646;
-                                }
-                            #divError Your username or password are incorrect
+                            h3= Error
                             form(method='POST' action='/dbAPI/login')
                                 h1 log in
 

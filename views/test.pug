@@ -29,7 +29,7 @@ html.no-js(lang='en')
                         #login.animate.form
                             form(method='POST' action='/dbAPI/login')
                                 h1 log in
-                                h3
+                                #divError Your username or password are incorrect
                                 p.form-group
                                     label(for='username', data-icon='u')  Your email or username
                                     input#username(name='username', required='required', type='text', placeholder='myusername or mymail@mail.com')

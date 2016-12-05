@@ -83,13 +83,14 @@ function getSingleGame(req, res, next) {
 
 
 
+
 function createGame(req, res, next) {
     db.one('insert into games(player1, player2, gamename, isfull, winner, totalscore)' +
         'values(' + sessions.USER_SESSION + ', 0, ${name}, false, 0, 0) returning id', req.body)
         .then(function (data) {
             if (res.status(200)) {
                 sessions.GAME_SESSION = data.id;
-                res.redirect('/gameplay?joinedid=' + sessions.USER_SESSION + '&gameid=' + sessions.GAME_SESSION);
+                res.redirect('/gameplay?player1=' + sessions.USER_SESSION + '&player2=' + sessions.JOINED_USER_SESSION +'&gameid=' + sessions.GAME_SESSION);
             }
         })
         .catch(function (err) {

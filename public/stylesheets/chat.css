@@ -24,7 +24,7 @@ input
     margin:0 auto;
     padding-bottom:1px;
     background:#EBF4FB;
-    width:325px;
+    width:250px;
     border:1px solid #ACD8F0;
 }
 
@@ -36,13 +36,13 @@ input
     margin-bottom:10px;
     padding:10px;
     background:#fff;
-    height:500px;
-    width:250px;
+    height:200px;
+    width:200px;
     border:1px solid #ACD8F0;
     overflow:auto;
 }
 
-#submit { width: 625px; }
+#submit { width: 300px; }
 
 body {
     padding: 30px;

@@ -6,7 +6,7 @@ block content
                     input(type='submit', value='Logout')
         .container
             header
-                h1 Create Games
+                h1 Create A Game
             section
                 #container_demo
                     // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
@@ -15,7 +15,7 @@ block content
                     #wrapper
                         #createGame.animate.form
                             form(method='POST' action='/dbAPI/games')
-                                h1 create game
+
                                 p.form-group
                                     label(for='gameName', data-icon='p')  Your game name
                                     input#gameName(name='name', required='required', type='text', placeholder='Enter your game name')
@@ -24,5 +24,4 @@ block content
                                 p.change_link
                                     | Want to join a game ?
                                     a.to_register(href='lobbyRoom') Join
-
 

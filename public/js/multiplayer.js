@@ -3,6 +3,7 @@
  */
 
 
+
 $(document).ready(function()
 {
 
@@ -16,7 +17,9 @@ function initMultiplayerSocket ()
 {
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
-    multiplayerSocket.emit("multiplayer", gameid);
+    var player1 = getParameterByName("player1");
+    var player1Data = getPlayerInfo(player1);
+    multiplayerSocket.emit("multiplayer", player1Data.name);
 
 }
 
@@ -32,15 +35,25 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function getPlayer1Info ()
+function getPlayerInfo (playerid)
 {
+    var playerInfo = {id: 0, name: "", isPlaying: false, score: 0};
+    var playerurl = '/dbapi/users/' + playerid;
+    $.getJSON( playerurl , function (data) {
+        if (data['status'] == 'success') {
+            // For each item in our JSON, add a table row and cells to the content strin
+            var player = data['users'][0];
+            playerInfo.id = player.id;
+            playerInfo.name = player.name;
+            playerInfo.score = player.score;
+            playerInfo.isPlaying = false;
 
+        }
+        return player;
+    });
 }
 
-function getPlayer2Info ()
-{
 
-}
 
 function updatePlayerScore (playerid)
 {

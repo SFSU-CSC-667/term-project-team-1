@@ -44,7 +44,6 @@ function getAllGames(req, res, next) {
 }
 
 
-
 function getGamesByUser(req, res, next) {
     var userID = parseInt(req.params.id);
     db.any('select * from users join games on (users.id = $1 and games.player1 = $1)', userID)

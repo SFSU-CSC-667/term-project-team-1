@@ -15,7 +15,7 @@ var register = require('./routes/register');
 var lobbyRoom = require('./routes/lobbyRoom');
 var leaders = require('./routes/leaders');
 var gameplay = require('./routes/gameplay');
-var test = require('./routes/test');
+var test = require('./routes/login-page');
 var game = require('./routes/game');
 var logout = require('./routes/logout');
 

@@ -15,7 +15,6 @@ $(document).ready(function()
 function chatSocketIO()
 {
     var socket = io();
-    let userName = 'anonymous';
 
     $('#initial-form button').click( event =>
     {

@@ -10,7 +10,7 @@ var databaseManager = new db(router);
 router.get('/', function(req, res, next) {
 
     logout();
-    res.redirect('/test');
+    res.redirect('/login-page');
 });
 
 function logout ()

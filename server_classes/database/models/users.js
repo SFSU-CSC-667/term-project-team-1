@@ -83,7 +83,7 @@ function validateUser (req, res, next) {
                     session.EXPIRED_SESSION = 1; // expire the session
                     session.GAME_SESSION = -1; // expire game session.
                 }, session.SESSION_EXPIRING_MAX_TIME);
-                res.redirect('/game');
+                res.redirect('/create_game');
             }
 
         })

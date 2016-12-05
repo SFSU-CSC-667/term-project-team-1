@@ -6,6 +6,7 @@
 var app = require('../app');
 var debug = require('debug')('tetris:server');
 var http = require('http');
+var session = require('../server_classes/config/sessions');
 
 /**
  * Get port from environment and store in Express.
@@ -31,6 +32,8 @@ var io = require('socket.io').listen(server.listen(port));
 server.on('error', onError);
 server.on('listening', onListening);
 var users = {};
+var gameUsers = {};
+var socketIndex = 0;
 
 io.on('connection', function(socket)
 {
@@ -47,6 +50,14 @@ io.on('connection', function(socket)
 
     console.log('message: ' + msg);
   });
+  /* for multiplayer logic */
+  socket.on('multiplayer', function(playerjoinedID)
+  {
+      io.emit('multiplayer', users[socket.id], playerjoinedID);
+      gameUsers[socket.id] = playerjoinedID;
+      socketIndex++;
+      console.log('Users joined to tetris so far: ' + socketIndex);
+  });
 
   socket.on('disconnect', function()
   {
@@ -55,7 +66,6 @@ io.on('connection', function(socket)
     io.emit('new-users', users);
   })
 });
-
 
 /**
  * Normalize a port into a number, string, or false.

@@ -51,13 +51,15 @@ io.on('connection', function(socket)
     console.log('message: ' + msg);
   });
   /* for multiplayer logic */
-  socket.on('multiplayer', function(playerjoinedID)
+  socket.on('multiplayer', function(gameid)
   {
-      io.emit('multiplayer', users[socket.id], playerjoinedID);
-      gameUsers[socket.id] = playerjoinedID;
+      io.emit('multiplayer', users[socket.id], gameid);
+      gameUsers[socket.id] = gameid;
       socketIndex++;
       console.log('Users joined to tetris so far: ' + socketIndex + '\n' +
-                  'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION);
+                  'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION + "\n" +
+                  'Gameid joined: ' + gameid);
+
   });
 
   socket.on('disconnect', function()

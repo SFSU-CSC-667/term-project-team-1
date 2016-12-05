@@ -9,36 +9,36 @@ body      { font-family: Helvetica, sans-serif; }
 @media screen and (min-width:   0px) and (min-height:   0px)  {
 
 
-#upcoming { width:  187px; height:  187px; }
+#upcoming { width:  187px; height:  125px; }
 .canvas { width: 375px; height: 500px; }
 } /* 10px chunks */
 @media screen and (min-width: 400px) and (min-height: 400px)  {
 
-#upcoming { width:  187px; height:  187px; }
+#upcoming { width:  187px; height:  125px; }
 .canvas { width: 375px; height: 500px; }
 } /* 15px chunks */
 @media screen and (min-width: 500px) and (min-height: 500px)  {
 
-#upcoming { width: 187px; height: 187px; }
+#upcoming { width: 187px; height: 125px; }
 .canvas { width: 375px; height: 500px; }
 } /* 20px chunks */
 @media screen and (min-width: 600px) and (min-height: 600px)  {
 
-#upcoming { width: 187px; height: 187px; }
+#upcoming { width: 187px; height: 125px; }
 .canvas { width: 375px; height: 500px; }
 } /* 25px chunks */
 @media screen and (min-width: 700px) and (min-height: 700px)  {
 
-#upcoming { width: 187px; height: 187px; }
+#upcoming { width: 187px; height: 125px; }
 .canvas { width: 375px; height: 500px; }
 } /* 30px chunks */
 @media screen and (min-width: 800px) and (min-height: 800px)  {
 
-  #upcoming { width: 187px; height: 187px; }
+  #upcoming { width: 187px; height: 125px; }
   .canvas { width: 375px; height: 500px; }
 } /* 35px chunks */
 @media screen and (min-width: 900px) and (min-height: 900px)  {
 
-  #upcoming { width: 187px; height: 187px; }
+  #upcoming { width: 187px; height: 125px; }
   .canvas { width: 375px; height: 500px; }
 } /* 40px chunks */

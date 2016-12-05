@@ -7,17 +7,25 @@ block content
                 h1 Tetris
         div(style= 'height:500px;width:375px;float:left; margin-left: 200px; ')
             div(style= 'height:250px;width:375px; border: 2px solid black;')
-                #wrapper
+                    div
+                        form#name-form
+                            .form-group
+                                br
+                                br
+                                br
+                                br
+                                br
+                                label(for='name') Enter name for chat:
+                                br
+                                br
+                                input#name.form-control(type='text', placeholder='Name')
+                                button.btn.btn-primary(type='submit') Enter chat
                     #chatbox
-                    form(action='')
-                        input#m(name='m', type='text', size='25')
-                        input#submitmsg(name='submitmsg', type='submit', value='Send')
-                form.form-inline#initial-form
-                    .form-group
-                        label(for='who-are-you') Who are you?
-                        input#who-are-you.form-control(type='text', placeholder='Anonymous')
-                    button.btn.btn-primary(type='submit') Start Chatting
-
+                        | Welcome to chat!
+                    div
+                    form#formid(action='')
+                            input#m(name='m', type='text', size='53')
+                            input#submitmsg(name='submitmsg', type='submit', value='Send')
             div(style= ' background-image: url(/stylesheets/images/nextBlockBackground.jpg); height:250px;width:375px; border: 2px solid black;')
                 h1 next block
 
@@ -37,4 +45,3 @@ block content
                             | rows
                             span#rows 0
         div(style='background-color:white;clear:both')
-        script(src='/js/testGameplay.js')

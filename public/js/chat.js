@@ -8,7 +8,9 @@ $(document).ready(function()
     $('#wrapper').hide();
     $('#who-are-you').focus();
     chatSocketIO();
+
 });
+
 
 function chatSocketIO()
 {

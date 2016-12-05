@@ -9,11 +9,15 @@ router.get('/', function(req, res, next) {
     //Do whatever...
     if (sessions.USER_SESSION == -1) {
         res.render('test');
+
     }
     else
     {
         res.render('gameplay');
+
     }
 });
+
+
 
 module.exports = router;

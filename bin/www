@@ -63,12 +63,11 @@ server.on('listening', onListening);
 var users = {};
 /* Connection events */
 
-gameio.on('connection', function(client) {
+gameio.on('connection', function(socket) {
     console.log('New user connected');
 
-    client.on('gameplay', function (player) {
-        console.log(player.id + ' joined the game');
-
+    socket.on('game', function (player) {
+        console.log(player + ' joined the game');
     });
 });
 

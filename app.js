@@ -15,8 +15,8 @@ var register = require('./routes/register');
 var lobbyRoom = require('./routes/lobbyRoom');
 var leaders = require('./routes/leaders');
 var gameplay = require('./routes/gameplay');
-var loginPage = require('./routes/login-page');
-var game = require('./routes/create-game');
+var test = require('./routes/login-page');
+var game = require('./routes/game');
 var logout = require('./routes/logout');
 
 
@@ -42,8 +42,8 @@ app.use('/register', register);
 app.use('/leaders', leaders);
 app.use('/gameplay' , gameplay);
 app.use('/lobbyRoom' , lobbyRoom);
-app.use('/login-page' , loginPage);
-app.use('/create-game' , game);
+app.use('/login-page' , test);
+app.use('/game' , game);
 app.use('/logout', logout);
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }))
 

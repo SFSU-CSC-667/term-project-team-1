@@ -54,12 +54,12 @@ io.on('connection', function(socket)
   /* for multiplayer logic */
   socket.on('multiplayer', function(gameid)
   {
-      io.emit('multiplayer', users[socket.id], gameid);
-      gameUsers[socket.id] = gameid;
-      socketIndex++;
-      console.log('Users joined to tetris so far: ' + socketIndex + '\n' +
-                  'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION + "\n" +
-                  'Gameid joined: ' + gameid);
+    io.emit('multiplayer', users[socket.id], gameid);
+    gameUsers[socket.id] = gameid;
+    socketIndex++;
+    console.log('Users joined to tetris so far: ' + socketIndex + '\n' +
+        'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION + "\n" +
+        'Gameid joined: ' + gameid);
 
   });
 
@@ -101,8 +101,8 @@ function onError(error) {
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+      ? 'Pipe ' + port
+      : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -126,7 +126,7 @@ function onError(error) {
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }

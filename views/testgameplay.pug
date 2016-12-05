@@ -1,9 +1,6 @@
-doctype html
-html
-    head
-        title Multiplayer Tetris
-        link(rel='stylesheet', type='text/css', href='/stylesheets/testgameplay.css')
-    body
+extends testgameplay-layout
+
+block content
         #tetris
             canvas#canvas1.canvas
             #menu
@@ -17,6 +14,6 @@ html
                 p
                     | rows
                     span#rows 0
-            canvas#canvas2.canvas
-        script(src='/views/testGameplay.js')
+            script(src='/js/testGameplay.js')
+
 

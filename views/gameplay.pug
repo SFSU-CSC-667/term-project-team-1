@@ -22,6 +22,19 @@ block content
                 h1 next block
 
         div(style='background-image: url(/stylesheets/images/space.jpg); height:500px;width:375px; float:right; margin-right: 200px; border: 2px solid black;')
-            div
                 h2 player
+                #tetris
+                    canvas#canvas1.canvas
+                    #menu
+                        p#start
+                            a(href='javascript:play();') Press Space to Play.
+                        p
+                            canvas#upcoming
+                        p
+                            | score
+                            span#score 00000
+                        p
+                            | rows
+                            span#rows 0
         div(style='background-color:white;clear:both')
+        script(src='/js/testGameplay.js')

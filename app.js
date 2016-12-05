@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/dbAPI/users', users);
 app.use('/dbAPI/games', games);
-app.use('/dbAPI/login-page', login-page);
+app.use('/dbAPI/login-page', login);
 app.use('/register', register);
 app.use('/leaders', leaders);
 app.use('/gameplay' , gameplay);

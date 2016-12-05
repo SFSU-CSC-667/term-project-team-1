@@ -56,7 +56,8 @@ io.on('connection', function(socket)
       io.emit('multiplayer', users[socket.id], playerjoinedID);
       gameUsers[socket.id] = playerjoinedID;
       socketIndex++;
-      console.log('Users joined to tetris so far: ' + socketIndex);
+      console.log('Users joined to tetris so far: ' + socketIndex + '\n' +
+                  'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION);
   });
 
   socket.on('disconnect', function()

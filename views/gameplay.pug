@@ -5,7 +5,8 @@ block content
         div(style='background-color:white; width:100%')
             center
                 h1 Tetris
-        div(style= 'height:500px;width:375px;float:left; margin-left: 200px; ')
+        div(style= 'height:500px;width:375px;float:left; margin-left: 150px; ')
+
             div(style= 'height:250px;width:375px; border: 2px solid black;')
                     div
                         form#name-form
@@ -28,16 +29,18 @@ block content
                             input#submitmsg(name='submitmsg', type='submit', value='Send')
             div(style= ' background-image: url(/stylesheets/images/nextBlockBackground.jpg); height:250px;width:375px; border: 2px solid black;')
                 h1 next block
+                    p
+                        canvas#upcoming
 
-        div(style='background-image: url(/stylesheets/images/space.jpg); height:500px;width:375px; float:right; margin-right: 200px; border: 2px solid black;')
+        div
                 h2 player
-                #tetris
+
                     canvas#canvas1.canvas
-                    #menu
+
                         p#start
                             a(href='javascript:play();') Press Space to Play.
                         p
-                            canvas#upcoming
+
                         p
                             | score
                             span#score 00000

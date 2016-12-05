@@ -9,12 +9,15 @@ $(document).ready(function()
     initMultiplayerSocket();
 
 
+
 });
 
 function initMultiplayerSocket ()
 {
     var multiplayerSocket = io();
-    multiplayerSocket.emit("multiplayer", "Jose");
+    var gameid = getParameterByName("gameid");
+    multiplayerSocket.emit("multiplayer", gameid);
+
 }
 
 function getParameterByName(name, url) {

@@ -17,7 +17,9 @@ function initMultiplayerSocket ()
 {
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
-    multiplayerSocket.emit("multiplayer", gameid);
+    var player1 = getParameterByName("player1");
+    var player1Data = getPlayerInfo(player1);
+    multiplayerSocket.emit("multiplayer", player1Data.name);
 
 }
 
@@ -47,7 +49,7 @@ function getPlayerInfo (playerid)
             playerInfo.isPlaying = false;
 
         }
-        return player;
+        return playerInfo;
     });
 }
 

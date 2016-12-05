@@ -16,7 +16,7 @@ var lobbyRoom = require('./routes/lobbyRoom');
 var leaders = require('./routes/leaders');
 var gameplay = require('./routes/gameplay');
 var test = require('./routes/login-page');
-var game = require('./routes/create-game');
+var create_game = require('./routes/create_game');
 var logout = require('./routes/logout');
 
 
@@ -43,7 +43,7 @@ app.use('/leaders', leaders);
 app.use('/gameplay' , gameplay);
 app.use('/lobbyRoom' , lobbyRoom);
 app.use('/login-page' , test);
-app.use('/create-game' , game);
+app.use('/create_game' , create_game);
 app.use('/logout', logout);
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }))
 

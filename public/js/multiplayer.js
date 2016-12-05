@@ -17,9 +17,7 @@ function initMultiplayerSocket ()
 {
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
-    var player1 = getParameterByName("player1");
-    var player1Data = getPlayerInfo(player1);
-    multiplayerSocket.emit("multiplayer", player1Data.name);
+    multiplayerSocket.emit("multiplayer", gameid);
 
 }
 

@@ -10,7 +10,7 @@ var session = require('express-session');
 var index = require('./routes/index');
 var users = require('./routes/dbAPI/users');
 var games = require('./routes/dbAPI/games');
-var login = require('./routes/dbAPI/login-page');
+var login = require('./routes/dbAPI/login');
 var register = require('./routes/register');
 var lobbyRoom = require('./routes/lobbyRoom');
 var leaders = require('./routes/leaders');
@@ -37,13 +37,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/dbAPI/users', users);
 app.use('/dbAPI/games', games);
-app.use('/dbAPI/login-page', login);
+app.use('/dbAPI/login', login);
 app.use('/register', register);
 app.use('/leaders', leaders);
 app.use('/gameplay' , gameplay);
 app.use('/lobbyRoom' , lobbyRoom);
 app.use('/test' , test);
-app.use('/create-game' , create-game);
+app.use('/game' , game);
 app.use('/logout', logout);
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }))
 

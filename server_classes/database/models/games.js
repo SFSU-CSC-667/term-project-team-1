@@ -89,7 +89,7 @@ function createGame(req, res, next) {
         .then(function (data) {
             if (res.status(200)) {
                 sessions.GAME_SESSION = data.id;
-                res.redirect('/gameplay');
+                res.redirect('/gameplay?joinedid=' + sessions.USER_SESSION + '&gameid=' + sessions.GAME_SESSION);
             }
         })
         .catch(function (err) {

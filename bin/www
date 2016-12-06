@@ -85,7 +85,7 @@ io.on('connection', function(socket)
   {
       io.emit('updateScore', score, gameid);
     /* GET users listing. */
-
+      console.log("Outside Score in gameid: " +  gameid + ' updated to ' + score);
       db.none('update games set totalscore=$1 where id=$2',
           [parseInt(score), parseInt(gameid)])
           .then(function () {

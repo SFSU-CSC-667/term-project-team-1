@@ -25,7 +25,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 /* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnHeroku);
+var db = pgp(dbConnLocal);
 
 function getAllGames(req, res, next) {
     db.any('select * from users join games on (users.id = games.player1)')
@@ -43,7 +43,7 @@ function getAllGames(req, res, next) {
         });
 }
 
-
+/*
 function getGamesByUser(req, res, next) {
     var userID = parseInt(req.params.id);
     db.any('select * from users join games on (users.id = $1 and games.player1 = $1)', userID)
@@ -60,7 +60,7 @@ function getGamesByUser(req, res, next) {
             return next(err);
         });
 }
-
+*/
 
 function getSingleGame(req, res, next) {
     var gameID = parseInt(req.params.id);
@@ -98,10 +98,9 @@ function createGame(req, res, next) {
 }
 
 
-function updateGame(req, res, next) {
-    db.none('update games set player1=$1, player2=$2, gamename=$3, isFull=$4, totalscore=$5, winner=$6 where id=$7',
-        [parseInt(req.body.player1), parseInt(req.body.player2), req.body.name, req.body.isFull,
-                  parseInt(req.body.totalscore), parseInt(req.body.winner), parseInt(req.params.id)])
+function updateScore(req, res, next) {
+    db.none('update games set totalscore=$1 where id=$2',
+        [parseInt(req.body.totalscore), parseInt(req.params.id)])
         .then(function () {
             res.status(200)
                 .json({
@@ -113,6 +112,8 @@ function updateGame(req, res, next) {
             return next(err);
         });
 }
+
+
 
 function removeGame(req, res, next) {
     var gameID = parseInt(req.params.id);
@@ -137,9 +138,8 @@ function removeGame(req, res, next) {
 
 module.exports = {
     getAllGames: getAllGames,
-    getGamesByUser : getGamesByUser,
     getSingleGame: getSingleGame,
     createGame: createGame,
-    updateGame: updateGame,
+    updateScore: updateScore,
     removeGame: removeGame
 }

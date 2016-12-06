@@ -92,10 +92,10 @@ class DatabaseManager {
         const id = '/:id';
         const routeWithParam = route + id;
         this.router.get(route, this.games.getAllGames);
-        this.router.get(routeWithParam, this.games.getGamesByUser);
+        //this.router.get(routeWithParam, this.games.getGamesByUser);
         this.router.get(routeWithParam, this.games.getSingleGame);
         this.router.post(route, this.games.createGame);
-        this.router.put(routeWithParam, this.games.updateGame);
+        this.router.put(routeWithParam, this.games.updateScore);
         this.router.delete(routeWithParam, this.games.removeGame);
     }
 

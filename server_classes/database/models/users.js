@@ -26,7 +26,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 
 /* Heroku database connection */
 var dbConnHeroku = config.DATABASE_HEROKU_URL;
-var db = pgp(dbConnHeroku);
+var db = pgp(dbConnLocal);
 
 function getAllUsers(req, res, next) {
     db.any('select * from users')
@@ -112,7 +112,7 @@ function createUser(req, res, next) {
                     session.EXPIRED_SESSION = 1; // expire the session
                     session.GAME_SESSION = -1; // expire game session.
                 }, session.SESSION_EXPIRING_MAX_TIME);
-                res.redirect('/game');
+                res.redirect('/create_game');
             }
 
         })

@@ -5,6 +5,8 @@
 $(document).ready(function()
 {
     initMultiplayerSocket();
+    updateScore("13000");
+    changeScoreInPugAttribute("1", "13000");
 });
 
 function initMultiplayerSocket ()
@@ -51,31 +53,18 @@ function getPlayerInfo (playerid)
     });
 }
 
+
 function changeScoreInPugAttribute (playerid, newScore)
 {
     var player1 = getParameterByName("player1");
     var player2 = getParameterByName("player2");
-    // Empty content string
-    var tableContent = '';
+    if (playerid == player1) {
 
-
-                if (playerid == player1) {
-
-                    tableContent += '<tr>';
-                    tableContent += '<td>' + newScore + '</td>';
-                    tableContent += '<td> 0 </td>';
-                    tableContent += '</tr>';
-                }
-                else {
-                    tableContent += '<tr>';
-                    tableContent += '<td> 0 </td>';
-                    tableContent += '<td>' + newScore + '</td>';
-                    tableContent += '</tr>';
-                }
-
-
-                // Inject the whole content string into our existing HTML table
-                $('#score table tbody').html(tableContent);
+        $('#player1').html(newScore);
+    }
+    else {
+        $('#player2').html(newScore);
+    }
 }
 
 

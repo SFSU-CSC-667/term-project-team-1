@@ -14,7 +14,7 @@ block content
 
         div(style= 'height:500px;width:375px;float:left; margin-left: 150px; ')
 
-            div(style= 'height:250px;width:375px; border: 2px solid black;')
+            div(style= 'height:250px;width:375px; border: 2px solid black;box-shadow: 8px 8px 8px #999; border: 2px solid #333; ')
                     div
                         form#name-form
                             .form-group
@@ -32,9 +32,9 @@ block content
                         | Welcome to chat!
                     div
                     form#formid(action='')
-                            input#m(name='m', type='text', size='53')
+                            input#m(name='m', type='text', size='52')
                             input#submitmsg(name='submitmsg', type='submit', value='Send')
-            div(style= ' background-image: url(/stylesheets/images/nextBlockBackground.jpg); height:250px;width:375px; border: 2px solid black;')
+            div(style= ' background-image: url(/stylesheets/images/nextBlockBackground.jpg); height:250px;width:375px; border: 2px solid black; box-shadow: 8px 8px 8px #999; border: 2px solid #333;')
                 h1 next block
                     p
                         canvas#upcoming

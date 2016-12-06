@@ -4,7 +4,14 @@ block content
     div(style='width:100%')
         div(style='background-color:white; width:100%')
             center
-                h1 Tetris
+                h3 press space to begin
+                p(style='text-align:right; font-size: large;')
+                    |player 1 score
+                    span#score 00000
+                    p(style='text-align:right; font-size: large;')
+                        | player 2 score
+                        span#score2 00000
+
         div(style= 'height:500px;width:375px;float:left; margin-left: 150px; ')
 
             div(style= 'height:250px;width:375px; border: 2px solid black;')
@@ -33,17 +40,15 @@ block content
                         canvas#upcoming
 
         div
-                h2 player
+
 
                     canvas#canvas1.canvas
 
                         p#start
                             a(href='javascript:play();') Press Space to Play.
-                        p
 
-                        p
-                            | score
-                            span#score 00000
+
+
                         p
                             | rows
                             span#rows 0

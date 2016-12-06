@@ -24,8 +24,9 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 /* Heroku database connection */
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
-/* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnHeroku);
+var connection = dbConnHeroku || dbConnLocal;
+
+var db = pgp(connection);
 
 function getAllGames(req, res, next) {
     db.any('select * from users join games on (users.id = games.player1)')

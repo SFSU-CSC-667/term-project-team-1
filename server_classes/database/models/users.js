@@ -26,7 +26,9 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 
 /* Heroku database connection */
 var dbConnHeroku = config.DATABASE_HEROKU_URL;
-var db = pgp(dbConnHeroku);
+var connection = dbConnHeroku || dbConnLocal;
+
+var db = pgp(connection);
 
 function getAllUsers(req, res, next) {
     db.any('select * from users')

@@ -13,8 +13,8 @@ router.get('/', function(req, res, next) {
     {
         incorrectPassword = "Sorry, Your username or password are incorrect. Try again.";
     }
-    res.render('login-page', {title: 'logIn/signIn', ip: incorrectPassword});
-    //res.render('gameplay', {title: 'logIn/signIn', ip: incorrectPassword})
+    //res.render('login-page', {title: 'logIn/signIn', ip: incorrectPassword});
+    res.render('lobbyRoom', {title: 'logIn/signIn', ip: incorrectPassword})
 });
 
 

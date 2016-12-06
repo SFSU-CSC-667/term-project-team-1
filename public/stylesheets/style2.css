@@ -38,7 +38,7 @@ a.hiddenanchor{
 #wrapper{
     width: 60%;
     right: 0px;
-    min-height: 560px;
+    min-height: 250px;
     margin: 0px auto;
     width: 500px;
     position: relative;
@@ -85,6 +85,7 @@ a.hiddenanchor{
     background: -ms-linear-gradient(left, rgba(147,184,189,0) 0%,rgba(147,184,189,0.8) 20%,rgba(147,184,189,1) 53%,rgba(147,184,189,0.8) 79%,rgba(147,184,189,0) 100%);
     background: linear-gradient(left, rgba(147,184,189,0) 0%,rgba(147,184,189,0.8) 20%,rgba(147,184,189,1) 53%,rgba(147,184,189,0.8) 79%,rgba(147,184,189,0) 100%);
 }
+
 
 #wrapper p{
     margin-bottom:15px;
@@ -377,6 +378,7 @@ p.change_link{
 .lt8 #wrapper h1{
     color: #066A75;
 }
+
 .lt8 #register{
     display: none;
 }

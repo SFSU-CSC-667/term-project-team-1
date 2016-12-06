@@ -4,6 +4,7 @@ block content
         form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
                 p.login.button
                     input(type='submit', value='Logout')
+
         .container
             header
                 h1 Create A Game
@@ -24,4 +25,5 @@ block content
                                 p.change_link
                                     | Want to join a game ?
                                     a.to_register(href='lobbyRoom') Join
-
+            h1
+                a(href='leaders', style='font-size: 25px') Click to check out the leaderboards.

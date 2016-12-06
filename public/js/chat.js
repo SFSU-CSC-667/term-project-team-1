@@ -9,7 +9,6 @@ $(document).ready(function()
     $('#formid').hide();
     $('#name').focus();
     chatSocketIO();
-
 });
 
 

@@ -5,11 +5,6 @@
 $(document).ready(function()
 {
     initMultiplayerSocket();
-    var param = getParameterByName("gameid");
-    updateScore("22000", param);
-    //changeScore(1, "1000");
-
-
 });
 
 function initMultiplayerSocket ()
@@ -19,17 +14,12 @@ function initMultiplayerSocket ()
     multiplayerSocket.emit("multiplayer", gameid);
 }
 
-function updateScore (score, gameid)
+function updateScore (newscore)
 {
     var updatedScoreSocket = io();
+    var gameid = getParameterByName("gameid");
     updatedScoreSocket.emit("updateScore", score, gameid);
-
-
-
 }
-
-
-
 
 function getParameterByName(name, url) {
     if (!url) {
@@ -61,13 +51,15 @@ function getPlayerInfo (playerid)
     });
 }
 
-function changeScore (playerid, newScore)
+function changeScoreInPugAttribute (playerid, newScore)
 {
+    var player1 = getParameterByName("player1");
+    var player2 = getParameterByName("player2");
     // Empty content string
     var tableContent = '';
 
 
-                if (playerid == 1) {
+                if (playerid == player1) {
 
                     tableContent += '<tr>';
                     tableContent += '<td>' + newScore + '</td>';
@@ -83,33 +75,8 @@ function changeScore (playerid, newScore)
 
 
                 // Inject the whole content string into our existing HTML table
-                $('#scores table tbody').html(tableContent);
-
-
-
+                $('#score table tbody').html(tableContent);
 }
 
-function updateGameScore( gameid, newscore) {
-    jQuery.each( [ "put", "delete" ], function( i, method ) {
-        jQuery[ method ] = function( url, data, callback, type ) {
-            if ( jQuery.isFunction( data ) ) {
-                type = type || callback;
-                callback = data;
-                data = undefined;
-            }
 
-            return jQuery.ajax({
-                url: url,
-                type: method,
-                dataType: type,
-                data: data,
-                success: callback
-            });
-        };
-    });
-
-    $.put('http://localhost:3000/dbapi/games/' + gameid, {totalscore:newscore}, function(result){
-        console.log(result);
-    })
-}
 

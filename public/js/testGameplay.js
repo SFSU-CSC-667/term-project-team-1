@@ -15,7 +15,7 @@ var ucanvas = get('upcoming');
 var nx      = 10; // width of the court (in blocks)
     ny      = 20; // height of the court (in blocks)
     nu      = 5; // width/height of upcoming preview (in blocks)
-var KEY     = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40,ESC: 27,SPACE: 32 };
+var KEY     = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40,ESC: 27, TAB: 9 };
 var DIR     = { UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3, MIN: 0, MAX: 3 };
 var speed   = { start: 0.6, decrement: 0.005, min: 0.1 };
 
@@ -74,7 +74,7 @@ function keypress(event){
       case KEY.ESC:    end();                  handled = true; break;
     }
   }
-  if(event.keyCode==KEY.SPACE){
+  if(event.keyCode==KEY.TAB){
     play();
     handled=true;
   }

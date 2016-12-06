@@ -5,8 +5,6 @@
 $(document).ready(function()
 {
     initMultiplayerSocket();
-    updateScore("13000");
-    changeScoreInPugAttribute("1", "13000");
 });
 
 function initMultiplayerSocket ()

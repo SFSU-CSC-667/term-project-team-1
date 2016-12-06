@@ -6,7 +6,9 @@ $(document).ready(function()
 {
     initMultiplayerSocket();
     var param = getParameterByName("gameid");
-    updateGameScore(param, "600");
+    updateGameScore(param, "1000");
+    //changeScore(1, "1000");
+
 
 });
 
@@ -15,6 +17,13 @@ function initMultiplayerSocket ()
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
     multiplayerSocket.emit("multiplayer", gameid);
+}
+
+function updateScore (score, gameid)
+{
+    var updatedScoreSocket = io();
+    updatedScoreSocket.emit("updateScore", score, gameid);
+
 
 
 }
@@ -52,7 +61,33 @@ function getPlayerInfo (playerid)
     });
 }
 
+function changeScore (playerid, newScore)
+{
+    // Empty content string
+    var tableContent = '';
 
+
+                if (playerid == 1) {
+
+                    tableContent += '<tr>';
+                    tableContent += '<td>' + newScore + '</td>';
+                    tableContent += '<td> 0 </td>';
+                    tableContent += '</tr>';
+                }
+                else {
+                    tableContent += '<tr>';
+                    tableContent += '<td> 0 </td>';
+                    tableContent += '<td>' + newScore + '</td>';
+                    tableContent += '</tr>';
+                }
+
+
+                // Inject the whole content string into our existing HTML table
+                $('#scores table tbody').html(tableContent);
+
+
+
+}
 
 function updateGameScore( gameid, newscore) {
     jQuery.each( [ "put", "delete" ], function( i, method ) {
@@ -77,3 +112,4 @@ function updateGameScore( gameid, newscore) {
         console.log(result);
     })
 }
+

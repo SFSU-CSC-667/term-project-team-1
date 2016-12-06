@@ -25,7 +25,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 /* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnLocal);
+var db = pgp(dbConnHeroku);
 
 /**
  * Get port from environment and store in Express.

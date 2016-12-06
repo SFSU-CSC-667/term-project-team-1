@@ -61,7 +61,7 @@ function loadGamesList() {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
-            var games = data['games']
+            var games = sortByKey(data['games'], 'totalscore');
             for (var i = 0; i < games.length; i++) {
 
                 var game = games[i];

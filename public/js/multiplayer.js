@@ -6,7 +6,7 @@ $(document).ready(function()
 {
     initMultiplayerSocket();
     var param = getParameterByName("gameid");
-    updateGameScore(param, "1000");
+    updateScore("22000", param);
     //changeScore(1, "1000");
 
 

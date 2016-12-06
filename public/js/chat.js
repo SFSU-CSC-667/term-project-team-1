@@ -5,8 +5,9 @@
 // DOM Ready =============================================================
 $(document).ready(function()
 {
-    $('#wrapper').hide();
-    $('#who-are-you').focus();
+    $('#chatbox').hide();
+    $('#formid').hide();
+    $('#name').focus();
     chatSocketIO();
 
 });
@@ -16,14 +17,15 @@ function chatSocketIO()
 {
     var socket = io();
 
-    $('#initial-form button').click( event =>
+    $('#name-form button').click(event =>
     {
-        userName = $( '#who-are-you' ).val();
+        userName = $('#name').val();
         if(userName != '')
         {
             socket.emit('connected', userName);
-            $('#initial-form').hide();
-            $('#wrapper').show();
+            $('#name-form').hide();
+            $('#chatbox').show();
+            $('#formid').show();
             $('#m').focus();
             ready = true;
         }

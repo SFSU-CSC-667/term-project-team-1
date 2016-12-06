@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Games (
   id SERIAL NOT NULL,
   player1 INT NOT NULL,
   player2 INT NULL,
-  name VARCHAR(45) NULL,
+  gamename VARCHAR(45) NULL,
   isFull BOOLEAN NULL DEFAULT false,
   totalscore INT NULL DEFAULT 0,
   winner INT NULL,

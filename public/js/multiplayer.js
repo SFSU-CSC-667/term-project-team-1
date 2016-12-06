@@ -2,14 +2,11 @@
  * Created by jose ortiz on 12/4/16.
  */
 
-
-
 $(document).ready(function()
 {
-
     initMultiplayerSocket();
-
-
+    var param = getParameterByName("gameid");
+    updateGameScore(param, "600");
 
 });
 
@@ -19,7 +16,11 @@ function initMultiplayerSocket ()
     var gameid = getParameterByName("gameid");
     multiplayerSocket.emit("multiplayer", gameid);
 
+
 }
+
+
+
 
 function getParameterByName(name, url) {
     if (!url) {
@@ -53,13 +54,26 @@ function getPlayerInfo (playerid)
 
 
 
-function updatePlayerScore (playerid)
-{
+function updateGameScore( gameid, newscore) {
+    jQuery.each( [ "put", "delete" ], function( i, method ) {
+        jQuery[ method ] = function( url, data, callback, type ) {
+            if ( jQuery.isFunction( data ) ) {
+                type = type || callback;
+                callback = data;
+                data = undefined;
+            }
 
-}
+            return jQuery.ajax({
+                url: url,
+                type: method,
+                dataType: type,
+                data: data,
+                success: callback
+            });
+        };
+    });
 
-
-function updateGameScore (gameid)
-{
-
+    $.put('http://localhost:3000/dbapi/games/' + gameid, {totalscore:newscore}, function(result){
+        console.log(result);
+    })
 }

@@ -7,6 +7,25 @@ var app = require('../app');
 var debug = require('debug')('tetris:server');
 var http = require('http');
 var session = require('../server_classes/config/sessions');
+var promise = require('bluebird');
+
+
+var options = {
+    // Initialization Options
+    promiseLib: promise
+};
+var config = require('../server_classes/config/globals');
+var sessions = require('../server_classes/config/sessions');
+var pgp = require('pg-promise')(options);
+/* Local database connection */
+var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
+    config.DATABASE_PASSWORD + config.DATABASE_URL + config.DATABASE_NAME
+
+/* Heroku database connection */
+var dbConnHeroku = config.DATABASE_HEROKU_URL
+
+/* modify connection depending if you are in local or heroku database */
+var db = pgp(dbConnLocal);
 
 /**
  * Get port from environment and store in Express.
@@ -61,6 +80,25 @@ io.on('connection', function(socket)
         'Gameid joined: ' + gameid);
 
   });
+
+  socket.on('updateScore', function(score, gameid)
+  {
+      io.emit('updateScore', score, gameid);
+    /* GET users listing. */
+
+      db.none('update games set totalscore=$1 where id=$2',
+          [parseInt(score), parseInt(gameid)])
+          .then(function () {
+              console.log("Score in gameid: " +  gameid + ' updated to ' + score);
+          })
+          .catch(function (err) {
+              console.log(err);
+          });
+
+
+
+
+  })
 
   socket.on('disconnect', function()
   {

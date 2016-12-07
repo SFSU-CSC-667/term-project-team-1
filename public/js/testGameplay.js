@@ -12,12 +12,12 @@ var l = { size: 3, blocks: [0x4460, 0x0E80, 0xC440, 0x2E00], color: 'GAINSBORO' 
 //constants
 var canvas1  = get('canvas1');
 var ucanvas = get('upcoming');
-var nx      = 10; // width of the court (in blocks)
-    ny      = 20; // height of the court (in blocks)
-    nu      = 5; // width/height of upcoming preview (in blocks)
-var KEY     = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40,ESC: 27, TAB: 9 };
+var nx      = 10; // width of the canvas
+    ny      = 20; // height of the canvas
+    nu      = 5; // width and height of upcoming block
+var KEY     = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40,ESC: 27,TAB: 9 };
 var DIR     = { UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3, MIN: 0, MAX: 3 };
-var speed   = { start: 0.6, decrement: 0.005, min: 0.1 };
+var speed   = { start: 0.5, decrement: 0.08, min: 0.1 };
 
 var context1 = canvas1.getContext('2d');
 var ucontext = ucanvas.getContext('2d');
@@ -26,6 +26,7 @@ var dx, dy, actions,current,next,playing;
 var timePassed;
 var pieces = [];
 var step;
+var currentscore,displayedscore;
 
 if (!window.requestAnimationFrame) { // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
   window.requestAnimationFrame = window.webkitRequestAnimationFrame ||
@@ -103,7 +104,7 @@ function play(){
 
 function end(){
   show('start');
-  //setVisualScore();
+    setdisplayedScore();
   playing = false;
 }
 
@@ -126,7 +127,7 @@ function draw(){
 
   drawCourt();
   drawNext();
-  //drawScore();
+  drawScore();
   drawRows();
   context1.restore();
 }
@@ -180,9 +181,17 @@ function drawRows(){
     invalid.rows = false;
   }
 };
+function drawScore() {
+  if (invalid.currentscore) {
+    drawHtml('score', ("00000" + Math.floor(displayedscore)).slice(-5));
+    invalid.currentscore = false;
+  }
+};
 //*
 function update(time){
   if (playing) {
+    if (displayedscore < currentscore)
+      setdisplayedScore(displayedscore + 1);
     handle(actions.shift());
     timePassed=timePassed+time;
     if (timePassed > step) {
@@ -229,7 +238,7 @@ function rotate(){
 //*
 function drop(){
   if (!move(DIR.DOWN)) {
-
+    addScore(10);
     dropBlock();
     removeLines();
     setCurrentPiece(next);
@@ -263,9 +272,17 @@ function removeLines() {
   }
   if (n > 0) {
     addRows(n);
-    //addScore(100*Math.pow(2,n-1)); // 1: 100, 2: 200, 3: 400, 4: 800
+    addScore(100*Math.pow(2,n-1)); // 1: 100, 2: 200, 3: 400, 4: 800
   }
 }
+
+function removeLine(n) {
+      var x, y;
+      for(y = n ; y >= 0 ; --y) {
+        for(x = 0 ; x < nx ; ++x)
+          setBlock(x, y, (y == 0) ? null : getBlock(x, y-1));
+      }
+    }
 
 //iterate through the block
 function eachblock(type, x, y, dir, fn) {
@@ -297,6 +314,10 @@ function unoccupied(type, x, y, dir) {
 function hide(id){
   get(id).style.visibility = 'hidden';
 };
+function show(id)
+{
+  get(id).style.visibility = null;
+};
 function clearActions(){
   actions = [];
 };
@@ -304,11 +325,23 @@ function clearBlocks(){
   blocks = []; invalidate();
 };
 function clearScore(){
-  //setScore(0);
+  setScore(0);
+};
+function setScore(n){
+  currentscore = n;
+  setdisplayedScore(n);
+};
+function addScore(n){
+  currentscore = currentscore + n;
 };
 function clearRows(){
   setRows(0);
 };
+function setdisplayedScore(n){
+  displayedscore = n || currentscore;
+  invalidateScore();
+};
+
 function setCurrentPiece(piece){
   current = piece || randomPiece();
   invalidate();
@@ -342,6 +375,10 @@ function setBlock(x,y,type){
   invalidate();
 };
 
+function addRows(n){
+  setRows(rows + n);
+}
+
 function setNextPiece(piece)
 {
   next    = piece || randomPiece();
@@ -366,6 +403,8 @@ function invalidate(){
 function invalidateRows(){
   invalid.rows   = true;
 };
-
+function invalidateScore(){
+  invalid.currentscore  = true;
+};
 //JS is loaded;start listening to input
 run();

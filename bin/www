@@ -59,16 +59,26 @@ io.on('connection', function(socket)
   socket.on('connected', function(userName)
   {
     users[socket.id] = userName;
-    io.emit('new', '*** ' + userName + ' joined the chat. ***');
-    //io.emit('new-users', users);
+    io.emit('update', '*** ' + userName + ' joined the chat. ***');
+    io.emit('update', userName + " joined the server.");
+    //io.emit('update-users', users);
+
+    socket.on('disconnect', function()
+    {
+      io.emit('update', '*** ' + users[socket.id] + ' left the chat. ***');
+      io.emit('update', userName + " left the server.");
+      console.log('*** ' + users[socket.id] + ' left the chat. ***');
+      delete users[socket.id];
+      //io.emit('update-users', users);
+    });
   });
 
   socket.on('chat message', function(msg)
   {
     io.emit('chat message', users[socket.id], msg);
-
-    console.log('message: ' + msg);
+    console.log('message: ' + users[socket.id] + ':' + msg);
   });
+
   /* for multiplayer logic */
   socket.on('multiplayer', function(gameid)
   {
@@ -98,14 +108,16 @@ io.on('connection', function(socket)
 
 
 
-  })
+  });
 
-  socket.on('disconnect', function()
-  {
-    io.emit('new', '*** ' + users[socket.id] + ' left the chat. ***');
-    delete users[socket.id];
-    //io.emit('new-users', users);
-  })
+  // socket.on('disconnect', function()
+  // {
+  //   io.emit('update', '*** ' + users[socket.id] + ' left the chat. ***');
+  //   //io.emit('update','disconnected');
+  //   console.log('*** ' + users[socket.id] + ' left the chat. ***');
+  //   //delete users[socket.id];
+  //   //io.emit('update-users', users);
+  // });
 });
 
 /**

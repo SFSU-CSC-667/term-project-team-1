@@ -16,7 +16,7 @@ function chatSocketIO()
 {
     var socket = io();
 
-    $('#name-form button').click(event =>
+    $('#name-form').find('button').click(event =>
     {
         userName = $('#name').val();
         if(userName != '')
@@ -32,9 +32,11 @@ function chatSocketIO()
         return false;
     });
 
-    socket.on('new', function(msg)
+    socket.on('update', function(msg)
     {
-        $('#chatbox').append('<div style="text-align: center; color: blue">' + msg)
+        $('#chatbox').append('<div style="text-align: center; color: blue">' + msg).animate({
+            "scrollTop": $('#chatbox')[0].scrollHeight
+        }, "fast");
     });
 
     $('#submitmsg').click(function()
@@ -52,6 +54,7 @@ function chatSocketIO()
         }, "fast");
 
     });
+
 }
 
 

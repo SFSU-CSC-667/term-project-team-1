@@ -106,6 +106,8 @@ function end(){
   show('start');
     setdisplayedScore();
   playing = false;
+  var finalscore=document.getElementById('score').innerHTML;
+  updateScore(finalscore);
 }
 
 function reset(){

@@ -4,7 +4,8 @@ block content
     div(style='width:100%')
         div(style='background-color:white; width:100%')
             center
-                h3 press TAB to begin
+                h3
+                    p#start press TAB to begin
                 p(style='text-align:right; font-size: large;')
                     |Player 1 score
                     span#score 00000
@@ -41,16 +42,10 @@ block content
                         canvas#upcoming
 
         div
-
-
                     canvas#canvas1.canvas
 
-                        p#start
+                        p#start1
                             a(href='javascript:play();')
-
-
-
                         p
-                            | rows
-                            span#rows 0
+                            span#rogitws 0
         div(style='background-color:white;clear:both')

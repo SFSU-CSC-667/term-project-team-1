@@ -75,7 +75,7 @@ function keypress(event){
       case KEY.ESC:    end();                  handled = true; break;
     }
   }
-  if(event.keyCode==KEY.TAB){
+  else if(event.keyCode==KEY.TAB){
     play();
     handled=true;
   }

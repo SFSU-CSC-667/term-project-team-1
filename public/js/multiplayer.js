@@ -5,6 +5,7 @@
 $(document).ready(function()
 {
     initMultiplayerSocket();
+
 });
 
 function initMultiplayerSocket ()
@@ -18,7 +19,7 @@ function updateScore (newscore)
 {
     var updatedScoreSocket = io();
     var gameid = getParameterByName("gameid");
-    updatedScoreSocket.emit("updateScore", score, gameid);
+    updatedScoreSocket.emit("updateScore", newscore, gameid);
 }
 
 function getParameterByName(name, url) {

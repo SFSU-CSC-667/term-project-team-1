@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     var userid = getParameterByName("userid");
     var strLink = "lobbyRoom?userid=" + userid;
-    document.getElementById("joinlobby").setAttribute("href",strLink);
+    document.getElementById("lobbyRoom").setAttribute("href",strLink);
 
     
 });

@@ -75,14 +75,36 @@ function userJoined (msg)
 }
 
 
-
 var socket = io();
 
-socket.emit("connected", "jose");
-socket.on('broadcast',function(data){
+var gameid = getParameterByName("gameid");
+var owner = getParameterByName("player1");
+var opponent = getParameterByName("player2");
 
-    play();
+socket.emit("gameConnected", owner, opponent, gameid);
+
+var users = 1;
+socket.on('onConnect',function(data){
+    // if the ok button is clicked, result will be true (boolean)
+
+        // the user clicked ok
+        if (users <=2) {
+            play();
+
+            var title = document.getElementById('start').innerHTML;
+            if (title == "press TAB to begin") {
+                title = "The challenge has started....";
+            }
+            document.getElementById('start').innerHTML = title + '</br>' + data;
+            users++;
+        }
+
+
+
+
+
 });
+
 
 socket.on("join", function () {
     // here set up the new score for player 2.

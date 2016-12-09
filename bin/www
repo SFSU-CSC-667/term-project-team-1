@@ -55,34 +55,29 @@ var users = {};
 var gameUsers = {};
 var socketIndex = 0;
 
-io.on('connection', function(socket)
-{
-
+io.on('connection', function (socket) {
 
 
     socket.on('disconnect', function () {
         socketIndex--;
-        io.sockets.emit('broadcast',{ description: socketIndex + ' clients connected!'});
+        io.sockets.emit('broadcast', {description: socketIndex + ' clients connected!'});
     });
-  socket.on('connected', function(userName)
-  {
-    users[socket.id] = userName;
-    io.emit('update', '*** ' + userName + ' joined the chat. ***');
-    io.emit('update', userName + " joined the server.");
-    //io.emit('update-users', users);
+    socket.on('connected', function (userName) {
+        users[socket.id] = userName;
+        io.emit('update', '*** ' + userName + ' joined the chat. ***');
+        io.emit('update', userName + " joined the server.");
+        //io.emit('update-users', users);
 
-    socket.on('disconnect', function()
-    {
-      io.emit('update', '*** ' + users[socket.id] + ' left the chat. ***');
-      io.emit('update', userName + " left the server.");
-      console.log('*** ' + users[socket.id] + ' left the chat. ***');
-      delete users[socket.id];
-      //io.emit('update-users', users);
+        socket.on('disconnect', function () {
+            io.emit('update', '*** ' + users[socket.id] + ' left the chat. ***');
+            io.emit('update', userName + " left the server.");
+            console.log('*** ' + users[socket.id] + ' left the chat. ***');
+            delete users[socket.id];
+            //io.emit('update-users', users);
+        });
     });
-  });
 
-    socket.on('gameConnected', function(userid, opponent, gameid)
-    {
+    socket.on('gameConnected', function (userid, opponent, gameid) {
         console.log("Game id recieved " + gameid);
         socket.id = userid;
         gameUsers[socket.id] = gameid;
@@ -90,8 +85,7 @@ io.on('connection', function(socket)
         //io.to(socket).emit('onConnect',"The player with id " + opponent + " has joined to the game.");
 
         //io.emit('update-users', users);
-        socket.on('disconnect', function()
-        {
+        socket.on('disconnect', function () {
             io.emit('disconnected', '*** ' + opponent + ' left the game. ***');
             console.log('*** ' + opponent + ' left the server. ***');
             delete gameUsers[socket.id];
@@ -99,54 +93,60 @@ io.on('connection', function(socket)
         });
     });
 
-  socket.on('chat message', function(msg)
-  {
-    io.emit('chat message', users[socket.id], msg);
-    console.log('message: ' + users[socket.id] + ':' + msg);
-  });
+    socket.on('chat message', function (msg) {
+        io.emit('chat message', users[socket.id], msg);
+        console.log('message: ' + users[socket.id] + ':' + msg);
+    });
 
-  /* for multiplayer logic */
-  socket.on('multiplayer', function(gameid)
-  {
-    io.emit('multiplayer', users[socket.id], gameid);
-    gameUsers[socket.id] = gameid;
-    socketIndex++;
-    console.log('Users joined to tetris so far: ' + socketIndex + '\n' +
-        'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION + "\n" +
-        'Gameid joined: ' + gameid);
+    /* for multiplayer logic */
+    socket.on('multiplayer', function (gameid) {
+        io.emit('multiplayer', users[socket.id], gameid);
+        gameUsers[socket.id] = gameid;
+        socketIndex++;
+        console.log('Users joined to tetris so far: ' + socketIndex + '\n' +
+            'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION + "\n" +
+            'Gameid joined: ' + gameid);
 
 
-  });
+    });
 
 
-    socket.on('updateScore', function(score, gameid)
-    {
+    socket.on('updateScore', function (score, gameid) {
         io.emit('updateScore', score, gameid);
         /* GET users listing. */
-        console.log("Outside Score in gameid: " +  gameid + ' updated to ' + score);
+        console.log("Outside Score in gameid: " + gameid + ' updated to ' + score);
         db.none('update games set totalscore=$1 where id=$2',
             [parseInt(score), parseInt(gameid)])
             .then(function () {
-                console.log("Score in gameid: " +  gameid + ' updated to ' + score);
+                console.log("Score in gameid: " + gameid + ' updated to ' + score);
             })
             .catch(function (err) {
                 console.log(err);
             });
     });
 
+    socket.on('gameIsFull', function (data, gameid) {
+
+        /* GET users listing. */
+        if (data == true) {
+            console.log("Game is full");
+            db.none('update games set isFull=$1 where id=$2',
+                [data, parseInt(gameid)])
+                .then(function () {
+                    console.log("Game id: " + gameid + " Set to full ");
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        }
+    });
+
+    socket.on('rotate', function (code) {
+        console.log("user clicked a key: " + code);
+        io.sockets.emit('rotate', code);
+    })
 
 
-
-
-
-  // socket.on('disconnect', function()
-  // {
-  //   io.emit('update', '*** ' + users[socket.id] + ' left the chat. ***');
-  //   //io.emit('update','disconnected');
-  //   console.log('*** ' + users[socket.id] + ' left the chat. ***');
-  //   //delete users[socket.id];
-  //   //io.emit('update-users', users);
-  // });
 });
 
 /**
@@ -154,19 +154,19 @@ io.on('connection', function(socket)
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+    var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+    if (port >= 0) {
+        // port number
+        return port;
+    }
 
-  return false;
+    return false;
 }
 
 /**
@@ -174,27 +174,27 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
 
-  var bind = typeof port === 'string'
-      ? 'Pipe ' + port
-      : 'Port ' + port;
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
 }
 
 /**
@@ -202,10 +202,10 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-      ? 'pipe ' + addr
-      : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
 }
 

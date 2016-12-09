@@ -28,7 +28,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL;
 var connection = dbConnHeroku || dbConnLocal;
 
-var db = pgp(dbConnLocal);
+var db = pgp(dbConnHeroku);
 
 function getAllUsers(req, res, next) {
     db.any('select * from users')

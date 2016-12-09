@@ -16,9 +16,25 @@ $(document).ready(function() {
     // loads games list
     loadGamesList();
 
+    var userid = getParameterByName("userid");
+    var strLink = "lobbyRoom?userid=" + userid;
+    document.getElementById("joinlobby").setAttribute("href",strLink);
 
     
 });
+
+function getParameterByName(name, url) {
+    if (!url) {
+        url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 
 // Functions =============================================================
 
@@ -75,7 +91,7 @@ function loadGamesList() {
                 tableContent += '<td>' + game.name + '</td>';
                 tableContent += '<td>' + game.gamename + '</td>';
                 tableContent += '<td>' + game.totalscore + '</td>';
-                tableContent += '<td><a id="joinlink" href="/gameplay?player1=' + game.player1 + '&player2=' + game.player2 + '&gameid=' + game.id + '">' + join + '</a></td>';
+                tableContent += '<td><a id="joinlink" href="/gameplay?player1=' + game.player1 + '&player2=' + getParameterByName('userid') + '&gameid=' + game.id + '">' + join + '</a></td>';
                 tableContent += '</tr>';
                 // Inject the whole content string into our existing HTML table
                 $('#gamesList table tbody').html(tableContent);
@@ -91,6 +107,8 @@ function sortByKey(array, key) {
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
 }
+
+
 
 
 

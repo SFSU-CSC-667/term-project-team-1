@@ -28,7 +28,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL;
 var connection = dbConnHeroku || dbConnLocal;
 
-var db = pgp(connection);
+var db = pgp(dbConnLocal);
 
 function getAllUsers(req, res, next) {
     db.any('select * from users')
@@ -85,7 +85,7 @@ function validateUser (req, res, next) {
                     session.EXPIRED_SESSION = 1; // expire the session
                     session.GAME_SESSION = -1; // expire game session.
                 }, session.SESSION_EXPIRING_MAX_TIME);
-                res.redirect('/create_game');
+                res.redirect('/create_game?userid=' + data.id);
             }
 
         })
@@ -114,7 +114,7 @@ function createUser(req, res, next) {
                     session.EXPIRED_SESSION = 1; // expire the session
                     session.GAME_SESSION = -1; // expire game session.
                 }, session.SESSION_EXPIRING_MAX_TIME);
-                res.redirect('/create_game');
+                res.redirect('/create_game?userid=' + data.id);
             }
 
         })

@@ -25,7 +25,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 /* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnHeroku);
+var db = pgp(dbConnLocal);
 
 /**
  * Get port from environment and store in Express.
@@ -48,14 +48,22 @@ var server = http.createServer(app);
 /* Socket IO implementation for chat in gameplay page */
 
 var io = require('socket.io').listen(server.listen(port));
+var multiplayerIO = require('socket.io').listen(server.listen(port));
 server.on('error', onError);
 server.on('listening', onListening);
 var users = {};
-var gameUsers = {};
+var gameUsers = {player1: "", player2: ""};
 var socketIndex = 0;
 
 io.on('connection', function(socket)
 {
+
+
+
+    socket.on('disconnect', function () {
+        socketIndex--;
+        io.sockets.emit('broadcast',{ description: socketIndex + ' clients connected!'});
+    });
   socket.on('connected', function(userName)
   {
     users[socket.id] = userName;
@@ -89,26 +97,14 @@ io.on('connection', function(socket)
         'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION + "\n" +
         'Gameid joined: ' + gameid);
 
-  });
-
-  socket.on('updateScore', function(score, gameid)
-  {
-      io.emit('updateScore', score, gameid);
-    /* GET users listing. */
-      console.log("Outside Score in gameid: " +  gameid + ' updated to ' + score);
-      db.none('update games set totalscore=$1 where id=$2',
-          [parseInt(score), parseInt(gameid)])
-          .then(function () {
-              console.log("Score in gameid: " +  gameid + ' updated to ' + score);
-          })
-          .catch(function (err) {
-              console.log(err);
-          });
-
-
-
 
   });
+
+
+
+
+
+
 
   // socket.on('disconnect', function()
   // {
@@ -179,3 +175,40 @@ function onListening() {
       : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+multiplayerIO.on('connection', function(socket) {
+
+
+    socket.on('connected', function (userName) {
+        users[socket.id] = userName;
+        console.log("connecting multiplayer " + userName);
+        //io.emit('update-users', users);
+
+        socket.on('disconnect', function () {
+
+            delete users[socket.id];
+            //io.emit('update-users', users);
+        });
+    });
+
+    socket.on('updateScore', function(score, gameid)
+    {
+        multiplayerIO.emit('updateScore', score, gameid);
+        /* GET users listing. */
+        console.log("Outside Score in gameid: " +  gameid + ' updated to ' + score);
+        db.none('update games set totalscore=$1 where id=$2',
+            [parseInt(score), parseInt(gameid)])
+            .then(function () {
+                console.log("Score in gameid: " +  gameid + ' updated to ' + score);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+
+    multiplayerIO.sockets.emit("join", "joined");
+    multiplayerIO.sockets.emit("broadcast", "data");
+
+
+
+});

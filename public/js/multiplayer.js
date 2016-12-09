@@ -5,6 +5,8 @@
 $(document).ready(function()
 {
     initMultiplayerSocket();
+    userJoined("Hello Word");
+    initGame();
 
 });
 
@@ -65,6 +67,26 @@ function changeScoreInPugAttribute (playerid, newScore)
         $('#player2').html(newScore);
     }
 }
+
+function userJoined (msg)
+{
+    var socket = io();
+    socket.emit('joinGame', msg);
+}
+
+
+
+var socket = io();
+
+socket.emit("connected", "jose");
+socket.on('broadcast',function(data){
+
+    play();
+});
+
+socket.on("join", function () {
+    // here set up the new score for player 2.
+})
 
 
 

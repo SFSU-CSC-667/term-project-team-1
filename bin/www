@@ -59,6 +59,7 @@ var playerIndexPerRoom = 1;
 var playerJoined = "";
 var interval;
 var countdown = 30;
+var singlePlayer = true;
 
 
 
@@ -115,6 +116,7 @@ io.on('connection', function (socket) {
             // iterate over all the existing clients in this room
             for (var clientId in clientsInThisGame) {
                 if (clientId != socket.id) {
+                     singlePlayer = false;
                      player2 = gameUsers[socket.id].name;
                      player1 = gameUsers[clientId].name;
                      gameUsers[socket.id].nextPlayer = clientId;
@@ -156,11 +158,13 @@ io.on('connection', function (socket) {
                   if (countdown == -1)
                   {
                         countdown = 60;
-                        playingNow = games[room].whoIsPlaying;
-                        nextPlayer = gameUsers[playingNow].nextPlayer;
-                        nextPlayerName = gameUsers[nextPlayer].name;
-                        io.sockets.in(room).emit("nextPlayer", nextPlayerName, games[room].whoIsPlaying);
-                        games[room].whoIsPlaying = nextPlayer;
+                        if (singlePlayer == false) {
+                            playingNow = games[room].whoIsPlaying;
+                            nextPlayer = gameUsers[playingNow].nextPlayer;
+                            nextPlayerName = gameUsers[nextPlayer].name;
+                            io.sockets.in(room).emit("nextPlayer", nextPlayerName, games[room].whoIsPlaying);
+                            games[room].whoIsPlaying = nextPlayer;
+                        }
                   }
                   io.sockets.in(room).emit('updateTimer', countdown);
 

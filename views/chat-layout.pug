@@ -4,10 +4,12 @@ html
         title gameplayAndChat
         link(rel='stylesheet', href='/stylesheets/chat.css')
         link(rel='stylesheet', href='/stylesheets/testgameplay.css')
+        link(rel='stylesheet', href='/stylesheets/navBar.css')
         script(src="//cdn.socket.io/socket.io-1.4.5.js")
         script(src="//code.jquery.com/jquery-1.11.1.js")
         script(src='/js/chat.js')
         script(src='/js/multiplayer.js')
-    body
+    body.gameBackground
         block content
         script(src='/js/testGameplay.js')
+

@@ -1,29 +1,28 @@
 extends create-game-layout
 
 block content
-    form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
-        p.login.button
-            input(type='submit', value='Logout')
+        form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
+                p.login.button
+                    input(type='submit', value='Logout')
 
-    .container
-        header
-            h1 Create A Game
-                br
-                a(href='leaders', style='font-size: 25px') Click to check out the leaderboards.
-        section
-            #container_demo
-                // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
+        .container
+            header
+                h1 Create A Game
+
+            section
+                #container_demo
+                    // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
 
 
-                #wrapper
-                    #createGame.animate.form
-                        form(method='POST' action='/dbAPI/games')
+                    #wrapper
+                        #createGame.animate.form
+                            form(method='POST' action='/dbAPI/games')
 
-                            p.form-group
-                                label(for='gameName', data-icon='p')  Your game name
-                                input#gameName(name='name', required='required', type='text', placeholder='Enter your game name')
-                            p.login.button
-                                input(type='submit',  value='Create')
-                            p.change_link
-                                | Want to join a game ?
-                                a.to_register(href='lobbyRoom', id='joinlobby') Join
+                                p.form-group
+                                    label(for='gameName', data-icon='p')  Your game name
+                                    input#gameName(name='name', required='required', type='text', placeholder='Enter your game name')
+                                p.login.button
+                                    input(type='submit', value='Create')
+                                p.change_link
+                                    | Want to join a game ?
+                                    a.to_register(href='lobbyRoom') Join

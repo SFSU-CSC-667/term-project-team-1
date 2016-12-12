@@ -1,6 +1,7 @@
 extends chat-layout
 
 block content
+    script(src='/js/timer.js')
     div(style='width:100%')
         div(style='width:100%')
             div
@@ -12,53 +13,55 @@ block content
                     li
                         a.center.textOutline(href='leaders') LEADERBOARD
                     li
+        div(style=' width:100%')
             center
-                h3 press TAB to begin
+                h3
+                    p#start press TAB to begin
+                    p#playing Waiting for player...
+                    p#whoIsPlaying
                 p(style='text-align:right; font-size: large;')
-                    |Player 1 score
+                    | Player 1 score
                     span#score 00000
                     p(style='text-align:right; font-size: large;')
                         | Player 2 score
                         span#score2 00000
+                        p
+                            font#timer_id_font(size='30', color='blue')
+                                span#time 01:00
 
         div(style= 'height:500px;width:375px;float:left; margin-left: 150px; ')
 
             div(style= ' background-color:white; height:250px;width:375px; border: 2px solid black;box-shadow: 8px 8px 8px #999; border: 2px solid #333; ')
-                    div
-                        form#name-form
-                            .form-group
-                                br
-                                br
-                                br
-                                br
-                                br
-                                label(for='name') Enter name for chat:
-                                br
-                                br
-                                input#name.form-control(type='text', placeholder='Name')
-                                button.btn.btn-primary(type='submit') Enter chat
-                    #chatbox
-                        | Welcome to chat!
-                    div
-                    form#formid(action='')
-                            input#m(name='m', type='text', size='52')
-                            input#submitmsg(name='submitmsg', type='submit', value='Send')
+                div
+                    form#name-form
+                        .form-group
+                            br
+                            br
+                            br
+                            br
+                            br
+                            label(for='name') Enter name for chat:
+                            br
+                            br
+                            input#name.form-control(type='text', placeholder='Name')
+                            button.btn.btn-primary(type='submit') Enter chat
+                #chatbox
+                    p(style='text-align: center; font-size: large;') Welcome to chat!
+                    br
+                div
+                form#formid(action='')
+                    input#m(name='m', type='text', size='52')
+                    input#submitmsg(name='submitmsg', type='submit', value='Send')
             div(style= ' background-image: url(/stylesheets/images/image3.png); height:250px;width:375px; border: 2px solid black; box-shadow: 8px 8px 8px #999; border: 2px solid #333;')
                 h1.textOutline next block
                     p
                         canvas#upcoming
 
         div
+            canvas#canvas1.canvas
 
-
-                    canvas#canvas1.canvas
-
-                        p#start
-                            a(href='javascript:play();')
-
-
-
-                        p
-                            | rows
-                            span#rows 0
+                p#start1
+                    a(href='javascript:play();')
+                p
+                    span#rows 0
         div(style='background-color:white;clear:both')

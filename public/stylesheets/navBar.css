@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+.center{
+    text-align: center;
+    font-family: 'Audiowide', cursive;
+    /*font-style: italic;*/
+    font-weight: bolder;
+    color: white;
+
+    /*color: rgba(26,89,120,0.9);*/
+    display: block;
+    width: 15.625em;
+    /*height: 20px;*/
+    /*background-color: white;*/
+    text-decoration: none;
+}
+
+.center2{
+    width: 46.875em;
+
+    /*background-color: white;*/
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid black;
+}
+
+.navBarBackGround{
+    background-image: url("/stylesheets/images/image3.png");
+}
+
+li{
+
+    float: left;
+}
+
+a:hover, a:active{
+
+    background-color: rgba(26,89,120,0.9);
+    /*background-color: #EBF4FB;*/
+    /*background-image: url("/stylesheets/images/image3.png");*/
+}
+
+.textOutline
+{
+    color: white;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+}
+
+.gameBackground{
+    background-image: url("/stylesheets/images/nextBlockBackground.jpg");
+}
+
+
+
+
+

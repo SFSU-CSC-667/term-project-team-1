@@ -1,25 +1,25 @@
 extends leaders-layout
 
 block content
-        form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
-            p.login.button
-                input(type='submit', value='Logout')
+    form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
+        p.login.button
+            input(type='submit', value='Logout')
 
-        .container
-            header
-                h1 LEADERBOARD
-                    br
-                    a(href='create_game', style='font-size: 25px') Click to go back to create game.
-            section
-                #wrapper
-                    #login.animate
-                        #userList
-                            table
-                                thead
-                                    th Position
-                                    th Player
-                                    th Email
-                                    th Score
-                                    tbody
+    .container
+        header
+            h1 LEADERBOARD
+                br
+                a(href='create_game', style='font-size: 25px') Click to go back to create game.
+        section
+            #wrapper
+                #login.animate
+                    #userList
+                        table
+                            thead
+                                th Position
+                                th Player
+                                th Email
+                                th Score
+                                tbody
 
 

@@ -1,50 +1,50 @@
 extends login-page-layout
 
 block content
-        .container
-            header
+    .container
+        header
 
-                h1 TETRIS
+            h1 TETRIS
 
-            section
-                #container_demo
-                    // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
-                    a#toregister.hiddenanchor
-                    a#tologin.hiddenanchor
-                    #wrapper
-                        #login.animate.form
-                            h3(style="color: #FF0000")= ip
-                            form(method='POST' action='/dbAPI/login')
-                                h1 log in
+        section
+            #container_demo
+                // hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4
+                a#toregister.hiddenanchor
+                a#tologin.hiddenanchor
+                #wrapper
+                    #login.animate.form
+                        h3(style="color: #FF0000")= ip
+                        form(method='POST' action='/dbAPI/login')
+                            h1 log in
 
-                                p.form-group
-                                    label(for='username', data-icon='u')  Your email or username
-                                    input#username(name='username', required='required', type='text', placeholder='myusername or mymail@mail.com')
-                                p
-                                    label(for='password', data-icon='p')  Your password
-                                    input#password(name='password', required='required', type='password', placeholder='eg. X8df!90EO')
-                                p.keeplogin
-                                    input#loginkeeping(type='checkbox', name='loginkeeping', value='loginkeeping')
-                                    label(for='loginkeeping') Keep me logged in
-                                p.login.button
-                                    input(type='submit', value='Login')
-                                p.change_link
-                                    | Not a member yet ?
-                                    a.to_register(href='#toregister') Join us
-                        #register.animate.form
-                            form(method='POST' action='/dbAPI/users')
-                                h1  sign up
-                                p.form-group
-                                    label(for='name') Name:
-                                    input#name.form-control(type='text', placeholder='first and last' name='name')
-                                p.form-group
-                                    label(for='email') Email:
-                                    input#email.form-control(type='email', placeholder='name@email.com' name='email')
-                                p.form-group
-                                    label(for='pw') Password:
-                                    input#pw.form-control(type='password' name='password')
-                                p.signin.button
-                                    input(type='submit', value='Sign up')
-                                p.change_link
-                                    | Already a member ?
-                                    a.to_register(href='#tologin')  Go and log in
+                            p.form-group
+                                label(for='username', data-icon='u')  Your email or username
+                                input#username(name='username', required='required', type='text', placeholder='myusername or mymail@mail.com')
+                            p
+                                label(for='password', data-icon='p')  Your password
+                                input#password(name='password', required='required', type='password', placeholder='eg. X8df!90EO')
+                            p.keeplogin
+                                input#loginkeeping(type='checkbox', name='loginkeeping', value='loginkeeping')
+                                label(for='loginkeeping') Keep me logged in
+                            p.login.button
+                                input(type='submit', value='Login')
+                            p.change_link
+                                | Not a member yet ?
+                                a.to_register(href='#toregister') Join us
+                    #register.animate.form
+                        form(method='POST' action='/dbAPI/users')
+                            h1  sign up
+                            p.form-group
+                                label(for='name') Name:
+                                input#name.form-control(type='text', placeholder='first and last' name='name')
+                            p.form-group
+                                label(for='email') Email:
+                                input#email.form-control(type='email', placeholder='name@email.com' name='email')
+                            p.form-group
+                                label(for='pw') Password:
+                                input#pw.form-control(type='password' name='password')
+                            p.signin.button
+                                input(type='submit', value='Sign up')
+                            p.change_link
+                                | Already a member ?
+                                a.to_register(href='#tologin')  Go and log in

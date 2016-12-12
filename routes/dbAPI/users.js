@@ -6,10 +6,9 @@ var databaseManager = new db(router);
 
 /* GET users listing. */
 
-router.get('/', function(req, res, next) {
-  //Do whatever...
+router.get('/', function (req, res, next) {
+    //Do whatever...
 });
-
 
 
 module.exports = router;

@@ -6,14 +6,14 @@ var router = express.Router();
 
 /* GET users listing. */
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.render('register');
 });
 
 // POST http://localhost:8080/api/users
 // parameters sent with
-router.post('/dbAPI/users', function(req, res) {
-    var email  = req.body.email;
+router.post('/dbAPI/users', function (req, res) {
+    var email = req.body.email;
     var name = req.body.name;
     var password = req.body.password;
 

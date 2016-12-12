@@ -1,45 +1,139 @@
-body      { font-family: Helvetica, sans-serif; }
+body {
+    font-family: Helvetica, sans-serif;
+}
 
-.canvas   { display: inline-block; vertical-align: top; background: url(/stylesheets/images/space.jpg); box-shadow: 8px 8px 8px #999; border: 2px solid #333; }
+.canvas {
+    display: inline-block;
+    vertical-align: top;
+    background: url(/stylesheets/images/space.jpg);
+    box-shadow: 8px 8px 8px #999;
+    border: 2px solid #333;
+}
 
-#menu p a { text-decoration: none; color: rgba(26,89,120,0.9);}
-#upcoming { display: block; margin: 0 auto; background-color: #E0E0E0; }
-#score    { color: rgba(26,89,120,0.9); font-weight: bold; vertical-align: middle; }
-#score2   { color: rgba(26,89,120,0.9); font-weight: bold; vertical-align: middle; }
-#rows     { color: rgba(26,89,120,0.9); font-weight: bold; vertical-align: middle; }
-@media screen and (min-width:   0px) and (min-height:   0px)  {
+#menu p a {
+    text-decoration: none;
+    color: rgba(26, 89, 120, 0.9);
+}
 
+#upcoming {
+    display: block;
+    margin: 0 auto;
+    background-color: #E0E0E0;
+}
 
-#upcoming { width:  187px; height:  125px; }
-.canvas { width: 375px; height: 500px; }
-} /* 10px chunks */
-@media screen and (min-width: 400px) and (min-height: 400px)  {
+#score {
+    color: rgba(26, 89, 120, 0.9);
+    font-weight: bold;
+    vertical-align: middle;
+}
 
-#upcoming { width:  187px; height:  125px; }
-.canvas { width: 375px; height: 500px; }
-} /* 15px chunks */
-@media screen and (min-width: 500px) and (min-height: 500px)  {
+#score2 {
+    color: rgba(26, 89, 120, 0.9);
+    font-weight: bold;
+    vertical-align: middle;
+}
 
-#upcoming { width: 187px; height: 125px; }
-.canvas { width: 375px; height: 500px; }
-} /* 20px chunks */
-@media screen and (min-width: 600px) and (min-height: 600px)  {
+#rows {
+    color: rgba(26, 89, 120, 0.9);
+    font-weight: bold;
+    vertical-align: middle;
+}
 
-#upcoming { width: 187px; height: 125px; }
-.canvas { width: 375px; height: 500px; }
-} /* 25px chunks */
-@media screen and (min-width: 700px) and (min-height: 700px)  {
+@media screen and (min-width: 0px) and (min-height: 0px) {
 
-#upcoming { width: 187px; height: 125px; }
-.canvas { width: 375px; height: 500px; }
-} /* 30px chunks */
-@media screen and (min-width: 800px) and (min-height: 800px)  {
+    #upcoming {
+        width: 187px;
+        height: 125px;
+    }
 
-  #upcoming { width: 187px; height: 125px; }
-  .canvas { width: 375px; height: 500px; }
-} /* 35px chunks */
-@media screen and (min-width: 900px) and (min-height: 900px)  {
+    .canvas {
+        width: 375px;
+        height: 500px;
+    }
+}
 
-  #upcoming { width: 187px; height: 125px; }
-  .canvas { width: 375px; height: 500px; }
-} /* 40px chunks */
+/* 10px chunks */
+@media screen and (min-width: 400px) and (min-height: 400px) {
+
+    #upcoming {
+        width: 187px;
+        height: 125px;
+    }
+
+    .canvas {
+        width: 375px;
+        height: 500px;
+    }
+}
+
+/* 15px chunks */
+@media screen and (min-width: 500px) and (min-height: 500px) {
+
+    #upcoming {
+        width: 187px;
+        height: 125px;
+    }
+
+    .canvas {
+        width: 375px;
+        height: 500px;
+    }
+}
+
+/* 20px chunks */
+@media screen and (min-width: 600px) and (min-height: 600px) {
+
+    #upcoming {
+        width: 187px;
+        height: 125px;
+    }
+
+    .canvas {
+        width: 375px;
+        height: 500px;
+    }
+}
+
+/* 25px chunks */
+@media screen and (min-width: 700px) and (min-height: 700px) {
+
+    #upcoming {
+        width: 187px;
+        height: 125px;
+    }
+
+    .canvas {
+        width: 375px;
+        height: 500px;
+    }
+}
+
+/* 30px chunks */
+@media screen and (min-width: 800px) and (min-height: 800px) {
+
+    #upcoming {
+        width: 187px;
+        height: 125px;
+    }
+
+    .canvas {
+        width: 375px;
+        height: 500px;
+    }
+}
+
+/* 35px chunks */
+@media screen and (min-width: 900px) and (min-height: 900px) {
+
+    #upcoming {
+        width: 187px;
+        height: 125px;
+    }
+
+    .canvas {
+        width: 375px;
+        height: 500px;
+    }
+}
+
+/* 40px chunks */

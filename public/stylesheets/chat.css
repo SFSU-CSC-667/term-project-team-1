@@ -1,48 +1,45 @@
 @import url('https://fonts.googleapis.com/css?family=Audiowide');
 
-body
-{
-    font:12px arial;
+body {
+    font: 12px arial;
     color: #222;
-    text-align:center;
-    padding:30px;
+    text-align: center;
+    padding: 30px;
 }
 
-form, p, span
-{
-    margin:0;
-    padding:0;
+form, p, span {
+    margin: 0;
+    padding: 0;
 }
 
-input
-{
-    font:12px arial;
+input {
+    font: 12px arial;
 }
 
-#wrapper
-{
-    margin:0 auto;
-    padding-bottom:1px;
-    background:#EBF4FB;
-    width:250px;
-    border:1px solid #ACD8F0;
+#wrapper {
+    margin: 0 auto;
+    padding-bottom: 1px;
+    background: #EBF4FB;
+    width: 250px;
+    border: 1px solid #ACD8F0;
 }
 
-#chatbox
-{
+#chatbox {
     list-style-type: none;
-    text-align:left;
-    margin:0 auto;
-    margin-bottom:3px;
-    padding:10px;
-    background:#fff;
-    height:200px;
-    width:353px;
-    border:1px solid #ACD8F0;
-    overflow:auto;
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 3px;
+    padding: 10px;
+    background: #fff;
+    height: 200px;
+    width: 353px;
+    border: 1px solid #ACD8F0;
+    overflow: auto;
 }
 
-#submit { width: 300px; }
+#submit {
+    width: 300px;
+}
 
 body {
     padding: 30px;
@@ -50,57 +47,66 @@ body {
 }
 
 h2 {
-    margin:0 0 .5em 0;
+    margin: 0 0 .5em 0;
 }
 
 a {
     color: #00B7FF;
 }
+
 /*delete wrapper later*/
 #wrapper2 {
-    padding-left:312px;
-    position:relative;
+    padding-left: 312px;
+    position: relative;
 }
 
 #userList {
-    margin:0 0 30px 0;
+    margin: 0 0 30px 0;
 }
+
 #userList table {
-    border-collapse:separate;
-    border-spacing:1px;
-    background:#CCC;
+    border-collapse: separate;
+    border-spacing: 1px;
+    background: #CCC;
 }
+
 #userList table th {
-    background:#EEE;
-    font-weight:600;
-    padding:10px 20px;
-    text-align:center;
+    background: #EEE;
+    font-weight: 600;
+    padding: 10px 20px;
+    text-align: center;
 }
+
 #userList table tbody {
-    padding:0; margin:0;
-    border-collapse:collapse;
-    border-spacing:0px;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+    border-spacing: 0px;
 }
+
 #userList table td {
-    background:#FFF;
-    padding:5px 10px;
-    text-align:center;
+    background: #FFF;
+    padding: 5px 10px;
+    text-align: center;
 }
 
 #userInfo {
-    width:250px;
-    position:absolute;
-    top:0; left:0;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
+
 #userInfo p {
-    padding:15px;
-    border:1px solid #CCC;
-    background:rgba(80,120,255,0.05);
+    padding: 15px;
+    border: 1px solid #CCC;
+    background: rgba(80, 120, 255, 0.05);
 }
 
 fieldset {
-    border:0;
-    padding:0; margin:0;
+    border: 0;
+    padding: 0;
+    margin: 0;
 }
 
 /*
@@ -134,19 +140,19 @@ fieldset {
 
 }
 */
-h1{
+h1 {
     font-family: 'Audiowide', cursive;
-    color: rgba(26,89,120,0.9);
+    color: rgba(26, 89, 120, 0.9);
 }
 
-h2{
-    font-family: 'Audiowide' , cursive ;
+h2 {
+    font-family: 'Audiowide', cursive;
     color: white;
 }
 
-h3{
+h3 {
     font-family: 'Audiowide', cursive;
-    color: rgba(26,89,120,0.9);
+    color: rgba(26, 89, 120, 0.9);
     font-size: x-large;
 }
 

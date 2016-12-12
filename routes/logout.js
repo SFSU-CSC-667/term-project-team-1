@@ -7,16 +7,14 @@ var databaseManager = new db(router);
 
 /* GET users listing. */
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
     logout();
     res.redirect('/login-page');
 });
 
-function logout ()
-{
-    if (session.EXPIRED_SESSION == 0 )
-    {
+function logout() {
+    if (session.EXPIRED_SESSION == 0) {
         session.USER_SESSION = -1; // remove user session
         session.JOINED_USER_SESSION = -1; // remove session from joined user.
         session.EXPIRED_SESSION = 1; // expire the session

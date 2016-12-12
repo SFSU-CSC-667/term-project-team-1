@@ -3,13 +3,11 @@ var router = express.Router();
 
 /* GET users listing. */
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
-        res.render('login-page');
+    res.render('login-page');
 
 });
-
-
 
 
 module.exports = router;

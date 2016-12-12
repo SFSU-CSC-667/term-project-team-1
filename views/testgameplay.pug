@@ -1,19 +1,20 @@
 extends testgameplay-layout
 
 block content
-        #tetris
-            canvas#canvas1.canvas
-            #menu
-                p#start
-                    a(href='javascript:play();') Press Space to Play.
-                p
-                    canvas#upcoming
-                p
-                    | score
-                    span#score 00000
-                p
-                    | rows
-                    span#rows 0
-            script(src='/js/testGameplay.js')
+    #tetris
+        canvas#canvas1.canvas
+        #menu
+            p#start
+                a#title(href='javascript:play();') Press Space to Play.
+                h1#joined Playing against myself
+            p
+                canvas#upcoming
+            p
+                | score
+                span#score 00000
+            p
+                | rows
+                span#rows 0
+        script(src='/js/testGameplay.js')
 
 

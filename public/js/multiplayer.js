@@ -9,6 +9,8 @@ $(document).ready(function () {
 
 });
 var gameisFull = false;
+var isPlaying = false;
+var gameSubtitle = "";   // will show in screen info about the players
 function initMultiplayerSocket() {
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
@@ -76,47 +78,88 @@ function userJoined(msg) {
 }
 
 
+
+
+
+
+
 var socket = io();
 
 var gameid = getParameterByName("gameid");
 var owner = getParameterByName("player1");
 var opponent = getParameterByName("player2");
 
-socket.emit("gameConnected", owner, opponent, gameid);
+// let's assume that the client page, once rendered, knows what room it wants to join
+var room = gameid;
 
-var users = 1;
-socket.on('onConnect', function (data) {
-    // if the ok button is clicked, result will be true (boolean)
+/*
+ * Emits using socket client
+ */
 
-    // the user clicked ok
-    if (users <= 2) {
-        play();
 
-        var title = document.getElementById('start').innerHTML;
-        if (title == "press TAB to begin") {
-            title = "The challenge has started....";
-        }
-        document.getElementById('start').innerHTML = title + '</br>' + data;
-        users++;
-    }
-    else {
-        gameisFull = true;
 
-    }
+
+
+/*
+ *  Socket io mildware
+ */
+socket.on('connect', function() {
+    // Connected, let's sign-up for to receive messages for this room
+    socket.emit('joinGame', room);
 });
 
+socket.on("userJoined", function (data) {
+    alert(data + " joined to game");
+})
 
-/* client multiplayer emits automatically without callinf functions*/
+socket.on("addPlayerToGame", function (data) {
+    document.getElementById('playing').innerHTML = data + '</b>';
+    socket.emit("onGame", room);
+})
 
-socket.emit("gameIsFull", gameisFull, gameid);
+socket.on('playGame', function(data) {
+    play();
+    socket.emit('resetTimer', room);
+});
 
-// here set up the new score for player 2.
+socket.on('updateTimer', function (data) {
+    var time = data;
+    if (data < 10)
+    {
+        time = '0' + data;
+    }
+    document.querySelector('#time').innerHTML = '00:' + time + ' seconds left' ;
+
+});
+
+socket.on("waitUntilNextPlayer", function (data) {
+
+})
+
+
+
+socket.on('nextPlayer', function (data, socketid) {
+
+    document.getElementById('whoIsPlaying').innerHTML = data + " is playing now....";
+    if (socket.id == socketid)
+    {
+        alert("You are up for the next round...");
+        // enable keys and camvas, also enable scores
+
+
+    }
+    else
+    {
+        alert("Your time for this round is up. Close the box to see the next player round");
+        // disable keys or cambas, also disable score
+    }
+
+})
 
 document.onkeydown = function (e) {
     var code = 0;
     switch (e.keyCode) {
         case 37:
-
             code = 37;
             break;
         case 38:
@@ -128,17 +171,17 @@ document.onkeydown = function (e) {
             code = 39;
             break;
         case 40:
-
             code = 40;
             break;
     }
 
-    socket.emit("rotate", code);
+    socket.emit("nextKey", code);
 };
 
-socket.on("rotate", function (code) {
-    if (owner != opponent && opponent > 0) {
-        switch (code) {
+
+socket.on('nextKey', function (code) {
+
+      switch (code) {
             case 37:
 
                 move(DIR.LEFT);
@@ -155,8 +198,13 @@ socket.on("rotate", function (code) {
 
                 break;
         }
-    }
+
+
 });
+
+
+
+
 
 
 

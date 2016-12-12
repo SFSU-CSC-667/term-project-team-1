@@ -26,7 +26,7 @@ var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 var connection = dbConnHeroku || dbConnLocal;
 
-var db = pgp(connection);
+var db = pgp(dbConnHeroku);
 
 function getAllGames(req, res, next) {
     db.any('select * from users join games on (users.id = games.player1)')
@@ -45,23 +45,23 @@ function getAllGames(req, res, next) {
 }
 
 /*
-function getGamesByUser(req, res, next) {
-    var userID = parseInt(req.params.id);
-    db.any('select * from users join games on (users.id = $1 and games.player1 = $1)', userID)
-        .then(function (data) {
-            var jsonData = {
-                status: 'success',
-                games: data,
-                message: 'Retrieved all games for this user'
-            }
-            res.status(200)
-                .json(jsonData);
-        })
-        .catch(function (err) {
-            return next(err);
-        });
-}
-*/
+ function getGamesByUser(req, res, next) {
+ var userID = parseInt(req.params.id);
+ db.any('select * from users join games on (users.id = $1 and games.player1 = $1)', userID)
+ .then(function (data) {
+ var jsonData = {
+ status: 'success',
+ games: data,
+ message: 'Retrieved all games for this user'
+ }
+ res.status(200)
+ .json(jsonData);
+ })
+ .catch(function (err) {
+ return next(err);
+ });
+ }
+ */
 
 function getSingleGame(req, res, next) {
     var gameID = parseInt(req.params.id);
@@ -81,16 +81,14 @@ function getSingleGame(req, res, next) {
 }
 
 
-
-
-
 function createGame(req, res, next) {
     db.one('insert into games(player1, player2, gamename, isfull, winner, totalscore)' +
         'values(' + sessions.USER_SESSION + ', 0, ${name}, false, 0, 0) returning id', req.body)
         .then(function (data) {
             if (res.status(200)) {
                 sessions.GAME_SESSION = data.id;
-                res.redirect('/gameplay?player1=' + sessions.USER_SESSION + '&player2=' + sessions.JOINED_USER_SESSION +'&gameid=' + sessions.GAME_SESSION);
+                res.redirect('/gameplay?player1=' + sessions.USER_SESSION + '&playerName=' + sessions.USER_SESSION_NAME +'&player2=' + sessions.JOINED_USER_SESSION +
+                            '&gameid=' + sessions.GAME_SESSION);
             }
         })
         .catch(function (err) {
@@ -115,7 +113,6 @@ function updateScore(req, res, next) {
 }
 
 
-
 function removeGame(req, res, next) {
     var gameID = parseInt(req.params.id);
     db.result('delete from games where id = $1', gameID)
@@ -132,7 +129,6 @@ function removeGame(req, res, next) {
             return next(err);
         });
 }
-
 
 
 // add query functions

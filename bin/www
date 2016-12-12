@@ -53,16 +53,20 @@ server.on('error', onError);
 server.on('listening', onListening);
 var users = {};
 var gameUsers = {};
+var games = {};
 var socketIndex = 0;
+var playerIndexPerRoom = 1;
+var playerJoined = "";
+var interval;
+var countdown = 30;
+
+
 
 io.on('connection', function (socket) {
 
 
-    socket.on('disconnect', function () {
-        socketIndex--;
-        io.sockets.emit('broadcast', {description: socketIndex + ' clients connected!'});
-    });
-    socket.on('connected', function (userName) {
+
+    socket.on('connected', function (userName, room) {
         users[socket.id] = userName;
         io.emit('update', '*** ' + userName + ' joined the chat. ***');
         io.emit('update', userName + " joined the server.");
@@ -73,43 +77,100 @@ io.on('connection', function (socket) {
             io.emit('update', userName + " left the server.");
             console.log('*** ' + users[socket.id] + ' left the chat. ***');
             delete users[socket.id];
+            delete  game[room];
+            socketIndex--;
             //io.emit('update-users', users);
         });
     });
 
-    socket.on('gameConnected', function (userid, opponent, gameid) {
-        console.log("Game id recieved " + gameid);
-        socket.id = userid;
-        gameUsers[socket.id] = gameid;
-        socket.broadcast.emit('onConnect', "The player with id " + opponent + " has joined to the game.");
-        //io.to(socket).emit('onConnect',"The player with id " + opponent + " has joined to the game.");
-
-        //io.emit('update-users', users);
-        socket.on('disconnect', function () {
-            io.emit('disconnected', '*** ' + opponent + ' left the game. ***');
-            console.log('*** ' + opponent + ' left the server. ***');
-            delete gameUsers[socket.id];
-            //io.emit('update-users', users);
-        });
-    });
 
     socket.on('chat message', function (msg) {
         io.emit('chat message', users[socket.id], msg);
         console.log('message: ' + users[socket.id] + ':' + msg);
     });
 
-    /* for multiplayer logic */
-    socket.on('multiplayer', function (gameid) {
-        io.emit('multiplayer', users[socket.id], gameid);
-        gameUsers[socket.id] = gameid;
-        socketIndex++;
-        console.log('Users joined to tetris so far: ' + socketIndex + '\n' +
-            'Last user id joined to multiplayer tetris game: ' + session.USER_SESSION + "\n" +
-            'Gameid joined: ' + gameid);
+    /*
+     * MULTI PLAYER GAME LOGIC STARTS HERE
+     */
+
+    // Executed when a user tries to join a specific game
+    socket.on('joinGame', function(room) {
+            var clientsInThisGame;
+            var player1;
+            var player2;
+            var numberOfClientsInThisGame = 0;
+
+            socket.join(room);
+
+            // Array structure to hold user information during the game.
+            games[room] = { whoIsPlaying: socket.id};
+            gameUsers[socket.id] = {
+                gameid: room, id: session.USER_SESSION, socket: socket.id,
+                name: session.USER_SESSION_NAME, opponent: null, willPlayFirst: false, nextPlayer: null,
+                isPlaying: false
+            };
+
+            clientsInThisGame = io.sockets.adapter.rooms[room].sockets;
+
+            // iterate over all the existing clients in this room
+            for (var clientId in clientsInThisGame) {
+                if (clientId != socket.id) {
+                     player2 = gameUsers[socket.id].name;
+                     player1 = gameUsers[clientId].name;
+                     gameUsers[socket.id].nextPlayer = clientId;
+                     gameUsers[clientId].nextPlayer = socket.id;
+                     socket.broadcast.to(clientId).emit("userJoined", player2);
+                     io.sockets.in(room).emit('addPlayerToGame', player1 + " Vs " + player2);
+                }
+                numberOfClientsInThisGame++;
+            }
+
+            if (numberOfClientsInThisGame == 1)
+            {
+                io.sockets.in(room).emit('addPlayerToGame', session.USER_SESSION_NAME + " Vs Waiting for more players...");
+                gameUsers[socket.id].willPlayFirst = true;
+
+            }
+
+            io.sockets.in(room).emit("nextPlayer", session.USER_SESSION_NAME, games[room].whoIsPlaying);
 
 
     });
 
+
+    socket.on("onGame", function (room) {
+        io.sockets.in(room).emit('playGame', room);
+
+    })
+
+
+    socket.on("resetTimer", function (room) {
+
+          clearInterval(interval);
+          countdown = 60;
+          var playingNow;
+          var nextPlayer;
+          var nextPlayerName;
+          interval = setInterval(function () {
+                  countdown--;
+                  if (countdown == -1)
+                  {
+                        countdown = 60;
+                        playingNow = games[room].whoIsPlaying;
+                        nextPlayer = gameUsers[playingNow].nextPlayer;
+                        nextPlayerName = gameUsers[nextPlayer].name;
+                        io.sockets.in(room).emit("nextPlayer", nextPlayerName, games[room].whoIsPlaying);
+                        games[room].whoIsPlaying = nextPlayer;
+                  }
+                  io.sockets.in(room).emit('updateTimer', countdown);
+
+              }, 1000);
+    })
+
+
+    socket.on("nextRound", function (data) {
+
+    })
 
     socket.on('updateScore', function (score, gameid) {
         io.emit('updateScore', score, gameid);
@@ -125,26 +186,14 @@ io.on('connection', function (socket) {
             });
     });
 
-    socket.on('gameIsFull', function (data, gameid) {
-
-        /* GET users listing. */
-        if (data == true) {
-            console.log("Game is full");
-            db.none('update games set isFull=$1 where id=$2',
-                [data, parseInt(gameid)])
-                .then(function () {
-                    console.log("Game id: " + gameid + " Set to full ");
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-        }
-    });
-
-    socket.on('rotate', function (code) {
+    socket.on('nextKey', function (code) {
         console.log("user clicked a key: " + code);
-        io.sockets.emit('rotate', code);
+        io.sockets.emit('nextKey', code);
     })
+
+
+
+
 
 
 });

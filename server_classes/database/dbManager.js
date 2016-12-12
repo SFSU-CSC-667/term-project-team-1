@@ -17,66 +17,53 @@ class DatabaseManager {
         this.games = require('./models/games');
     }
 
-    set router (router)
-    {
-        if (router)
-        {
+    set router(router) {
+        if (router) {
             this._router = router;
         }
     }
 
-    set users (users)
-    {
-        if (users)
-        {
+    set users(users) {
+        if (users) {
             this._users = users;
         }
     }
 
-    set lobbies (lobbies)
-    {
-        if (lobbies)
-        {
+    set lobbies(lobbies) {
+        if (lobbies) {
             this._lobbies = lobbies;
         }
     }
 
-    set games (games)
-    {
-        if (games)
-        {
+    set games(games) {
+        if (games) {
             this._games = games;
         }
     }
 
-    get users ()
-    {
+    get users() {
         return this._users;
     }
 
-    get lobbies ()
-    {
+    get lobbies() {
         return this._lobbies;
     }
 
-    get games ()
-    {
+    get games() {
         return this._games;
     }
 
-    get router ()
-    {
+    get router() {
         return this._router;
     }
 
-    loadDBAPI (routeUsers, routeGames, routeValidation)
-    {
+    loadDBAPI(routeUsers, routeGames, routeValidation) {
         this._loadUsersAPI(routeUsers);
         this._loadGamesAPI(routeGames);
         this._loadValidationAPI(routeValidation);
     }
-    _loadUsersAPI (route)
-    {
+
+    _loadUsersAPI(route) {
         const id = '/:id';
         const routeWithParam = route + id;
         this.router.get(route, this.users.getAllUsers);
@@ -87,8 +74,7 @@ class DatabaseManager {
 
     }
 
-    _loadGamesAPI (route)
-    {
+    _loadGamesAPI(route) {
         const id = '/:id';
         const routeWithParam = route + id;
         this.router.get(route, this.games.getAllGames);
@@ -99,12 +85,9 @@ class DatabaseManager {
         this.router.delete(routeWithParam, this.games.removeGame);
     }
 
-    _loadValidationAPI (route)
-    {
+    _loadValidationAPI(route) {
         this.router.post(route, this.users.validateUser)
     }
-
-
 
 
 }

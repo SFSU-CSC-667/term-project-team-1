@@ -64,22 +64,21 @@ function getSingleUser(req, res, next) {
 
 }
 
-function validateUser (req, res, next) {
+function validateUser(req, res, next) {
 
     var email = req.body.username;
     var password = req.body.password;
 
 
-
     db.one('Select * from users where email = $1 and password = $2', [email, password], req.body)
         .then(function (data) {
-            var param = data.id;
-            if(res.status(200)) {
-                session.USER_SESSION = data.id;
+            var id = data.id;
+            if (res.status(200)) {
+                session.USER_SESSION = id;
+                session.USER_SESSION_NAME = data.name;
                 session.EXPIRED_SESSION = 0;
                 /* Expires the session after expiring session time stated in sessions.js*/
-                setInterval(function()
-                {
+                setInterval(function () {
                     session.USER_SESSION = -1; // remove user session
                     session.JOINED_USER_SESSION = -1; // remove session from joined user.
                     session.EXPIRED_SESSION = 1; // expire the session
@@ -107,8 +106,7 @@ function createUser(req, res, next) {
                 session.USER_SESSION = data.id;
                 session.EXPIRED_SESSION = 0;
                 /* Expires the session after expiring session time stated in sessions.js*/
-                setInterval(function()
-                {
+                setInterval(function () {
                     session.USER_SESSION = -1; // remove user session
                     session.JOINED_USER_SESSION = -1; // remove session from joined user.
                     session.EXPIRED_SESSION = 1; // expire the session
@@ -156,11 +154,6 @@ function removeUser(req, res, next) {
             return next(err);
         });
 }
-
-
-
-
-
 
 
 // add query functions

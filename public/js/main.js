@@ -9,7 +9,7 @@
 var userListData = [];
 
 // DOM Ready =============================================================
-$(document).ready(function() {
+$(document).ready(function () {
 
     // loads the leaderboard list
     loadLeadersBoard();
@@ -18,9 +18,9 @@ $(document).ready(function() {
 
     var userid = getParameterByName("userid");
     var strLink = "lobbyRoom?userid=" + userid;
-    document.getElementById("joinlobby").setAttribute("href",strLink);
+    document.getElementById("joinlobby").setAttribute("href", strLink);
 
-    
+
 });
 
 function getParameterByName(name, url) {
@@ -46,19 +46,19 @@ function loadLeadersBoard() {
 
 
     // jQuery AJAX call for JSON
-    $.getJSON('/dbapi/users', function( data ) {
+    $.getJSON('/dbapi/users', function (data) {
         if (data['status'] == 'success') {
 
             // For each item in our JSON, add a table row and cells to the content strin
             var users = sortByKey(data['users'], 'score');
-            for (var i = 0; i<users.length; i++) {
+            for (var i = 0; i < users.length; i++) {
 
                 var user = users[i];
 
                 tableContent += '<tr>';
                 tableContent += '<td>' + (i + 1) + '</td>';
-                tableContent += '<td>' +  user.name + '</td>';
-                tableContent += '<td>' +  user.email + '</td>';
+                tableContent += '<td>' + user.name + '</td>';
+                tableContent += '<td>' + user.email + '</td>';
                 tableContent += '<td>' + user.score + '</td>';
                 tableContent += '</tr>';
 
@@ -91,7 +91,8 @@ function loadGamesList() {
                 tableContent += '<td>' + game.name + '</td>';
                 tableContent += '<td>' + game.gamename + '</td>';
                 tableContent += '<td>' + game.totalscore + '</td>';
-                tableContent += '<td><a id="joinlink" href="/gameplay?player1=' + game.player1 + '&player2=' + getParameterByName('userid') + '&gameid=' + game.id + '">' + join + '</a></td>';
+                tableContent += '<td><a id="joinlink" href="/gameplay?player1=' + game.player1 + '&playerName=' + game.name +'&player2=' +
+                                        getParameterByName('userid') + '&gameid=' + game.id + '">' + join + '</a></td>';
                 tableContent += '</tr>';
                 // Inject the whole content string into our existing HTML table
                 $('#gamesList table tbody').html(tableContent);
@@ -102,8 +103,9 @@ function loadGamesList() {
 
 /* Sorts json item in descending order by key */
 function sortByKey(array, key) {
-    return array.sort(function(a, b) {
-        var x = a[key]; var y = b[key];
+    return array.sort(function (a, b) {
+        var x = a[key];
+        var y = b[key];
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
 }

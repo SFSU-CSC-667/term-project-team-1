@@ -9,7 +9,6 @@ var http = require('http');
 var session = require('../server_classes/config/sessions');
 var promise = require('bluebird');
 
-
 var options = {
     // Initialization Options
     promiseLib: promise
@@ -25,7 +24,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 /* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnHeroku);
+var db = pgp(dbConnLocal);
 
 /**
  * Get port from environment and store in Express.
@@ -39,6 +38,8 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+var chatSocket = require('../server_classes/sockets/chatSocket.js');
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -66,29 +67,10 @@ var singlePlayer = true;
 io.on('connection', function (socket) {
 
 
+    /* Connect the chat socket server to the backend of this app */
 
-    socket.on('connected', function (userName, room) {
-        users[socket.id] = userName;
-        io.emit('update', '*** ' + userName + ' joined the chat. ***');
-        io.emit('update', userName + " joined the server.");
-        //io.emit('update-users', users);
-
-        socket.on('disconnect', function () {
-            io.emit('update', '*** ' + users[socket.id] + ' left the chat. ***');
-            io.emit('update', userName + " left the server.");
-            console.log('*** ' + users[socket.id] + ' left the chat. ***');
-            delete users[socket.id];
-            delete  game[room];
-            socketIndex--;
-            //io.emit('update-users', users);
-        });
-    });
-
-
-    socket.on('chat message', function (msg) {
-        io.emit('chat message', users[socket.id], msg);
-        console.log('message: ' + users[socket.id] + ':' + msg);
-    });
+    var gameChat = new chatSocket();
+    gameChat.connect(io, socket, users, games);
 
     /*
      * MULTI PLAYER GAME LOGIC STARTS HERE

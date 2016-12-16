@@ -1,7 +1,7 @@
 extends chat-layout
 
 block content
-    script(src='/js/timer.js')
+
     div(style='width:100%')
         div(style='width:100%')
             div
@@ -19,10 +19,10 @@ block content
                     p#start press TAB to begin
                     p#playing Waiting for player...
                     p#whoIsPlaying
-                p(style='text-align:right; font-size: large;')
+                p.timerFont.textOutline(style='text-align:right; font-size: large;')
                     | Player 1 score
                     span#score 00000
-                    p(style='text-align:right; font-size: large;')
+                    p.timerFont.textOutline(style='text-align:right; font-size: large;')
                         | Player 2 score
                         span#score2 00000
                         p.timerFont.textOutline

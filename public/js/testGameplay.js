@@ -22,7 +22,7 @@ var speed = {start: 0.5, decrement: 0.08, min: 0.1};
 var context1 = canvas1.getContext('2d');
 var ucontext = ucanvas.getContext('2d');
 //variables
-var blockWidth, blockHeight, actions, current, next, playing;
+var blockWidth, blockHeight, actionsQueue, current, next, playing;
 var timePassed;
 var pieces = [];
 var step;
@@ -69,63 +69,47 @@ function listenToEvents() {
 function keypress(event) {
     var handled = false;
     if (playing) {
-        switch (event.keyCode) {
-            case KEY.LEFT:
-                actions.push(DIR.LEFT);
-                handled = true;
-                break;
-            case KEY.RIGHT:
-                actions.push(DIR.RIGHT);
-                handled = true;
-                break;
-            case KEY.UP:
-                actions.push(DIR.UP);
-                handled = true;
-                break;
-            case KEY.DOWN:
-                actions.push(DIR.DOWN);
-                handled = true;
-                break;
-            case KEY.ESC:
-                socket.emit("endOfGame", room);
-                handled = true;
-                break;
+        if(event.keyCode==KEY.LEFT){
+            actionsQueue.push(DIR.LEFT);
+            handled = true;
+        }else if(event.keyCode==KEY.RIGHT){
+            actionsQueue.push(DIR.RIGHT);
+            handled = true;
+        }else if(event.keyCode==KEY.UP){
+            actionsQueue.push(DIR.UP);
+            handled = true;
+        }else if(event.keyCode==KEY.DOWN){
+            actionsQueue.push(DIR.DOWN);
+            handled = true;
+        }else if(event.keyCode==KEY.ESC) {
+            socket.emit("endOfGame", room);
+            handled = true;
         }
     }
     else if (event.keyCode == KEY.TAB) {
         play();
         handled = true;
     }
+    //prevent user from using the arrow keys for default browser functions
     if (handled)
         event.preventDefault();
 };
 
 function resize(event) {
-    canvas1.width = canvas1.clientWidth;  // set canvas logical size equal to its physical size
-    canvas1.height = canvas1.clientHeight; // (ditto)
+    canvas1.width = canvas1.clientWidth;
+    canvas1.height = canvas1.clientHeight;
     ucanvas.width = ucanvas.clientWidth;
     ucanvas.height = ucanvas.clientHeight;
-    blockWidth = canvas1.width / courtWidth; // pixel size of a single tetris block
-    blockHeight = canvas1.height / courtHeight; // (ditto)
+    blockWidth = canvas1.width / courtWidth;
+    blockHeight = canvas1.height / courtHeight;
     invalidate();
     invalidateNext();
 };
 
 
 function play() {
-
-    //code to start the game
-
-    // if the ok button is clicked, result will be true (boolean)
-
-    // the user clicked ok
-    //play();
-
-    //hide('start');
     reset();
     playing = true;
-
-
 };
 
 function end() {
@@ -138,10 +122,11 @@ function end() {
 
 function reset() {
     timePassed = 0;
-    clearActions();
-    clearBlocks();
-    clearScore();
-    clearRows();
+    actionsQueue = [];
+    blocks = [];
+    invalidate();
+    setScore(0);
+    setRows(0);
     setCurrentPiece(next);
     setNextPiece();
 };
@@ -149,10 +134,6 @@ function reset() {
 //*
 function draw() {
     //for game 1
-    context1.save();
-    context1.lineWidth = 1;
-    context1.translate(0.5, 0.5);
-
     drawCourt();
     drawNext();
     drawScore();
@@ -163,14 +144,20 @@ function draw() {
 function drawCourt() {
     if (invalid.court) {
         context1.clearRect(0, 0, canvas1.width, canvas1.height);
-        if (playing)
-            drawPiece(context1, current.type, current.x, current.y, current.dir);
-        var x, y, block;
-        for (y = 0; y < courtHeight; y++) {
-            for (x = 0; x < courtWidth; x++) {
-                if (block = getBlock(x, y))
+        if (playing) {
+
+        drawPiece(context1, current.type, current.x, current.y, current.dir);
+        }
+        var y=0, block;
+        while(y<courtHeight){
+            var x=0;
+            while(x<courtWidth) {
+                block = getBlock(x, y);
+                if (block != null)
                     drawBlock(context1, x, y, block.color);
+                x++;
             }
+            y++;
         }
         context1.strokeRect(0, 0, courtWidth * blockWidth - 1, courtHeight * blockHeight - 1); // court boundary
         invalid.court = false;
@@ -222,7 +209,7 @@ function update(time) {
     if (playing) {
         if (displayedscore < currentscore)
             setdisplayedScore(displayedscore + 1);
-        handle(actions.shift());
+        handle(actionsQueue.shift());
         timePassed = timePassed + time;
         if (timePassed > step) {
             timePassed = timePassed - step;
@@ -286,8 +273,8 @@ function drop() {
         dropBlock();
         removeLines();
         setCurrentPiece(next);
-        setNextPiece(randomPiece());
-        clearActions();
+        setNextPiece();
+        actionsQueue = [];
         if (occupied(current.type, current.x, current.y, current.dir)) {
             socket.emit("endOfGame", room);
         }
@@ -361,8 +348,8 @@ function hide(id) {
 function show(id) {
     get(id).style.visibility = null;
 };
-function clearActions() {
-    actions = [];
+/*function clearActions() {
+    actionsQueue = [];
 };
 function clearBlocks() {
     blocks = [];
@@ -370,7 +357,7 @@ function clearBlocks() {
 };
 function clearScore() {
     setScore(0);
-};
+};*/
 function setScore(n) {
     currentscore = n;
     setdisplayedScore(n);
@@ -378,9 +365,9 @@ function setScore(n) {
 function addScore(n) {
     currentscore = currentscore + n;
 };
-function clearRows() {
+/*function clearRows() {
     setRows(0);
-};
+};*/
 function setdisplayedScore(n) {
     displayedscore = n || currentscore;
     invalidateScore();

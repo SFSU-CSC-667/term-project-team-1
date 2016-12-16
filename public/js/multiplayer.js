@@ -11,6 +11,9 @@ $(document).ready(function () {
 var gameisFull = false;
 var isPlaying = false;
 var gameSubtitle = "";   // will show in screen info about the players
+var scoreId = "";
+var score1 = 0;
+var score2 = 0;
 function initMultiplayerSocket() {
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
@@ -60,15 +63,15 @@ function getPlayerInfo(playerid) {
 }
 
 
-function changeScoreInPugAttribute(playerid, newScore) {
-    var player1 = getParameterByName("player1");
-    var player2 = getParameterByName("player2");
-    if (playerid == player1) {
+function changeScoreInPugAttribute(scoreid, socketid) {
 
-        $('#player1').html(newScore);
+    if (scoreid == socketid) {
+
+        $('#score').html(displayedscore);
     }
     else {
-        $('#player2').html(newScore);
+
+        $('#score2').html(displayedscore);
     }
 }
 
@@ -88,7 +91,7 @@ var socket = io();
 var gameid = getParameterByName("gameid");
 var owner = getParameterByName("player1");
 var opponent = getParameterByName("player2");
-
+var score = 0;
 // let's assume that the client page, once rendered, knows what room it wants to join
 var room = gameid;
 
@@ -112,12 +115,25 @@ socket.on("userJoined", function (data) {
     alert(data + " joined to game");
 })
 
-socket.on("addPlayerToGame", function (data) {
+
+
+socket.on("addPlayerToGame", function (isMultiplayerMode, data, playerDescriptor) {
+    document.getElementById('player1').innerHTML = playerDescriptor.playername + " score: ";
+
+    socket.emit("isGameFull",0);
+    if (isMultiplayerMode)
+    {
+        socket.emit("isGameFull", room, 1);
+        document.getElementById('start').innerHTML = 'Playing in Multiplayer Mode' + '</b>';
+        document.getElementById('player1').innerHTML = playerDescriptor.playername + " score: ";
+        document.getElementById('player2').innerHTML = playerDescriptor.opponent + " score: ";
+
+    }
     document.getElementById('playing').innerHTML = data + '</b>';
     socket.emit("onGame", room);
 })
 
-socket.on('playGame', function(data) {
+socket.on('playGame', function(room) {
     play();
     socket.emit('resetTimer', room);
 });
@@ -138,22 +154,34 @@ socket.on("waitUntilNextPlayer", function (data) {
 
 
 
-socket.on('nextPlayer', function (data, socketid) {
+socket.on('nextPlayer', function (nextPlayer) {
 
-    document.getElementById('whoIsPlaying').innerHTML = data + " is playing now....";
-    if (socket.id == socketid)
+    document.getElementById('whoIsPlaying').innerHTML = nextPlayer.name + " is playing now....";
+
+    if (socket.id == nextPlayer.socketid)
     {
-        alert("You are up for the next round...");
-        // enable keys and camvas, also enable scores
-
+        //toast here("You are up for the next round...");
+        //$('#score').html(displayedscore);
 
     }
     else
     {
-        alert("Your time for this round is up. Close the box to see the next player round");
-        // disable keys or cambas, also disable score
+        //toast here("Your time for this round is up. Close the box to see the next player round");
+        //$('#score2').html(displayedscore);
     }
 
+
+
+})
+
+socket.on("score", function (data) {
+    document.getElementById(data.scoreid).innerHTML = data.score;
+
+})
+
+socket.on("end", function (room) {
+    end();
+    // add toast here
 })
 
 document.onkeydown = function (e) {

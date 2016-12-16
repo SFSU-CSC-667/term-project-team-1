@@ -24,7 +24,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 /* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnLocal);
+var db = pgp(dbConnHeroku);
 
 /**
  * Get port from environment and store in Express.
@@ -77,80 +77,102 @@ io.on('connection', function (socket) {
      */
 
     // Executed when a user tries to join a specific game
+    // Will determine if the player joined to a specific room will
+    // play in single player or multi player mode. Also, it will determine
+    // who is the next player to play.
     socket.on('joinGame', function(room) {
-            var clientsInThisGame;
-            var player1;
-            var player2;
-            var numberOfClientsInThisGame = 0;
+            var playerSession, playersInRoom, opponent, scoreDescriptor;
 
             socket.join(room);
 
-            // Array structure to hold user information during the game.
-            games[room] = { whoIsPlaying: socket.id};
-            gameUsers[socket.id] = {
-                gameid: room, id: session.USER_SESSION, socket: socket.id,
-                name: session.USER_SESSION_NAME, opponent: null, willPlayFirst: false, nextPlayer: null,
-                isPlaying: false
-            };
-
-            clientsInThisGame = io.sockets.adapter.rooms[room].sockets;
-
-            // iterate over all the existing clients in this room
-            for (var clientId in clientsInThisGame) {
-                if (clientId != socket.id) {
-                     singlePlayer = false;
-                     player2 = gameUsers[socket.id].name;
-                     player1 = gameUsers[clientId].name;
-                     gameUsers[socket.id].nextPlayer = clientId;
-                     gameUsers[clientId].nextPlayer = socket.id;
-                     socket.broadcast.to(clientId).emit("userJoined", player2);
-                     io.sockets.in(room).emit('addPlayerToGame', player1 + " Vs " + player2);
-                }
-                numberOfClientsInThisGame++;
-            }
-
-            if (numberOfClientsInThisGame == 1)
+            gameUsers[socket.id] = {socketid: socket.id, gameid: room, playerid: session.USER_SESSION,
+                                    name: session.USER_SESSION_NAME, opponent: null,
+                                    isPlaying: false, scoreid: "score", score: 0, scoreDescriptor: ""};
+            playerSession = gameUsers[socket.id]; // the player who is using the socket
+            playersInRoom = io.sockets.adapter.rooms[room].sockets; // gets all the players for this room
+            opponent = null;
+            console.log('******* ' + playerSession.name + ' just joined to game: ' + room)
+            // iterates over all the players in this specific room
+            for (var playerid in playersInRoom)
             {
-                io.sockets.in(room).emit('addPlayerToGame', session.USER_SESSION_NAME + " Vs Waiting for more players...");
-                gameUsers[socket.id].willPlayFirst = true;
-
+                if (playerid != socket.id) // this player is the opponent and multi player game is set
+                {
+                    opponent = gameUsers[playerid]; // the opponent
+                    playerSession.scoreid = "score2";
+                    playerSession.opponent = opponent; // sets opponent for the actual player
+                    opponent.opponent = playerSession; // sets actual player as the opponent of the opponent
+                    playerSession.isPlaying = true; // the actual player is
+                }
             }
 
-            io.sockets.in(room).emit("nextPlayer", session.USER_SESSION_NAME, games[room].whoIsPlaying);
+            if (playerSession.opponent == null) // single player session
+            {
+
+                playerSession.isPlaying = true;
+                io.sockets.in(room).emit('addPlayerToGame', false, playerSession.name + " is playing in single player mode", { playername: playerSession.name, opponent: ""});
+                playerSession.scoreDescriptor = "player1";
+            }
+            else // multi player session
+            {
+                playerSession.scoreDescriptor = "player2";
+                io.sockets.in(room).emit('addPlayerToGame', true, playerSession.name + " Vs " + opponent.name,
+                                         { playername: playerSession.name, opponent: opponent.name});
+                io.sockets.in(room).emit("nextPlayer", {name: playerSession.name, socketid: playerSession.socketid, id: playerSession.playerid});
+            }
+
+            socket.on("disconnect", function ()
+            {
+                delete gameUsers[socket.id];
+                isGameFull(db, 0,room);
+                console.log("user left the room");
+            });
+
 
 
     });
 
-
+    // Once single player or multiplayer mode is determined, the game will start
     socket.on("onGame", function (room) {
-        io.sockets.in(room).emit('playGame', room);
 
+        io.sockets.in(room).emit('playGame', room);
     })
 
-
+    // Construct the timer and resets it when a player finish its round
+    // in multiplayer mode. For single player mode, the timer will stay static
     socket.on("resetTimer", function (room) {
-
-          clearInterval(interval);
-          countdown = 60;
-          var playingNow;
-          var nextPlayer;
-          var nextPlayerName;
-          interval = setInterval(function () {
+          var player1 = gameUsers[socket.id];
+          var player2, nextPlayer;
+          if (player1.opponent != null) // single player
+          {
+              player2 = player1.opponent;
+              clearInterval(interval);
+              countdown = 60;
+              interval = setInterval(function () {
                   countdown--;
                   if (countdown == -1)
                   {
-                        countdown = 60;
-                        if (singlePlayer == false) {
-                            playingNow = games[room].whoIsPlaying;
-                            nextPlayer = gameUsers[playingNow].nextPlayer;
-                            nextPlayerName = gameUsers[nextPlayer].name;
-                            io.sockets.in(room).emit("nextPlayer", nextPlayerName, games[room].whoIsPlaying);
-                            games[room].whoIsPlaying = nextPlayer;
-                        }
+                      countdown = 60;
+                      if (player1.isPlaying == true)
+                      {
+
+                          player2.isPlaying = true;
+                          player1.isPlaying = false;
+                          nextPlayer = player2;
+                      }
+                      else if (player2.isPlaying == true)
+                      {
+                          player1.isPlaying = true;
+                          player2.isPlaying = false;
+                          nextPlayer = player1;
+                      }
+                      console.log(nextPlayer.name + " is next player");
+                      io.sockets.in(room).emit("nextPlayer", {name: nextPlayer.name, socketid: nextPlayer.socketid, id: nextPlayer.playerid});
+
                   }
                   io.sockets.in(room).emit('updateTimer', countdown);
 
               }, 1000);
+          }
     })
 
 
@@ -158,9 +180,11 @@ io.on('connection', function (socket) {
 
     })
 
+    // After the game is done in multi player mode, this socket action will
+    // save the best score of the game into the database
     socket.on('updateScore', function (score, gameid) {
         io.emit('updateScore', score, gameid);
-        /* GET users listing. */
+
         console.log("Outside Score in gameid: " + gameid + ' updated to ' + score);
         db.none('update games set totalscore=$1 where id=$2',
             [parseInt(score), parseInt(gameid)])
@@ -172,17 +196,57 @@ io.on('connection', function (socket) {
             });
     });
 
+    socket.on("isGameFull", function (room, value) {
+        isGameFull(db, value, room);
+    })
+    // Determines the next key that was clicked.
     socket.on('nextKey', function (code) {
         console.log("user clicked a key: " + code);
         io.sockets.emit('nextKey', code);
     })
 
+    socket.on("updatePlayerScore", function (data) {
+        var player = gameUsers[socket.id];
+        if (player.isPlaying) {
+            console.log("player playing: " + player.name)
+            player.score = data.score;
+            socket.emit("score", {score: player.score, scoreid: player.scoreid});
+        }
+
+    })
+
+    socket.on("endOfGame", function (room, socketid) {
+        var player = gameUsers[socketid];
+        io.sockets.in(room).emit("end", room);
+        clearInterval(interval);
+
+    })
 
 
 
-
-
+    socket.on("winner", function (room, score, socketid) {
+        clearInterval(interval)
+    })
 });
+
+function isGameFull (db, value, room )
+{
+    db.none('update games set isfull=$1 where id=$2',
+        [value, parseInt(room)])
+        .then(function () {
+            if (value == 0)
+            {
+                console.log("game: " + room + " is not full");
+            }
+            else
+            {
+                console.log("game: " + room + " is now full");
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
 
 /**
  * Normalize a port into a number, string, or false.

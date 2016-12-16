@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Games (
   player1 INT NOT NULL,
   player2 INT NULL,
   gamename VARCHAR(45) NULL,
-  isFull BOOLEAN NULL DEFAULT false,
+  isFull INT NULL DEFAULT 0,
   totalscore INT NULL DEFAULT 0,
   winner INT NULL,
   constraint fk_users

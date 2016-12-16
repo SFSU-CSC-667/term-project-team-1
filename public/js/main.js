@@ -82,9 +82,9 @@ function loadGamesList() {
 
                 var game = games[i];
                 var join = "Join to this game";
-                if (game.isfull == true) {
-                    join = "This game is already in progress";
-                    document.getElementById('joinlink').setAttribute('href', '');
+                if (game.isfull == 1) {
+                    join = "This game is full.";
+
                 }
 
                 tableContent += '<tr>';

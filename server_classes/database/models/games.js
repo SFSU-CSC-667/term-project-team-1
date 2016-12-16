@@ -44,25 +44,6 @@ function getAllGames(req, res, next) {
         });
 }
 
-/*
- function getGamesByUser(req, res, next) {
- var userID = parseInt(req.params.id);
- db.any('select * from users join games on (users.id = $1 and games.player1 = $1)', userID)
- .then(function (data) {
- var jsonData = {
- status: 'success',
- games: data,
- message: 'Retrieved all games for this user'
- }
- res.status(200)
- .json(jsonData);
- })
- .catch(function (err) {
- return next(err);
- });
- }
- */
-
 function getSingleGame(req, res, next) {
     var gameID = parseInt(req.params.id);
     db.one('select * from games where id = $1', gameID)
@@ -83,7 +64,7 @@ function getSingleGame(req, res, next) {
 
 function createGame(req, res, next) {
     db.one('insert into games(player1, player2, gamename, isfull, winner, totalscore)' +
-        'values(' + sessions.USER_SESSION + ', 0, ${name}, false, 0, 0) returning id', req.body)
+        'values(' + sessions.USER_SESSION + ', 0, ${name}, 0, 0, 0) returning id', req.body)
         .then(function (data) {
             if (res.status(200)) {
                 sessions.GAME_SESSION = data.id;

@@ -86,7 +86,7 @@ function keypress(event) {
                 handled = true;
                 break;
             case KEY.ESC:
-                end();
+                socket.emit("endOfGame", room);
                 handled = true;
                 break;
         }
@@ -210,7 +210,9 @@ function drawRows() {
 };
 function drawScore() {
     if (invalid.currentscore) {
-        drawHtml('score', ("00000" + Math.floor(displayedscore)).slice(-5));
+        //drawHtml('score', ("00000" + Math.floor(displayedscore)).slice(-5));
+        var score = ("00000" + Math.floor(displayedscore)).slice(-5);
+        socket.emit('updatePlayerScore', {room: room, score: score, socketid: socket.id});
         invalid.currentscore = false;
     }
 };
@@ -286,7 +288,7 @@ function drop() {
         setNextPiece(randomPiece());
         clearActions();
         if (occupied(current.type, current.x, current.y, current.dir)) {
-            end();
+            socket.emit("endOfGame", room);
         }
     }
 };

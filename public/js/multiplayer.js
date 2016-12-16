@@ -134,6 +134,7 @@ socket.on("addPlayerToGame", function (isMultiplayerMode, data, playerDescriptor
 })
 
 socket.on('playGame', function(room) {
+    index = 0;
     play();
     socket.emit('resetTimer', room);
 });

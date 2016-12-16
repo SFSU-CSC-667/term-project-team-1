@@ -13,6 +13,7 @@ var l = {size: 3, blocks: [0x4460, 0x0E80, 0xC440, 0x2E00], color: 'GAINSBORO'};
 var canvas1 = get('canvas1');
 var ucanvas = get('upcoming');
 var nx = 10; // width of the canvas
+
 ny = 20; // height of the canvas
 nu = 5; // width and height of upcoming block
 var KEY = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, ESC: 27, TAB: 9};
@@ -27,6 +28,7 @@ var timePassed;
 var pieces = [];
 var step;
 var currentscore, displayedscore;
+var index = 0;
 
 if (!window.requestAnimationFrame) { // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimationFrame = window.webkitRequestAnimationFrame ||
@@ -390,10 +392,18 @@ function setCurrentPiece(piece) {
     invalidate();
 };
 function randomPiece() {
-    if (pieces.length == 0)
-        pieces = [i, i, i, i, j, j, j, j, l, l, l, l, o, o, o, o, s, s, s, s, t, t, t, t, z, z, z, z];
-    var type = pieces.splice(random(0, pieces.length - 1), 1)[0];
-    return {type: type, dir: DIR.UP, x: Math.round(random(0, nx - type.size)), y: 0};
+
+    pieces = [i, j, l, o, s, t, z, i, j, l, o, s, t, z, i, j, l, o, s, t, z, i, j, l, o, s, t, z];
+
+    var type = pieces[index];
+    index++;
+    if (index >= 28)
+    {
+        index = 0;
+    }
+
+
+    return {type: type, dir: DIR.UP, x: nx - type.size, y: 0};
 };
 
 function get(id) {

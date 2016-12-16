@@ -163,16 +163,24 @@ socket.on('nextPlayer', function (nextPlayer) {
     {
         //toast here("You are up for the next round...");
         //$('#score').html(displayedscore);
+        socket.emit("disableKeys", room);
 
     }
     else
     {
         //toast here("Your time for this round is up. Close the box to see the next player round");
         //$('#score2').html(displayedscore);
+
     }
 
 
 
+})
+
+socket.on("disable", function (room) {
+    document.onkeydown = function (e) {
+        return false;
+    }
 })
 
 socket.on("score", function (data) {

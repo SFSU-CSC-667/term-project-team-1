@@ -24,7 +24,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 /* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnHeroku);
+var db = pgp(dbConnLocal);
 
 /**
  * Get port from environment and store in Express.
@@ -146,12 +146,12 @@ io.on('connection', function (socket) {
           {
               player2 = player1.opponent;
               clearInterval(interval);
-              countdown = 60;
+              countdown = 30;
               interval = setInterval(function () {
                   countdown--;
                   if (countdown == -1)
                   {
-                      countdown = 60;
+                      countdown = 30;
                       if (player1.isPlaying == true)
                       {
 
@@ -222,10 +222,13 @@ io.on('connection', function (socket) {
 
     })
 
-
-
     socket.on("winner", function (room, score, socketid) {
         clearInterval(interval)
+    })
+
+    socket.on("disableKeys" , function (room) {
+         var player = gameUsers[socket.id];
+         socket.broadcast.to(player.opponent.socketid).emit("disable", room);
     })
 });
 

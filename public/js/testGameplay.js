@@ -12,10 +12,9 @@ var l = {size: 3, blocks: [0x4460, 0x0E80, 0xC440, 0x2E00], color: 'GAINSBORO'};
 //constants
 var canvas1 = get('canvas1');
 var ucanvas = get('upcoming');
-var nx = 10; // width of the canvas
-
-ny = 20; // height of the canvas
-nu = 5; // width and height of upcoming block
+var courtWidth = 10; // width of the court
+var courtHeight = 20; // height of the court
+var upcomingCourtSize = 5; // width and height of upcoming view court
 var KEY = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, ESC: 27, TAB: 9};
 var DIR = {UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3, MIN: 0, MAX: 3};
 var speed = {start: 0.5, decrement: 0.08, min: 0.1};
@@ -23,7 +22,7 @@ var speed = {start: 0.5, decrement: 0.08, min: 0.1};
 var context1 = canvas1.getContext('2d');
 var ucontext = ucanvas.getContext('2d');
 //variables
-var dx, dy, actions, current, next, playing;
+var blockWidth, blockHeight, actions, current, next, playing;
 var timePassed;
 var pieces = [];
 var step;
@@ -44,15 +43,15 @@ if (!window.requestAnimationFrame) { // http://paulirish.com/2011/requestanimati
 //*
 function run() {
     listenToEvents();
-    var now = last = timestamp();
+    var currentTime = lastTime = timestamp();
 
 
     function frame() {
-        now = timestamp();
-        update(Math.min(1, (now - last) / 1000.0));
+        currentTime = timestamp();
+        update(Math.min(1, (currentTime - lastTime) / 1000.0));
         draw();
 
-        last = now;
+        lastTime = currentTime;
         requestAnimationFrame(frame, canvas1);
     }
 
@@ -106,8 +105,8 @@ function resize(event) {
     canvas1.height = canvas1.clientHeight; // (ditto)
     ucanvas.width = ucanvas.clientWidth;
     ucanvas.height = ucanvas.clientHeight;
-    dx = canvas1.width / nx; // pixel size of a single tetris block
-    dy = canvas1.height / ny; // (ditto)
+    blockWidth = canvas1.width / courtWidth; // pixel size of a single tetris block
+    blockHeight = canvas1.height / courtHeight; // (ditto)
     invalidate();
     invalidateNext();
 };
@@ -167,26 +166,26 @@ function drawCourt() {
         if (playing)
             drawPiece(context1, current.type, current.x, current.y, current.dir);
         var x, y, block;
-        for (y = 0; y < ny; y++) {
-            for (x = 0; x < nx; x++) {
+        for (y = 0; y < courtHeight; y++) {
+            for (x = 0; x < courtWidth; x++) {
                 if (block = getBlock(x, y))
                     drawBlock(context1, x, y, block.color);
             }
         }
-        context1.strokeRect(0, 0, nx * dx - 1, ny * dy - 1); // court boundary
+        context1.strokeRect(0, 0, courtWidth * blockWidth - 1, courtHeight * blockHeight - 1); // court boundary
         invalid.court = false;
     }
 };
 
 function drawNext() {
     if (invalid.next) {
-        var padding = (nu - next.type.size) / 2;
+        var padding = (upcomingCourtSize - next.type.size) / 2;
         ucontext.save();
         ucontext.translate(0.5, 0.5);
-        ucontext.clearRect(0, 0, nu * dx, nu * dy);
+        ucontext.clearRect(0, 0, upcomingCourtSize * blockWidth, upcomingCourtSize * blockHeight);
         drawPiece(ucontext, next.type, padding, padding, next.dir);
         ucontext.strokeStyle = 'black';
-        ucontext.strokeRect(0, 0, nu * dx - 1, nu * dy - 1);
+        ucontext.strokeRect(0, 0, upcomingCourtSize * blockWidth - 1, upcomingCourtSize * blockHeight - 1);
         ucontext.restore();
         invalid.next = false;
     }
@@ -200,8 +199,8 @@ function drawPiece(context, type, x, y, dir) {
 
 function drawBlock(context, x, y, color) {
     context.fillStyle = color;
-    context.fillRect(x * dx, y * dy, dx, dy);
-    context.strokeRect(x * dx, y * dy, dx, dy);
+    context.fillRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight);
+    context.strokeRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight);
 };
 
 function drawRows() {
@@ -303,9 +302,9 @@ function dropBlock() {
 
 function removeLines() {
     var x, y, complete, n = 0;
-    for (y = ny; y > 0; --y) {
+    for (y = courtHeight; y > 0; --y) {
         complete = true;
-        for (x = 0; x < nx; ++x) {
+        for (x = 0; x < courtWidth; ++x) {
             if (!getBlock(x, y))
                 complete = false;
         }
@@ -324,7 +323,7 @@ function removeLines() {
 function removeLine(n) {
     var x, y;
     for (y = n; y >= 0; --y) {
-        for (x = 0; x < nx; ++x)
+        for (x = 0; x < courtWidth; ++x)
             setBlock(x, y, (y == 0) ? null : getBlock(x, y - 1));
     }
 }
@@ -347,7 +346,7 @@ function eachblock(type, x, y, dir, fn) {
 function occupied(type, x, y, dir) {
     var result = false
     eachblock(type, x, y, dir, function (x, y) {
-        if ((x < 0) || (x >= nx) || (y < 0) || (y >= ny) || getBlock(x, y))
+        if ((x < 0) || (x >= courtWidth) || (y < 0) || (y >= courtHeight) || getBlock(x, y))
             result = true;
     });
     return result;
@@ -403,7 +402,7 @@ function randomPiece() {
     }
 
 
-    return {type: type, dir: DIR.UP, x: nx - type.size, y: 0};
+    return {type: type, dir: DIR.UP, x: courtWidth - type.size, y: 0};
 };
 
 function get(id) {

@@ -87,10 +87,6 @@ function toastMessage(message){
 }
 
 
-
-
-
-
 var socket = io();
 
 var gameid = getParameterByName("gameid");
@@ -117,7 +113,8 @@ socket.on('connect', function() {
 });
 
 socket.on("userJoined", function (data) {
-    alert(data + " joined to game");
+    //alert(data + " joined to game");
+    toastMessage('Player joined!');
 })
 
 

@@ -18,6 +18,7 @@ var upcomingCourtSize = 5; // width and height of upcoming view court
 var KEY = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, ESC: 27, TAB: 9};
 var DIR = {UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3, MIN: 0, MAX: 3};
 var speed = {start: 0.5, decrement: 0.08, min: 0.1};
+var invalid = {};
 
 var context1 = canvas1.getContext('2d');
 var ucontext = ucanvas.getContext('2d');
@@ -44,8 +45,8 @@ if (!window.requestAnimationFrame) { // http://paulirish.com/2011/requestanimati
 //*
 function run() {
     listenToEvents();
-    var currentTime = lastTime = timestamp();
-
+    var currentTime  = timestamp();
+    var lastTime=timestamp();
 
     function frame() {
         currentTime = timestamp();
@@ -55,7 +56,6 @@ function run() {
         lastTime = currentTime;
         requestAnimationFrame(frame, canvas1);
     }
-
     resize();
     reset();
     frame();
@@ -104,7 +104,7 @@ function resize(event) {
     blockWidth = canvas1.width / courtWidth;
     blockHeight = canvas1.height / courtHeight;
     invalidate();
-    invalidateNext();
+    invalid.next = true;
 };
 
 
@@ -179,16 +179,16 @@ function drawNext() {
     }
 };
 
-function drawPiece(context, type, x, y, dir) {
-    eachblock(type, x, y, dir, function (x, y) {
-        drawBlock(context, x, y, type.color);
+function drawPiece(context, type, xPosition, yPosition, dir) {
+    iterateBlock(type, xPosition, yPosition, dir, function (xPosition, yPosition) {
+        drawBlock(context, xPosition, yPosition, type.color);
     });
 };
 
-function drawBlock(context, x, y, color) {
+function drawBlock(context, xPosition, yPosition, color) {
     context.fillStyle = color;
-    context.fillRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight);
-    context.strokeRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight);
+    context.fillRect(xPosition * blockWidth, yPosition * blockHeight, blockWidth, blockHeight);
+    context.strokeRect(xPosition * blockWidth, yPosition * blockHeight, blockWidth, blockHeight);
 };
 
 function drawRows() {
@@ -221,36 +221,32 @@ function update(time) {
     }
 };
 function handle(action) {
-    switch (action) {
-        case DIR.LEFT:
-            move(DIR.LEFT);
-            break;
-        case DIR.RIGHT:
-            move(DIR.RIGHT);
-            break;
-        case DIR.UP:
-            rotate();
-            break;
-        case DIR.DOWN:
-            drop();
-            break;
+    if(action==DIR.LEFT){
+        move(DIR.LEFT);
+    }
+    else if(action==DIR.RIGHT){
+        move(DIR.RIGHT);
+    }
+    else if(action==DIR.UP){
+        rotate();
+    }
+    else if(action==DIR.DOWN){
+        drop();
     }
 };
 
 function move(direction) {
     var x = current.x, y = current.y;
-    switch (direction) {
-        case DIR.RIGHT:
-            x = x + 1;
-            break;
-        case DIR.LEFT:
-            x = x - 1;
-            break;
-        case DIR.DOWN:
-            y = y + 1;
-            break;
+    if(direction==DIR.LEFT){
+        x=x-1;
     }
-    if (unoccupied(current.type, x, y, current.dir)) {
+    else if(direction==DIR.RIGHT){
+        x=x+1;
+    }
+    else if(direction==DIR.DOWN){
+        y=y+1;
+    }
+    if (!occupied(current.type, x, y, current.dir)) {
         current.x = x;
         current.y = y;
         invalidate();
@@ -262,8 +258,9 @@ function move(direction) {
 };
 
 function rotate() {
+    //change the direction clockwise
     var newdir = (current.dir == DIR.MAX ? DIR.MIN : current.dir + 1);
-    if (unoccupied(current.type, current.x, current.y, newdir)) {
+    if (!occupied(current.type, current.x, current.y, newdir)) {
         current.dir = newdir;
         invalidate();
     }
@@ -273,7 +270,11 @@ function rotate() {
 function drop() {
     if (!move(DIR.DOWN)) {
         addScore(10);
-        dropBlock();
+
+        iterateBlock(current.type, current.x, current.y, current.dir, function (x, y) {
+            setBlock(x, y, current.type);
+        });
+
         removeLines();
         setCurrentPiece(next);
         setNextPiece();
@@ -284,46 +285,40 @@ function drop() {
     }
 };
 
-function dropBlock() {
-    eachblock(current.type, current.x, current.y, current.dir, function (x, y) {
-        setBlock(x, y, current.type);
-    });
-}
-
 function removeLines() {
-    var x, y, complete, n = 0;
-    for (y = courtHeight; y > 0; --y) {
-        complete = true;
-        for (x = 0; x < courtWidth; ++x) {
-            if (!getBlock(x, y))
-                complete = false;
+    var xPosition, yPosition, done, numRows = 0;
+    for (yPosition = courtHeight; yPosition > 0; --yPosition) {
+        done = true;
+        for (xPosition = 0; xPosition < courtWidth; ++xPosition) {
+            if (!getBlock(xPosition, yPosition))
+                done = false;
         }
-        if (complete) {
-            removeLine(y);
-            y = y + 1; // recheck same line
-            n++;
+        if (done) {
+            removeLine(yPosition);
+            yPosition = yPosition + 1;
+            numRows++;
         }
     }
-    if (n > 0) {
-        addRows(n);
-        addScore(100 * Math.pow(2, n - 1)); // 1: 100, 2: 200, 3: 400, 4: 800
+    if (numRows > 0) {
+        addRows(numRows);
+        addScore(100 * Math.pow(2, numRows - 1));
     }
 }
 
-function removeLine(n) {
-    var x, y;
-    for (y = n; y >= 0; --y) {
-        for (x = 0; x < courtWidth; ++x)
-            setBlock(x, y, (y == 0) ? null : getBlock(x, y - 1));
+function removeLine(position) {
+    var xPosition, yPosition;
+    for (yPosition = position; yPosition >= 0; --yPosition) {
+        for (xPosition = 0; xPosition < courtWidth; ++xPosition)
+            setBlock(xPosition, yPosition, (yPosition == 0) ? null : getBlock(xPosition, yPosition - 1));
     }
 }
 
 //iterate through the block
-function eachblock(type, x, y, dir, fn) {
-    var bit, result, row = 0, col = 0, blocks = type.blocks[dir];
+function iterateBlock(type, xPosition, yPosition, dir, fn) {
+    var bit, row = 0, col = 0, blocks = type.blocks[dir];
     for (bit = 0x8000; bit > 0; bit = bit >> 1) {
         if (blocks & bit) {
-            fn(x + col, y + row);
+            fn(xPosition + col, yPosition + row);
         }
         if (++col === 4) {
             col = 0;
@@ -332,22 +327,19 @@ function eachblock(type, x, y, dir, fn) {
     }
 }
 
-//check if the block can be moved to the intended position
-function occupied(type, x, y, dir) {
-    var result = false
-    eachblock(type, x, y, dir, function (x, y) {
-        if ((x < 0) || (x >= courtWidth) || (y < 0) || (y >= courtHeight) || getBlock(x, y))
+//check if block can be shifted to a position
+function occupied(type, xPosition, yPosition, dir) {
+    var result = false;
+    iterateBlock(type, xPosition, yPosition, dir, function (xPosition, yPosition) {
+        if ((xPosition < 0) || (xPosition >= courtWidth) || (yPosition < 0) || (yPosition >= courtHeight) || getBlock(xPosition, yPosition))
             result = true;
     });
     return result;
-}
-function unoccupied(type, x, y, dir) {
-    return !occupied(type, x, y, dir);
-}
-
-function hide(id) {
-    get(id).style.visibility = 'hidden';
 };
+
+/*function hide(id) {
+    get(id).style.visibility = 'hidden';
+};*/
 function show(id) {
     get(id).style.visibility = null;
 };
@@ -373,7 +365,7 @@ function addScore(n) {
 };*/
 function setdisplayedScore(n) {
     displayedscore = n || currentscore;
-    invalidateScore();
+    invalid.currentscore = true;
 };
 
 function setCurrentPiece(piece) {
@@ -411,9 +403,9 @@ function timestamp() {
     return new Date().getTime();
 }
 
-function setBlock(x, y, type) {
-    blocks[x] = blocks[x] || [];
-    blocks[x][y] = type;
+function setBlock(xPosition, yPosition, type) {
+    blocks[xPosition] = blocks[xPosition] || [];
+    blocks[xPosition][yPosition] = type;
     invalidate();
 };
 
@@ -424,29 +416,28 @@ function addRows(n) {
 function setNextPiece(piece) {
 
     next = piece || randomPiece();
-    invalidateNext();
+    invalid.next = true;
 }
 function drawHtml(id, html) {
     get(id).innerHTML = html;
-};
+}
 function setRows(n) {
-    rows = n;
+    rows=n;
     step = Math.max(speed.min, speed.start - (speed.decrement * rows));
-    invalidateRows();
-};
+    invalid.rows = true;
+}
 
-var invalid = {};
-function invalidateNext() {
+/*function invalidateNext() {
     invalid.next = true;
-};
+}*/
 function invalidate() {
     invalid.court = true;
-};
-function invalidateRows() {
+}
+/*function invalidateRows() {
     invalid.rows = true;
 };
 function invalidateScore() {
     invalid.currentscore = true;
-};
+};*/
 //JS is loaded;start listening to input
 run();

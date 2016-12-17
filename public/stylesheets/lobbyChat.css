@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+body {
+    font: 12px arial;
+    color: #222;
+    text-align: center;
+    padding: 30px;
+}
+
+form, p, span {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    font: 12px arial;
+}
+
+
+#chatbox {
+    list-style-type: none;
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 3px;
+    padding: 10px;
+    background: #fff;
+    height: 200px;
+    width: 353px;
+    border: 1px solid #ACD8F0;
+    overflow: auto;
+}
+
+#submit {
+    width: 300px;
+}
+
+body {
+    padding: 30px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+    margin: 0 0 .5em 0;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.fixedChat {
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+}

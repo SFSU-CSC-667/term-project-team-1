@@ -2,6 +2,28 @@ extends lobbyRoom-layout
 
 block content
     body
+        div.fixedChat(style= ' background-color:white; height:250px;width:375px; border: 2px solid black;box-shadow: 8px 8px 8px #999; border: 2px solid #333; ')
+            div
+                form#name-form
+                    .form-group
+                        br
+                        br
+                        br
+                        br
+                        br
+                        label(for='name') Enter name for chat:
+                        br
+                        br
+                        input#name.form-control(type='text', placeholder='Name')
+                        button.btn.btn-primary(type='submit') Enter chat
+            #chatbox
+                p(style='text-align: center; font-size: large;') Welcome to chat!
+                br
+            div.fixedChat
+            form#formid(action='')
+                input#m(name='m', type='text', size='52')
+                input#submitmsg(name='submitmsg', type='submit', value='Send')
+        div
         form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
             p.login.button
                 input(type='submit', value='Logout')
@@ -21,27 +43,7 @@ block content
                                             th Total Score
                                             th Available
                                             tbody
-                div.fixedChat(style= ' background-color:white; height:250px;width:375px; border: 2px solid black;box-shadow: 8px 8px 8px #999; border: 2px solid #333; ')
-                    div
-                        form#name-form
-                            .form-group
-                                br
-                                br
-                                br
-                                br
-                                br
-                                label(for='name') Enter name for chat:
-                                br
-                                br
-                                input#name.form-control(type='text', placeholder='Name')
-                                button.btn.btn-primary(type='submit') Enter chat
-                    #chatbox
-                        p(style='text-align: center; font-size: large;') Welcome to chat!
-                        br
-                    div.fixedChat
-                    form#formid(action='')
-                        input#m(name='m', type='text', size='52')
-                        input#submitmsg(name='submitmsg', type='submit', value='Send')
+
 
 
 

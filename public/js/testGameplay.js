@@ -135,14 +135,14 @@ function reset() {
 //*
 function draw() {
     //for game 1
-    drawCourt();
-    drawNext();
-    drawScore();
-    drawRows();
+    drawTetrisCourt();
+    drawNextBlock();
+    emitScore();
+    drawHtmlForRows();
     context1.restore();
 }
 
-function drawCourt() {
+function drawTetrisCourt() {
     if (invalid.court) {
         context1.clearRect(0, 0, canvas1.width, canvas1.height);
         if (playing) {
@@ -165,7 +165,7 @@ function drawCourt() {
     }
 };
 
-function drawNext() {
+function drawNextBlock() {
     if (invalid.next) {
         var padding = (upcomingCourtSize - next.type.size) / 2;
         ucontext.save();
@@ -191,13 +191,13 @@ function drawBlock(context, xPosition, yPosition, color) {
     context.strokeRect(xPosition * blockWidth, yPosition * blockHeight, blockWidth, blockHeight);
 };
 
-function drawRows() {
+function drawHtmlForRows() {
     if (invalid.rows) {
         drawHtml('rows', rows);
         invalid.rows = false;
     }
 };
-function drawScore() {
+function emitScore() {
     if (invalid.currentscore) {
         //drawHtml('score', ("00000" + Math.floor(displayedscore)).slice(-5));
         //var slice = Math.floor(displayedscore).slice(-5);
@@ -337,22 +337,11 @@ function occupied(type, xPosition, yPosition, dir) {
     return result;
 };
 
-/*function hide(id) {
-    get(id).style.visibility = 'hidden';
-};*/
+
 function show(id) {
     get(id).style.visibility = null;
 };
-/*function clearActions() {
-    actionsQueue = [];
-};
-function clearBlocks() {
-    blocks = [];
-    invalidate();
-};
-function clearScore() {
-    setScore(0);
-};*/
+
 function setScore(n) {
     currentscore = n;
     setdisplayedScore(n);
@@ -360,9 +349,7 @@ function setScore(n) {
 function addScore(n) {
     currentscore = currentscore + n;
 };
-/*function clearRows() {
-    setRows(0);
-};*/
+
 function setdisplayedScore(n) {
     displayedscore = n || currentscore;
     invalid.currentscore = true;
@@ -427,17 +414,9 @@ function setRows(n) {
     invalid.rows = true;
 }
 
-/*function invalidateNext() {
-    invalid.next = true;
-}*/
 function invalidate() {
     invalid.court = true;
 }
-/*function invalidateRows() {
-    invalid.rows = true;
-};
-function invalidateScore() {
-    invalid.currentscore = true;
-};*/
+
 //JS is loaded;start listening to input
 run();

@@ -97,7 +97,7 @@ function keypress(event) {
         event.preventDefault();
 };
 
-function resize(event) {
+function resize() {
     canvas1.width = canvas1.clientWidth;
     canvas1.height = canvas1.clientHeight;
     ucanvas.width = ucanvas.clientWidth;
@@ -238,7 +238,6 @@ document.onkeydown = function (e) {
             code = 40;
             break;
     }
-
     socket.emit("nextKey", code);
 };
 
@@ -277,20 +276,21 @@ socket.on('nextKey', function (code) {
 
 function handle(action) {
     var x = current.x, y = current.y;
-    if(action===DIR.LEFT){
+    if(action==DIR.LEFT){
         x -= 1;
-    }
-    else if(action===DIR.RIGHT){
+    } else if(action==DIR.RIGHT){
         x += 1;
-    }
-    else if(action===DIR.UP){
+    } else if(action==DIR.UP){
         rotate();
-    }
-    else if(action===DIR.DOWN){
+    } else if(action==DIR.DOWN){
         drop();
     }
+};
 
-    if(action != DIR.UP){
+function move(direction) {
+    var x = current.x, y = current.y;
+    if(direction==DIR.DOWN){
+        y += 1;
         if (!occupied(current.type, x, y, current.dir)) {
             current.x = x;
             current.y = y;
@@ -300,28 +300,6 @@ function handle(action) {
         else {
             return false;
         }
-    }
-};
-
-function move(direction) {
-    var x = current.x, y = current.y;
-    if(direction==DIR.LEFT){
-        x=x-1;
-    }
-    else if(direction==DIR.RIGHT){
-        x=x+1;
-    }
-    else if(direction==DIR.DOWN){
-        y=y+1;
-    }
-    if (!occupied(current.type, x, y, current.dir)) {
-        current.x = x;
-        current.y = y;
-        invalidate();
-        return true;
-    }
-    else {
-        return false;
     }
 };
 

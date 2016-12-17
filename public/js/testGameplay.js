@@ -1,50 +1,4 @@
-//basic tetris blocks
-//each item in the 'blocks' array represents a direction of orientation of the tetris block
-
-var i = {size: 4, blocks: [0x0F00, 0x2222, 0x00F0, 0x4444], color: 'GAINSBORO'};
-var j = {size: 3, blocks: [0x44C0, 0x8E00, 0x6440, 0x0E20], color: 'SILVER'};
-var o = {size: 2, blocks: [0xCC00, 0xCC00, 0xCC00, 0xCC00], color: 'SILVER'};
-var s = {size: 3, blocks: [0x06C0, 0x8C40, 0x6C00, 0x4620], color: 'GAINSBORO'};
-var t = {size: 3, blocks: [0x0E40, 0x4C40, 0x4E00, 0x4640], color: 'GAINSBORO'};
-var z = {size: 3, blocks: [0x0C60, 0x4C80, 0xC600, 0x2640], color: 'SILVER'};
-var l = {size: 3, blocks: [0x4460, 0x0E80, 0xC440, 0x2E00], color: 'GAINSBORO'};
-
-//constants
-var canvas1 = get('canvas1');
-var ucanvas = get('upcoming');
-var courtWidth = 10; // width of the court
-var courtHeight = 20; // height of the court
-var upcomingCourtSize = 5; // width and height of upcoming view court
-var KEY = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, ESC: 27, TAB: 9};
-var DIR = {UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3, MIN: 0, MAX: 3};
-var speed = {start: 0.5, decrement: 0.08, min: 0.1};
-var invalid = {};
-
-var context1 = canvas1.getContext('2d');
-var ucontext = ucanvas.getContext('2d');
-//variables
-var blockWidth, blockHeight, actionsQueue, current, next, playing;
-var timePassed;
-var pieces = [];
-var step;
-var currentscore, displayedscore;
-var index = 0;
-var score = 0;
-
-/* http://paulirish.com/2011/requestanimationframe-for-smart-animating/  */
-if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function (callback, element) {
-            window.setTimeout(callback, 1000 / 60);
-        }
-}
-
-
-//*
-function run() {
+function startGame() {
     listenToEvents();
     var currentTime  = timestamp();
     var lastTime=timestamp();
@@ -53,9 +7,8 @@ function run() {
         currentTime = timestamp();
         update(Math.min(1, (currentTime - lastTime) / 1000.0));
         draw();
-
         lastTime = currentTime;
-        requestAnimationFrame(frame, canvas1);
+        requestAnimationFrame(frame, gameCanvas);
     }
     resize();
     reset();
@@ -88,22 +41,18 @@ function keypress(event) {
             handled = true;
         }
     }
-    else if (event.keyCode == KEY.TAB) {
-        play();
-        handled = true;
-    }
-    //prevent user from using the arrow keys for default browser functions
-    if (handled)
+    if (handled) {
         event.preventDefault();
+    }
 };
 
 function resize() {
-    canvas1.width = canvas1.clientWidth;
-    canvas1.height = canvas1.clientHeight;
-    ucanvas.width = ucanvas.clientWidth;
-    ucanvas.height = ucanvas.clientHeight;
-    blockWidth = canvas1.width / courtWidth;
-    blockHeight = canvas1.height / courtHeight;
+    gameCanvas.width = gameCanvas.clientWidth;
+    gameCanvas.height = gameCanvas.clientHeight;
+    upcomingBlockCanvas.width = upcomingBlockCanvas.clientWidth;
+    upcomingBlockCanvas.height = upcomingBlockCanvas.clientHeight;
+    blockWidth = gameCanvas.width / courtWidth;
+    blockHeight = gameCanvas.height / courtHeight;
     invalidate();
     invalid.next = true;
 };
@@ -140,15 +89,15 @@ function draw() {
     drawNextBlock();
     emitScore();
     drawHtmlForRows();
-    context1.restore();
+    gameCanvasContext.restore();
 }
 
 function drawTetrisCourt() {
     if (invalid.court) {
-        context1.clearRect(0, 0, canvas1.width, canvas1.height);
+        gameCanvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
         if (playing) {
 
-        drawPiece(context1, current.type, current.x, current.y, current.dir);
+        drawPiece(gameCanvasContext, current.type, current.x, current.y, current.dir);
         }
         var y=0, block;
         while(y<courtHeight){
@@ -156,12 +105,12 @@ function drawTetrisCourt() {
             while(x<courtWidth) {
                 block = getBlock(x, y);
                 if (block != null)
-                    drawBlock(context1, x, y, block.color);
+                    drawBlock(gameCanvasContext, x, y, block.color);
                 x++;
             }
             y++;
         }
-        context1.strokeRect(0, 0, courtWidth * blockWidth - 1, courtHeight * blockHeight - 1); // court boundary
+        gameCanvasContext.strokeRect(0, 0, courtWidth * blockWidth - 1, courtHeight * blockHeight - 1); // court boundary
         invalid.court = false;
     }
 };
@@ -169,13 +118,13 @@ function drawTetrisCourt() {
 function drawNextBlock() {
     if (invalid.next) {
         var padding = (upcomingCourtSize - next.type.size) / 2;
-        ucontext.save();
-        ucontext.translate(0.5, 0.5);
-        ucontext.clearRect(0, 0, upcomingCourtSize * blockWidth, upcomingCourtSize * blockHeight);
-        drawPiece(ucontext, next.type, padding, padding, next.dir);
-        ucontext.strokeStyle = 'black';
-        ucontext.strokeRect(0, 0, upcomingCourtSize * blockWidth - 1, upcomingCourtSize * blockHeight - 1);
-        ucontext.restore();
+        upcomingCanvasContext.save();
+        upcomingCanvasContext.translate(0.5, 0.5);
+        upcomingCanvasContext.clearRect(0, 0, upcomingCourtSize * blockWidth, upcomingCourtSize * blockHeight);
+        drawPiece(upcomingCanvasContext, next.type, padding, padding, next.dir);
+        upcomingCanvasContext.strokeStyle = 'black';
+        upcomingCanvasContext.strokeRect(0, 0, upcomingCourtSize * blockWidth - 1, upcomingCourtSize * blockHeight - 1);
+        upcomingCanvasContext.restore();
         invalid.next = false;
     }
 };
@@ -385,7 +334,7 @@ function occupied(type, xPosition, yPosition, dir) {
 
 
 function show(id) {
-    get(id).style.visibility = null;
+    document.getElementById(id).style.visibility = null;
 };
 
 function setScore(n) {
@@ -393,7 +342,7 @@ function setScore(n) {
     setdisplayedScore(n);
 };
 function addScore(n) {
-    currentscore = currentscore + n;
+    currentscore += n;
 };
 
 function setdisplayedScore(n) {
@@ -403,24 +352,25 @@ function setdisplayedScore(n) {
 
 function setCurrentPiece(piece) {
     current = piece || randomPiece();
+    //current = randomPiece();
     invalidate();
 };
 function randomPiece() {
 
-    pieces = [i, j, l, o, s, t, z, i, j, l, o, s, t, z, i, j, l, o, s, t, z, i, j, l, o, s, t, z];
+    var tetrisPieces = [iBlock, jBlock, lBlock, oBlock, sBlock,
+                        tBlock, zBlock, iBlock, jBlock, lBlock,
+                        oBlock, sBlock, tBlock, zBlock, iBlock,
+                        jBlock, lBlock, oBlock, sBlock, tBlock,
+                        zBlock, iBlock, jBlock, lBlock, oBlock,
+                        sBlock, tBlock, zBlock];
 
-    var type = pieces[index];
+    var type = tetrisPieces[index];
     index++;
-    if (index >= 28)
-    {
+    if (index >= 28) {
         index = 0;
     }
 
     return {type: type, dir: DIR.UP, x: courtWidth - type.size, y: 0};
-};
-
-function get(id) {
-    return document.getElementById(id);
 };
 
 function getBlock(x, y) {
@@ -448,13 +398,14 @@ function addRows(n) {
 function setNextPiece(piece) {
 
     next = piece || randomPiece();
+    //next = randomPiece();
     invalid.next = true;
 }
 function drawHtml(id, html) {
-    get(id).innerHTML = html;
+    document.getElementById(id).innerHTML = html;
 }
 function setRows(n) {
-    rows=n;
+    rows = n;
     step = Math.max(speed.min, speed.start - (speed.decrement * rows));
     invalid.rows = true;
 }
@@ -464,4 +415,4 @@ function invalidate() {
 }
 
 //JS is loaded;start listening to input
-run();
+startGame();

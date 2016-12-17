@@ -2,12 +2,9 @@
  * Created by jose ortiz on 12/4/16.
  */
 
-
-
 $(document).ready(function () {
     initMultiplayerSocket();
     userJoined("Hello Word");
-    initGame();
 
 });
 var gameisFull = false;
@@ -16,8 +13,6 @@ var gameSubtitle = "";   // will show in screen info about the players
 var scoreId = "";
 var score1 = 0;
 var score2 = 0;
-var playerScore = 0;
-
 function initMultiplayerSocket() {
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
@@ -84,6 +79,12 @@ function userJoined(msg) {
     socket.emit('joinGame', msg);
 }
 
+function toastMessage(message){
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    x.innerHTML = message;
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
 
 
 
@@ -140,7 +141,7 @@ socket.on("addPlayerToGame", function (isMultiplayerMode, data, playerDescriptor
 socket.on('playGame', function(room) {
     index = 0;
     play();
-    socket.emit('resetTimer', room, score);
+    socket.emit('resetTimer', room);
 });
 
 socket.on('updateTimer', function (data) {
@@ -162,18 +163,20 @@ socket.on("waitUntilNextPlayer", function (data) {
 socket.on('nextPlayer', function (nextPlayer) {
 
     document.getElementById('whoIsPlaying').innerHTML = nextPlayer.name + " is playing now....";
-    playerScore = score;
+
     if (socket.id == nextPlayer.socketid)
     {
         //toast here("You are up for the next round...");
         //$('#score').html(displayedscore);
 
+        toastMessage('You are up next..');
 
     }
     else
     {
         //toast here("Your time for this round is up. Close the box to see the next player round");
         //$('#score2').html(displayedscore);
+        toastMessage('Your time for this round is up. Close the box to see the next player round');
 
     }
 
@@ -182,61 +185,17 @@ socket.on('nextPlayer', function (nextPlayer) {
 })
 
 
-
 socket.on("score", function (data) {
     document.getElementById(data.scoreid).innerHTML = data.score;
+
 })
 
 socket.on("end", function (room) {
     end();
     // add toast here
+    toastMessage('Game Over');
 })
 
-document.onkeydown = function (e) {
-    var code = 0;
-    switch (e.keyCode) {
-        case 37:
-            code = 37;
-            break;
-        case 38:
-
-            code = 38;
-            break;
-        case 39:
-
-            code = 39;
-            break;
-        case 40:
-            code = 40;
-            break;
-    }
-
-    socket.emit("nextKey", code);
-};
-
-
-socket.on('nextKey', function (code) {
-
-      switch (code) {
-            case 37:
-
-                move(DIR.LEFT);
-                break;
-            case 38:
-                rotate();
-                break;
-            case 39:
-                move(DIR.RIGHT);
-
-                break;
-            case 40:
-                drop();
-
-                break;
-        }
-
-
-});
 
 
 

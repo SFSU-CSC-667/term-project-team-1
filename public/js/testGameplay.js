@@ -31,7 +31,8 @@ var currentscore, displayedscore;
 var index = 0;
 var score = 0;
 
-if (!window.requestAnimationFrame) { // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+/* http://paulirish.com/2011/requestanimationframe-for-smart-animating/  */
+if (!window.requestAnimationFrame) {
     window.requestAnimationFrame = window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         window.oRequestAnimationFrame ||
@@ -220,18 +221,85 @@ function update(time) {
         }
     }
 };
+
+document.onkeydown = function (e) {
+    var code = 0;
+    switch (e.keyCode) {
+        case 37:
+            code = 37;
+            break;
+        case 38:
+            code = 38;
+            break;
+        case 39:
+            code = 39;
+            break;
+        case 40:
+            code = 40;
+            break;
+    }
+
+    socket.emit("nextKey", code);
+};
+
+socket.on('nextKey', function (code) {
+    var x = current.x, y = current.y;
+    switch (code) {
+        case 37:
+            DIR.LEFT = x -= 1;
+            break;
+        case 38:
+            var newdir = (current.dir === DIR.MAX ? DIR.MIN : current.dir + 1);
+            if (!occupied(current.type, current.x, current.y, newdir)) {
+                DIR.UP = current.dir = newdir;
+                invalidate();
+            }
+            break;
+        case 39:
+            DIR.RIGHT = x += 1;
+            break;
+        case 40:
+            DIR.DOWN =  y += 1;
+            break;
+    }
+    if(code != 38) {
+        if (!occupied(current.type, x, y, current.dir)) {
+            current.x = x;
+            current.y = y;
+            invalidate();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+});
+
 function handle(action) {
-    if(action==DIR.LEFT){
-        move(DIR.LEFT);
+    var x = current.x, y = current.y;
+    if(action===DIR.LEFT){
+        x -= 1;
     }
-    else if(action==DIR.RIGHT){
-        move(DIR.RIGHT);
+    else if(action===DIR.RIGHT){
+        x += 1;
     }
-    else if(action==DIR.UP){
+    else if(action===DIR.UP){
         rotate();
     }
-    else if(action==DIR.DOWN){
+    else if(action===DIR.DOWN){
         drop();
+    }
+
+    if(action != DIR.UP){
+        if (!occupied(current.type, x, y, current.dir)) {
+            current.x = x;
+            current.y = y;
+            invalidate();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 };
 
@@ -369,7 +437,6 @@ function randomPiece() {
     {
         index = 0;
     }
-
 
     return {type: type, dir: DIR.UP, x: courtWidth - type.size, y: 0};
 };

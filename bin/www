@@ -46,6 +46,7 @@ var chatSocket = require('../server_classes/sockets/chatSocket.js');
  */
 
 
+
 /* Socket IO implementation for chat in gameplay page */
 
 var io = require('socket.io').listen(server.listen(port));
@@ -61,6 +62,9 @@ var playerJoined = "";
 var interval;
 var countdown = 30;
 var singlePlayer = true;
+var scoreid = 'score';
+var resetScore = false;
+var oldScore = 0;
 
 
 
@@ -107,13 +111,14 @@ io.on('connection', function (socket) {
 
             if (playerSession.opponent == null) // single player session
             {
-
+                score1 = 0;
                 playerSession.isPlaying = true;
                 io.sockets.in(room).emit('addPlayerToGame', false, playerSession.name + " is playing in single player mode", { playername: playerSession.name, opponent: ""});
                 playerSession.scoreDescriptor = "player1";
             }
             else // multi player session
             {
+                score2 = 0;
                 playerSession.scoreDescriptor = "player2";
                 io.sockets.in(room).emit('addPlayerToGame', true, playerSession.name + " Vs " + opponent.name,
                                          { playername: playerSession.name, opponent: opponent.name});
@@ -126,9 +131,6 @@ io.on('connection', function (socket) {
                 isGameFull(db, 0,room);
                 console.log("user left the room");
             });
-
-
-
     });
 
     // Once single player or multiplayer mode is determined, the game will start
@@ -139,34 +141,38 @@ io.on('connection', function (socket) {
 
     // Construct the timer and resets it when a player finish its round
     // in multiplayer mode. For single player mode, the timer will stay static
-    socket.on("resetTimer", function (room) {
+    socket.on("resetTimer", function (room, score) {
           var player1 = gameUsers[socket.id];
           var player2, nextPlayer;
           if (player1.opponent != null) // single player
           {
               player2 = player1.opponent;
               clearInterval(interval);
-              countdown = 30;
+              countdown = 15;
               interval = setInterval(function () {
                   countdown--;
                   if (countdown == -1)
                   {
-                      countdown = 30;
+                      countdown = 15;
                       if (player1.isPlaying == true)
                       {
-
+                          scoreid = 'score2'
                           player2.isPlaying = true;
                           player1.isPlaying = false;
                           nextPlayer = player2;
+
                       }
                       else if (player2.isPlaying == true)
                       {
+                          scoreid = 'score'
                           player1.isPlaying = true;
                           player2.isPlaying = false;
                           nextPlayer = player1;
+
                       }
+                      resetScore = true;
                       console.log(nextPlayer.name + " is next player");
-                      io.sockets.in(room).emit("nextPlayer", {name: nextPlayer.name, socketid: nextPlayer.socketid, id: nextPlayer.playerid});
+                      io.sockets.in(room).emit("nextPlayer", {name: nextPlayer.name, socketid: nextPlayer.socketid, id: nextPlayer.playerid, score: nextPlayer.score});
 
                   }
                   io.sockets.in(room).emit('updateTimer', countdown);
@@ -207,16 +213,17 @@ io.on('connection', function (socket) {
 
     socket.on("updatePlayerScore", function (data) {
         var player = gameUsers[socket.id];
-        if (player.isPlaying) {
-            console.log("player playing: " + player.name)
-            player.score = data.score;
-            socket.emit("score", {score: player.score, scoreid: player.scoreid});
+        if (resetScore == true)
+        {
+            resetScore = false;
+
         }
+        player.score = data.score;
+        io.sockets.in(data.room).emit("score", {room: data.room, score: player.score, scoreid: scoreid});
 
     })
 
     socket.on("endOfGame", function (room, socketid) {
-        var player = gameUsers[socketid];
         io.sockets.in(room).emit("end", room);
         clearInterval(interval);
 
@@ -226,10 +233,7 @@ io.on('connection', function (socket) {
         clearInterval(interval)
     })
 
-    socket.on("disableKeys" , function (room) {
-         var player = gameUsers[socket.id];
-         socket.broadcast.to(player.opponent.socketid).emit("disable", room);
-    })
+
 });
 
 function isGameFull (db, value, room )

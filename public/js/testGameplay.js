@@ -28,6 +28,7 @@ var pieces = [];
 var step;
 var currentscore, displayedscore;
 var index = 0;
+var score = 0;
 
 if (!window.requestAnimationFrame) { // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimationFrame = window.webkitRequestAnimationFrame ||
@@ -212,12 +213,14 @@ function drawRows() {
 function drawScore() {
     if (invalid.currentscore) {
         //drawHtml('score', ("00000" + Math.floor(displayedscore)).slice(-5));
-        var score = ("00000" + Math.floor(displayedscore)).slice(-5);
-        socket.emit('updatePlayerScore', {room: room, score: score, socketid: socket.id});
+        //var slice = Math.floor(displayedscore).slice(-5);
+        score = ("00000" + Math.floor(displayedscore)).slice(-5);
+
+        socket.emit('updatePlayerScore', {room: room, score: score, socket: socket.id});
         invalid.currentscore = false;
     }
 };
-//*
+
 function update(time) {
     if (playing) {
         if (displayedscore < currentscore)

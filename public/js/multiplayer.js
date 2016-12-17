@@ -2,6 +2,8 @@
  * Created by jose ortiz on 12/4/16.
  */
 
+
+
 $(document).ready(function () {
     initMultiplayerSocket();
     userJoined("Hello Word");
@@ -14,6 +16,8 @@ var gameSubtitle = "";   // will show in screen info about the players
 var scoreId = "";
 var score1 = 0;
 var score2 = 0;
+var playerScore = 0;
+
 function initMultiplayerSocket() {
     var multiplayerSocket = io();
     var gameid = getParameterByName("gameid");
@@ -136,7 +140,7 @@ socket.on("addPlayerToGame", function (isMultiplayerMode, data, playerDescriptor
 socket.on('playGame', function(room) {
     index = 0;
     play();
-    socket.emit('resetTimer', room);
+    socket.emit('resetTimer', room, score);
 });
 
 socket.on('updateTimer', function (data) {
@@ -158,12 +162,12 @@ socket.on("waitUntilNextPlayer", function (data) {
 socket.on('nextPlayer', function (nextPlayer) {
 
     document.getElementById('whoIsPlaying').innerHTML = nextPlayer.name + " is playing now....";
-
+    playerScore = score;
     if (socket.id == nextPlayer.socketid)
     {
         //toast here("You are up for the next round...");
         //$('#score').html(displayedscore);
-        socket.emit("disableKeys", room);
+
 
     }
     else
@@ -177,15 +181,10 @@ socket.on('nextPlayer', function (nextPlayer) {
 
 })
 
-socket.on("disable", function (room) {
-    document.onkeydown = function (e) {
-        return false;
-    }
-})
+
 
 socket.on("score", function (data) {
     document.getElementById(data.scoreid).innerHTML = data.score;
-
 })
 
 socket.on("end", function (room) {

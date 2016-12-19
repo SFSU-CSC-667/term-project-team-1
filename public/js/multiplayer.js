@@ -138,34 +138,18 @@ socket.on("score", function (data) {
 
 })
 
-socket.on("end", function (room) {
-    end();
-    var score1 = document.getElementById('score').innerHTML;
-    var score2 = document.getElementById('score2').innerHTML;
-    var score = 0;
-    var winner = "";
-    if (parseInt(score1) > parseInt(score2))
-    {
-        score = score1;
-
-
-    }
-    else
-    {
-        score = score2;
-
-    }
-
-    socket.emit("winner", room, {winnerid: playerid, score: score});
+socket.on("end", function (room, winnerInfo) {
+    //end();
+    socket.emit("DetermineWinner", room);
     // add toast here
-    toastMessage('Game Over');
-    /*
+    toastMessage('Game over. ' + winnerInfo.winner + ' has won the game with a score of ' + winnerInfo.score);
     index = 0; // player index in game.
-    play();
+    reset();
     socket.emit('resetTimer', room);
-    */
 
 })
+
+
 
 
 

@@ -55,7 +55,7 @@ var users = {};
 var gameUsers = {};
 var games = {};
 var interval;
-var countdown = 60;
+var countdown = 30;
 var scoreid = 'score';
 var resetScore = false;
 
@@ -148,16 +148,17 @@ io.on('connection', function (socket) {
         {
             player2 = player1.opponent;
             clearInterval(interval);
-            countdown = 60;
+            countdown = 30;
             interval = setInterval(function () {
                 countdown--;
                 if (countdown == -1) {
-                    countdown = 60;
+                    countdown = 30;
                     if (player1.isPlaying == true) {
                         scoreid = 'score2'
                         player2.isPlaying = true;
                         player1.isPlaying = false;
                         nextPlayer = player2;
+                        player1.score = score;
 
                     }
                     else if (player2.isPlaying == true) {
@@ -165,6 +166,7 @@ io.on('connection', function (socket) {
                         player1.isPlaying = true;
                         player2.isPlaying = false;
                         nextPlayer = player1;
+                        player2.score = score;
 
                     }
                     resetScore = true;
@@ -225,16 +227,31 @@ io.on('connection', function (socket) {
     })
 
     socket.on("endOfGame", function (room) {
-        io.sockets.in(room).emit("end", room);
+        var player1 = gameUsers[socket.id];
+        var player2 = gameUsers[socket.id].opponent;
+        var playerid, newScore, winner;
+
+        if (player1.score > player2.score)
+        {
+            playerid = player1.playerid;
+            newScore = player1.score;
+            winner = player1;
+        }
+        else
+        {
+            playerid = player2.playerid;
+            newScore = player2.score;
+            winner = player2;
+        }
+        saveWinnerScoreInDatabase(db, playerid, newScore);
+        io.sockets.in(room).emit("resetGame", { winnerName: winner.name, winnerScore: winner.score})
         clearInterval(interval);
+        io.sockets.in(room).emit("end", room, {winner: winner.name, score: winner.score});
 
 
     })
 
-    socket.on("winner", function (room, winnerData) {
-        saveWinnerScoreInDatabase(db, winnerData.winnerid, winnerData.score);
 
-    })
 
 
 });
@@ -260,7 +277,7 @@ function saveWinnerScoreInDatabase (db, winnerid, winnerScore)
 {
     console.log("winner score: " + winnerScore + " id: " + winnerid);
     db.none('update users set score=$1 where id=$2',
-        [winnerScore, parseInt(winnerid)])
+        [winnerScore, winnerid])
         .then(function () {
             console.log("winner score with id: " + winnerid + " was updated to: " + winnerScore);
         })

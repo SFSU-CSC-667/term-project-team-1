@@ -55,7 +55,7 @@ var users = {};
 var gameUsers = {};
 var games = {};
 var interval;
-var countdown = 15;
+var countdown = 60;
 var scoreid = 'score';
 var resetScore = false;
 
@@ -148,11 +148,11 @@ io.on('connection', function (socket) {
         {
             player2 = player1.opponent;
             clearInterval(interval);
-            countdown = 15;
+            countdown = 60;
             interval = setInterval(function () {
                 countdown--;
                 if (countdown == -1) {
-                    countdown = 15;
+                    countdown = 60;
                     if (player1.isPlaying == true) {
                         scoreid = 'score2'
                         player2.isPlaying = true;

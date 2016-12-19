@@ -45,7 +45,11 @@ var chatSocket = require('../server_classes/sockets/chatSocket.js');
  * Listen on provided port, on all network interfaces.
  */
 
-
+/*
+    Credit to Socket IO chat tutorial provided 
+    by http://socket.io/get-started/chat//
+    and John Roberts example https://github.com/SFSU-CSC-667/socket-io-example
+*/
 
 /* Socket IO implementation for chat in gameplay page */
 

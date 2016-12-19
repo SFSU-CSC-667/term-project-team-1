@@ -149,6 +149,10 @@ socket.on("end", function (room, winnerInfo) {
 
 })
 
+socket.on("restart", function(){
+   reset();
+});
+
 
 
 

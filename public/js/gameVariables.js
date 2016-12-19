@@ -1,3 +1,6 @@
+/*  Credit to Jake Gordon's Tetris tutorial 
+    http://www.codeincomplete.com/games/
+*/
 var iBlock = {
     size: 4,
     blocks: [0x0F00, 0x2222, 0x00F0, 0x4444],

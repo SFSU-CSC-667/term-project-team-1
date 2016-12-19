@@ -1,5 +1,7 @@
 function startGame() {
-    listenToEvents();
+    //listenToEvents();
+    document.addEventListener('keydown', keypress, false);
+    window.addEventListener('resize', resize, false);
     var currentTime  = getCurrentTime();
     var lastTime=getCurrentTime();
 
@@ -13,11 +15,6 @@ function startGame() {
     resize();
     reset();
     frame();
-};
-
-function listenToEvents() {
-    document.addEventListener('keydown', keypress, false);
-    window.addEventListener('resize', resize, false);
 };
 
 

@@ -210,9 +210,9 @@ io.on('connection', function (socket) {
         isGameFull(db, value, room);
     })
     // Determines the next key that was clicked.
-    socket.on('nextKey', function (code) {
+    socket.on('nextKey', function (code, room) {
         console.log("user clicked a key: " + code);
-        io.sockets.emit('nextKey', code);
+        io.sockets.in(room).emit('nextKey', code);
     })
 
     socket.on("updatePlayerScore", function (data) {

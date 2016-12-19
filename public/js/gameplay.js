@@ -193,7 +193,8 @@ document.onkeydown = function (e) {
             code = 40;
             break;
     }
-    socket.emit("nextKey", code);
+    var room = getParameterByName('gameid');
+    socket.emit("nextKey", code, room);
 };
 
 socket.on('nextKey', function (code) {

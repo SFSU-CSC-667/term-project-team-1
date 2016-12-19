@@ -68,8 +68,8 @@ function createGame(req, res, next) {
         .then(function (data) {
             if (res.status(200)) {
                 sessions.GAME_SESSION = data.id;
-                res.redirect('/gameplay?player1=' + sessions.USER_SESSION + '&playerName=' + sessions.USER_SESSION_NAME +'&player2=' + sessions.JOINED_USER_SESSION +
-                            '&gameid=' + sessions.GAME_SESSION);
+                res.redirect('/gameplay?player1=' + sessions.USER_SESSION + '&playerName=' + sessions.USER_SESSION_NAME + '&player2=' + sessions.JOINED_USER_SESSION +
+                    '&gameid=' + sessions.GAME_SESSION);
             }
         })
         .catch(function (err) {

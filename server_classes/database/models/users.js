@@ -7,9 +7,7 @@
  *              in the file dbManager.js
  */
 
-/**
- * Created by master_cs_se on 11/5/16.
- */
+
 var promise = require('bluebird');
 
 var options = {

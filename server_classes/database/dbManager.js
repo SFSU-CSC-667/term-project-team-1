@@ -29,12 +29,6 @@ class DatabaseManager {
         }
     }
 
-    set lobbies(lobbies) {
-        if (lobbies) {
-            this._lobbies = lobbies;
-        }
-    }
-
     set games(games) {
         if (games) {
             this._games = games;
@@ -43,10 +37,6 @@ class DatabaseManager {
 
     get users() {
         return this._users;
-    }
-
-    get lobbies() {
-        return this._lobbies;
     }
 
     get games() {

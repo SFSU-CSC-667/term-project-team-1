@@ -91,8 +91,8 @@ function loadGamesList() {
                 tableContent += '<td>' + game.name + '</td>';
                 tableContent += '<td>' + game.gamename + '</td>';
                 tableContent += '<td>' + game.totalscore + '</td>';
-                tableContent += '<td><a id="joinlink" href="/gameplay?player1=' + game.player1 + '&playerName=' + game.name +'&player2=' +
-                                        getParameterByName('userid') + '&gameid=' + game.id + '">' + join + '</a></td>';
+                tableContent += '<td><a id="joinlink" href="/gameplay?player1=' + game.player1 + '&playerName=' + game.name + '&player2=' +
+                    getParameterByName('userid') + '&gameid=' + game.id + '">' + join + '</a></td>';
                 tableContent += '</tr>';
                 // Inject the whole content string into our existing HTML table
                 $('#gamesList table tbody').html(tableContent);

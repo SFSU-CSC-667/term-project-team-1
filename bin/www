@@ -250,14 +250,7 @@ io.on('connection', function (socket) {
             clearInterval(interval);
             io.sockets.in(room).emit("end", room, {winner: winner.name, score: winner.score});
         }
-        else if(player1 != null && player2 == null)
-        {
-            io.emit("restart");
-        }
-        // saveWinnerScoreInDatabase(db, playerid, newScore);
-        // io.sockets.in(room).emit("resetGame", { winnerName: winner.name, winnerScore: winner.score});
-        // clearInterval(interval);
-        // io.sockets.in(room).emit("end", room, {winner: winner.name, score: winner.score});
+
     })
 
 

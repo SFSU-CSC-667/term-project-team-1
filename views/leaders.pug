@@ -1,24 +1,24 @@
 extends leaders-layout
 
 block content
-        form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
-            p.login.button
-                input(type='submit', value='Logout')
+    form(method='GET' action='https://csc667-team1-tetris.herokuapp.com/logout')
+        p.login.button
+            input(type='submit', value='Logout')
 
-        .container
-            header
-                h1 LEADERBOARD
+    .container
+        header
+            h1 LEADERBOARD
 
-            section
-                #wrapper
-                    #login.animate
-                        #userList
-                            table
-                                thead
-                                    th Position
-                                    th Player
-                                    th Email
-                                    th Score
-                                    tbody
+        section
+            #wrapper
+                #login.animate
+                    #userList
+                        table
+                            thead
+                                th Position
+                                th Player
+                                th Email
+                                th Score
+                                tbody
 
 

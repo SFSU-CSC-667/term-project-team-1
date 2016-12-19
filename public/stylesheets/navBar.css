@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Audiowide');
 
-.center{
+.center {
     text-align: center;
     font-family: 'Audiowide', cursive;
     /*font-style: italic;*/
@@ -15,7 +15,7 @@
     text-decoration: none;
 }
 
-.center2{
+.center2 {
     width: 46.875em;
 
     /*background-color: white;*/
@@ -26,38 +26,35 @@
     border: 2px solid black;
 }
 
-.navBarBackGround{
+.navBarBackGround {
     background-image: url("/stylesheets/images/image3.png");
 }
 
-li{
+li {
 
     float: left;
 }
 
-a:hover, a:active{
+a:hover, a:active {
 
-    background-color: rgba(26,89,120,0.9);
+    background-color: rgba(26, 89, 120, 0.9);
     /*background-color: #EBF4FB;*/
     /*background-image: url("/stylesheets/images/image3.png");*/
 }
 
-.textOutline
-{
+.textOutline {
     color: white;
-    text-shadow:
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
-.gameBackground{
+.gameBackground {
     background-image: url("/stylesheets/images/nextBlockBackground.jpg");
 }
 
-.timerFont
-{
+.timerFont {
     font-family: 'Audiowide', cursive;
 }
 

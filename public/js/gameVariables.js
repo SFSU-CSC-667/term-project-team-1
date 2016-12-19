@@ -43,23 +43,29 @@ var courtWidth = 10;
 var courtHeight = 20;
 var upcomingCourtSize = 5;
 
-var KEY = { LEFT: 37,
-            UP: 38,
-            RIGHT: 39,
-            DOWN: 40,
-            ESC: 27,
-            TAB: 9 };
+var KEY = {
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+    ESC: 27,
+    TAB: 9
+};
 
-var DIR = { UP: 0,
-            RIGHT: 1,
-            DOWN: 2,
-            LEFT: 3,
-            MIN: 0,
-            MAX: 3 };
+var DIR = {
+    UP: 0,
+    RIGHT: 1,
+    DOWN: 2,
+    LEFT: 3,
+    MIN: 0,
+    MAX: 3
+};
 
-var speed = { start: 0.5,
-              decrement: 0.08,
-              min: 0.1 };
+var speed = {
+    start: 0.5,
+    decrement: 0.08,
+    min: 0.1
+};
 
 var invalid = {};
 var gameCanvasContext = gameCanvas.getContext('2d');

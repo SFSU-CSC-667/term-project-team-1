@@ -4,15 +4,12 @@
 
 "use strict";
 
-class ChatSocket
-{
-    constructor ()
-    {
+class ChatSocket {
+    constructor() {
 
     }
 
-    connect (io, socket, users, games)
-    {
+    connect(io, socket, users, games) {
         socket.on('connected', function (userName, room) {
             users[socket.id] = userName;
             io.emit('update', '*** ' + userName + ' joined the chat. ***');

@@ -125,7 +125,7 @@ socket.on('nextPlayer', function (nextPlayer) {
     else {
         //toast here("Your time for this round is up. Close the box to see the next player round");
         //$('#score2').html(displayedscore);
-        toastMessage('Your time for this round is up. Close the box to see the next player round');
+        toastMessage('Your time for this round is up.');
 
     }
 
@@ -159,9 +159,11 @@ socket.on("end", function (room) {
     socket.emit("winner", room, {winnerid: playerid, score: score});
     // add toast here
     toastMessage('Game Over');
+    /*
     index = 0; // player index in game.
-    startGame();
+    play();
     socket.emit('resetTimer', room);
+    */
 
 })
 

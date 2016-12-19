@@ -282,6 +282,7 @@ function drop() {
         actionsQueue = [];
         if (isOccupied(current.type, current.x, current.y, current.dir)) {
             socket.emit("endOfGame", room);
+
         }
     }
 };

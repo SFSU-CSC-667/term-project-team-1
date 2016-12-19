@@ -1,3 +1,12 @@
+/*  Credit to Jake Gordon's Tetris tutorial 
+    http://www.codeincomplete.com/games/
+    
+    Credit to Paul Irish's example on requestAnimationFrame
+    https://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+    
+    Credit to www.javascriptkit.com's example on requestAnimationFrame
+    http://www.javascriptkit.com/javatutors/requestanimationframe.shtml
+*/
 function startGame() {
     //listenToEvents();
     document.addEventListener('keydown', keypress, false);

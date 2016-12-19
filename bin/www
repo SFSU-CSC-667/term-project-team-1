@@ -158,7 +158,7 @@ io.on('connection', function (socket) {
                         player2.isPlaying = true;
                         player1.isPlaying = false;
                         nextPlayer = player2;
-                        player1.score = score;
+                        player2.score = score;
 
                     }
                     else if (player2.isPlaying == true) {
@@ -166,7 +166,7 @@ io.on('connection', function (socket) {
                         player1.isPlaying = true;
                         player2.isPlaying = false;
                         nextPlayer = player1;
-                        player2.score = score;
+                        player1.score = score;
 
                     }
                     resetScore = true;

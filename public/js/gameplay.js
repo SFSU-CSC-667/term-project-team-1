@@ -97,7 +97,7 @@ function drawTetrisCourt() {
         gameCanvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
         if (playing) {
 
-        drawPiece(gameCanvasContext, current.type, current.x, current.y, current.dir);
+            drawPiece(gameCanvasContext, current.type, current.x, current.y, current.dir);
         }
         var y=0, block;
         while(y<courtHeight){
@@ -358,11 +358,11 @@ function selectCurrentPiece(piece) {
 function selectRandomPiece() {
 
     var tetrisPieces = [iBlock, jBlock, lBlock, oBlock, sBlock,
-                        tBlock, zBlock, iBlock, jBlock, lBlock,
-                        oBlock, sBlock, tBlock, zBlock, iBlock,
-                        jBlock, lBlock, oBlock, sBlock, tBlock,
-                        zBlock, iBlock, jBlock, lBlock, oBlock,
-                        sBlock, tBlock, zBlock];
+        tBlock, zBlock, iBlock, jBlock, lBlock,
+        oBlock, sBlock, tBlock, zBlock, iBlock,
+        jBlock, lBlock, oBlock, sBlock, tBlock,
+        zBlock, iBlock, jBlock, lBlock, oBlock,
+        sBlock, tBlock, zBlock];
 
     var type = tetrisPieces[index];
     index++;

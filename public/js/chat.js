@@ -1,6 +1,8 @@
-/**
- * Created by adisonlee on 11/21/16.
- */
+/*
+    Credit to Socket IO chat tutorial provided 
+    by http://socket.io/get-started/chat//
+    and John Roberts example https://github.com/SFSU-CSC-667/socket-io-example
+*/
 
 // DOM Ready =============================================================
 $(document).ready(function () {

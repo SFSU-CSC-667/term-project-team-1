@@ -19,7 +19,7 @@ function logout() {
         session.JOINED_USER_SESSION = -1; // remove session from joined user.
         session.EXPIRED_SESSION = 1; // expire the session
         session.GAME_SESSION = -1; // expire game session.
-        session.USER_SESSION_NAME = "";
+        session.USER_SESSION_NAME = '';
 
     }
 }

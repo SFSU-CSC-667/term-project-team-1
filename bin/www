@@ -24,7 +24,7 @@ var dbConnLocal = config.DATABASE_PROVIDER + config.DATABASE_USERNAME + ":" +
 var dbConnHeroku = config.DATABASE_HEROKU_URL
 
 /* modify connection depending if you are in local or heroku database */
-var db = pgp(dbConnLocal);
+var db = pgp(dbConnHeroku);
 
 /**
  * Get port from environment and store in Express.
@@ -245,10 +245,15 @@ io.on('connection', function (socket) {
                 newScore = player2.score;
                 winner = player2;
             }
+            console.log("playerid: " + playerid + " score: " + newScore);
             saveWinnerScoreInDatabase(db, playerid, newScore);
             io.sockets.in(room).emit("resetGame", { winnerName: winner.name, winnerScore: winner.score});
             clearInterval(interval);
             io.sockets.in(room).emit("end", room, {winner: winner.name, score: winner.score});
+        }
+        else if(player1 != null && player2 == null)
+        {
+            io.emit("restart");
         }
 
     })

@@ -93,7 +93,7 @@ socket.on("addPlayerToGame", function (isMultiplayerMode, data, playerDescriptor
 
 socket.on('playGame', function (room) {
     index = 0; // player index in game.
-    startGame();
+    play();
     socket.emit('resetTimer', room);
 });
 
